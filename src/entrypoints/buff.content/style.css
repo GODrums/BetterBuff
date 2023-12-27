@@ -1,0 +1,143 @@
+::root {
+    --bb-color-0: #121212;
+    --bb-color-1: #1f1f1f;
+    ---bb-color-2: #bfbfbf;
+    --bb-color-3: #696969;
+}
+
+/* remove grayscale from html, body */
+html {
+    filter: grayscale(0) !important;
+}
+
+.bb-dark-mode #j_list_card li,
+.bb-dark-mode #j_list_card li,
+.bb-dark-mode #j_list_card li a,
+.bb-dark-mode #j_list_card li p,
+.bb-dark-mode .shop .shop-recommend-list h3 a {
+    color: var(--bb-color-2, #bfbfbf);
+}
+
+.bb-dark-mode .pager li.disabled * {
+    color: var(--bb-color-3, #696969) !important;
+    border-color: var(--bb-color-2, #bfbfbf) !important;
+    background: var(--bb-color-0, #121212) !important;
+}
+
+.bb-dark-mode div.stickers {
+    background: transparent;
+}
+
+.bb-dark-mode .des_row,
+.bb-dark-mode .pager li.disabled span,
+.bb-dark-mode .list_tb th,
+.bb-dark-mode .list_tb #rank-title {
+    background: var(--bb-color-0, #121212) !important;
+    border-color: var(--bb-color-2, #bfbfbf) !important;
+}
+
+.bb-dark-mode tr[id],
+.bb-dark-mode span.c_Gray,
+.bb-dark-mode .j_shoptip_handler,
+.bb-dark-mode .wear-value,
+.bb-dark-mode a.ctag,
+.bb-dark-mode .pager li .page-link,
+.bb-dark-mode .desc_content {
+    color: var(--bb-color-2, #bfbfbf);
+    border-color: var(--bb-color-2, #bfbfbf);
+}
+
+.bb-dark-mode .pinterest .pinterest-item,
+.bb-dark-mode .pinterest .pinterest-item .pinterest-user {
+    color: var(--bb-color-2, #bfbfbf);
+    border-color: var(--bb-color-2, #bfbfbf);
+    background: var(--bb-color-0, #121212) !important;
+}
+
+.bb-dark-mode .popup_guide_sell textarea {
+    background: var(--bb-color-0, #121212);
+    color: var(--bb-color-2, #bfbfbf) !important;
+}
+
+.bb-dark-mode #j_market_card,
+.bb-dark-mode #j_list_card li,
+.bb-dark-mode .detail-tab-cont,
+.bb-dark-mode div.desc_content,
+.bb-dark-mode .detail-tab-cont .market-card,
+.bb-dark-mode .l_Layout .cont_main .user-record,
+.bb-dark-mode .popup_supply .popup-header,
+.bb-dark-mode .popup_supply .popup-cont,
+.bb-dark-mode .popup_supply .popup-cont .popup-good-summary,
+.bb-dark-mode .popup_supply .popup-cont .popup-good-summary .input-cont .j_filter,
+.bb-dark-mode .popup_charge .popup-header,
+.bb-dark-mode .popup_charge .popup-cont,
+.bb-dark-mode .popup_guide_sell .popup-header,
+.bb-dark-mode .popup_guide_sell .popup-cont,
+.bb-dark-mode .popup_weaponbox,
+.bb-dark-mode .popup_weaponbox .weapon-col1,
+.bb-dark-mode .popup_weaponbox .weapon-col2,
+.bb-dark-mode .popup_weaponbox .weapon-col2 li,
+.bb-dark-mode .popup .popup-header,
+.bb-dark-mode .popup .popup-tip,
+.bb-dark-mode .popup .popup-cont,
+.bb-dark-mode .popup_custom,
+.bb-dark-mode .popup_flower .popup-header,
+.bb-dark-mode .popup_flower .popup-cont,
+.bb-dark-mode .popup_flower .popup-cont li {
+    background: var(--bb-color-0, #121212);
+}
+
+/* shop pages */
+.bb-dark-mode .l_Layout .market-card,
+.bb-dark-mode .shop .list_card,
+.bb-dark-mode .shop .shop-recommend-cont,
+.bb-dark-mode .shop .shop-recommend-cont .slider-handle,
+.bb-dark-mode .shop .shop-recommend-list li,
+.bb-dark-mode .shop .card-pager {
+    background: var(--bb-color-0, #121212) !important;
+}
+
+.bb-dark-mode .detail-tab-cont tr:hover {
+    background: var(--bb-color-1, #1f1f1f);
+}
+
+.bb-dark-mode .popup_charge .popup-cont .list_tb_csgo tr:hover,
+.bb-dark-mode .popup_weaponbox .weapon-col1 li.on,
+.bb-dark-mode .popup_weaponbox li:hover,
+.bb-dark-mode .popup_flower .popup-cont tr:hover {
+    background: var(--bb-color-1, #1f1f1f) !important;
+}
+
+.bb-dark-mode .list_tb td,
+.bb-dark-mode .pager .next, .bb-dark-mode .pager .page-link,
+.bb-dark-mode .l_Layout .cont_main .user-record a,
+.bb-dark-mode .l_Layout .cont_main .user-record .delete-bookmark,
+.bb-dark-mode .popup_supply .input-cont .c_Gray,
+.bb-dark-mode .popup_custom .popup_custom-title,
+.bb-dark-mode .popup_common .popup-cont h2,
+.bb-dark-mode .popup_weaponbox h2,
+.bb-dark-mode .popup_weaponbox a,
+.bb-dark-mode .popup_weaponbox .weapon-cate {
+    color: var(--bb-color-2, #bfbfbf) !important;
+}
+
+
+/* settings */
+.bb-dark-mode,
+.bb-dark-mode .user-setting,
+.bb-dark-mode .user-setting h3,
+.bb-dark-mode .user-setting label[for],
+.bb-dark-mode .user-setting select,
+.bb-dark-mode .user-setting input[type],
+.bb-dark-mode .user-wallet,
+.bb-dark-mode .user-wallet .user-pay-desc,
+.bb-dark-mode .user-rights,
+.bb-dark-mode .user-feedback {
+    background: var(--bb-color-0, #121212) !important;
+    color: var(--bb-color-2, #bfbfbf);
+}
+
+.bb-dark-mode .l_Layout .cont_main .user-record .i_Btn_hollow {
+    background-color: #959595;
+    color: #fff;
+}

@@ -4,6 +4,16 @@ import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 // See https://wxt.dev/api/config.html
 export default defineConfig({
   srcDir: 'src',
+  manifest: {
+    name: 'BetterBuff',
+    description: 'My extension description',
+    version: '0.0.9',
+    host_permissions: ["*://*.buff.163.com/*"],
+    web_accessible_resources: [{
+      resources: ["inject.js"],
+      matches: ["*://*.buff.163.com/*"]
+    }],
+  },
   vite: () => ({
     plugins: [
       svelte({
@@ -12,11 +22,8 @@ export default defineConfig({
         preprocess: [vitePreprocess()],
       }),
     ],
-    resolve: {
-      alias: {
-        // Use the same alias as in the svelte.config.js file
-        '@assets': './src/assets',
-      },
-    },
   }),
+  runner: {
+    // disabled: true,
+  }
 });

@@ -17,7 +17,7 @@
 		{#each iteratedChoices as choice}
 			<label for={choice.value} class="flex justify-between mx-2 mt-1">
 				<span class="label-text">{choice.text}</span>
-				<input type="checkbox" id={choice.value} name={choice.text} value={choice.value} />
+				<input type="checkbox" class="checkbox" id={choice.value} name={choice.text} value={choice.value} />
 			</label>
 		{/each}
 	</ul>

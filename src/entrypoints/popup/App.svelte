@@ -5,7 +5,6 @@
 
 <Layout>
   <main class="h-[445px] flex justify-center">
-    <!-- <img src={svelteLogo} alt="Svelte logo" /> -->
     <Main />
   </main>
 </Layout>

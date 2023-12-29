@@ -9,6 +9,7 @@ export default defineConfig({
     description: 'My extension description',
     version: '0.0.9',
     host_permissions: ["*://*.buff.163.com/*"],
+    "permissions": ["storage"],
     web_accessible_resources: [{
       resources: ["inject.js"],
       matches: ["*://*.buff.163.com/*"]

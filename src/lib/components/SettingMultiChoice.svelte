@@ -11,13 +11,13 @@
 	});
 </script>
 
-<div class="form-control w-full mx-4 border border-base-300 bg-base-200 rounded-lg py-2 px-3">
-	<span class="label-text">{text}</span>
+<div class="form-control w-full mx-4 border border-base-300 bg-[#09090b]/90 rounded-lg py-2 px-3">
+	<span class="label-text text-primary">{text}</span>
 	<ul class="list-none mx-2">
 		{#each iteratedChoices as choice}
 			<label for={choice.value} class="flex justify-between mx-2 mt-1">
-				<span class="label-text">{choice.text}</span>
-				<input type="checkbox" class="checkbox" id={choice.value} name={choice.text} value={choice.value} />
+				<span class="label-text text-primary">{choice.text}</span>
+				<input type="checkbox" class="toggle" id={choice.value} name={choice.text} value={choice.value} />
 			</label>
 		{/each}
 	</ul>

@@ -6,6 +6,6 @@
 </script>
 
 <div class="flex flex-col justify-center items-center gap-2 h-full w-full mx-8 z-10">
-	<SettingCheckbox text="Use Dark Mode" storage={ExtensionStorage.enabled} />
-    <SettingMultiChoice text="Listing Options" />
+	<SettingCheckbox text="Use Dark Mode" storage={ExtensionStorage.enabled} dataTip="Enable the dark mode on the whole website."/>
+    <SettingMultiChoice text="Listing Options" dataTip="Actions displayed under each listing on the corresponding item page." />
 </div>

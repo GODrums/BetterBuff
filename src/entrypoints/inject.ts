@@ -42,26 +42,6 @@ function openIntercept() {
                 // dispatch again on first page load
                 if (loadNumber++ == 0) {
                     setTimeout(() => {
-                        document.dispatchEvent(
-                            new CustomEvent('BetterBuff_INTERCEPTED_REQUEST', {
-                                detail: {
-                                    status: target.status,
-                                    url: target.responseURL,
-                                    data: parseJSON(target.responseText),
-                                },
-                            })
-                        );
-                    }, 1000);
-                    setTimeout(() => {
-                        document.dispatchEvent(
-                            new CustomEvent('BetterBuff_INTERCEPTED_REQUEST', {
-                                detail: {
-                                    status: target.status,
-                                    url: target.responseURL,
-                                    data: parseJSON(target.responseText),
-                                },
-                            })
-                        );
                         const globalG = window['g' as any];
                         document.dispatchEvent(
                             new CustomEvent('BetterBuff_INTERCEPTED_REQUEST', {
@@ -72,7 +52,7 @@ function openIntercept() {
                                 },
                             })
                         );
-                    }, 2000);
+                    }, 100);
                 }
             }
         });

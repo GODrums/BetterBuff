@@ -1,5 +1,19 @@
 export namespace BuffTypes {
-    export module CommonType {
+
+    export interface G {
+        appid: number;
+        captcha_id: string;
+        currency: {
+            code: string; // e.g. USD
+            default: string; // e.g. CNY
+            desc: string; // e.g. Dollar
+            rate_base_cny: number; // e.g. 0.14
+            rate_base_usd: number; // e.g. 1
+            symbol: string; // e.g. $
+        }
+    }
+    
+    export namespace CommonType {
         export interface TagInfo {
             id?: unknown;
             category: string;
@@ -149,11 +163,12 @@ export namespace BuffTypes {
             lowest_bargain_price: string;
             mode: number;
             price: string;
-            recent_average_duration: number;
-            recent_deliver_rate: number;
+            recent_average_duration: number | null;
+            recent_deliver_rate: number | null;
             state: number;
+            sticker_premium?: number; // SP
             supported_pay_methods: number[];
-            tradable_cooldown?: any;
+            tradable_cooldown?: any | null;
             updated_at: number;
             user_id: string;
         }
@@ -184,5 +199,72 @@ export namespace BuffTypes {
             msg?: any;
         }
     
+        export interface OrderInfo {
+            allow_bargain: boolean;
+            bookmarked: boolean;
+            description: string;
+            goods_id: number;
+            id: string;
+            lowest_bargain_price: string;
+            mode: number;
+            price: string;
+            state: number;
+            user_id: string;
+        }
+    }
+
+    export namespace MarketGoods {
+
+        export interface Info {
+            tags: CommonType.Tags;
+        }
+
+        export interface GoodsInfo {
+            icon_url: string;
+            info: Info;
+            item_id?: any;
+            original_icon_url: string;
+            steam_price: string;
+            steam_price_cny: string;
+        }
+
+        export interface Item {
+            appid: number;
+            bookmarked: boolean;
+            buy_max_price: string;
+            buy_num: number;
+            can_bargain: boolean;
+            can_search_by_tournament: boolean;
+            description?: any;
+            game: string;
+            goods_info: GoodsInfo;
+            has_buff_price_history: boolean;
+            id: number;
+            market_hash_name: string;
+            market_min_price: string;
+            name: string;
+            quick_price: string;
+            sell_min_price: string;
+            sell_num: number;
+            sell_reference_price: string;
+            short_name: string;
+            steam_market_url: string;
+            transacted_num: number;
+        }
+
+        export interface Data {
+            items: Item[];
+            page_num: number;
+            page_size: number;
+            total_count: number;
+            total_page: number;
+        }
+
+        export interface Response {
+            code: string;
+            data: Data;
+            msg?: any;
+        }
+
     }
 }

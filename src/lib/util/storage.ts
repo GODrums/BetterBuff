@@ -1,11 +1,18 @@
 import { storage } from 'wxt/storage';
+import type { BuffTypes } from '../@types/BuffTypes';
 
+export let WINDOW_G: BuffTypes.G | null = null;
+
+export function setWindowG(g: BuffTypes.G) {
+    WINDOW_G = g;
+}
 
 export const defaultStorage = {
     enabled: true,
     listingOptions: {
         "3dinspect": true,
         inspectServer: true,
+        inspectIngame: true,
         copyGen: true,
         share: true,
         matchFloat: true,

@@ -20,7 +20,7 @@ export namespace SchemaHelpers {
         }
     }
 
-    interface WeaponSchema {
+    export interface WeaponSchema {
         id: number;
         name: string;
         sticker_amount: number;

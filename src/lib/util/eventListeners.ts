@@ -1,6 +1,6 @@
 import type { BuffTypes } from "../@types/BuffTypes";
 import { adjustGoodsSellOrder } from "./Adjust_GoodsSellOrder";
-import { adjustSearchPage } from "./Adjust_Search";
+import { adjustSearchPage, adjustTopBookmarked } from "./Adjust_Market";
 import { adjustWindow } from "./Adjust_Window";
 import { setWindowG } from "./storage";
 
@@ -34,5 +34,9 @@ function processEvent(eventData: EventData<unknown>) {
         adjustGoodsSellOrder((eventData as EventData<BuffTypes.SellOrder.Response>).data.data);
     } else if (eventData.url.includes('api/market/goods?')) {
         adjustSearchPage((eventData as EventData<BuffTypes.MarketGoods.Response>).data.data);
+    } else if (eventData.url.includes('api/market/goods/buying?')) {
+        adjustSearchPage((eventData as EventData<BuffTypes.MarketGoods.Response>).data.data);
+    } else if (eventData.url.includes('api/market/sell_order/top_bookmarked?')) {
+        adjustTopBookmarked((eventData as EventData<BuffTypes.TopPopular.Response>).data.data);
     }
 }

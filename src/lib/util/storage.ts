@@ -10,6 +10,7 @@ export function setWindowG(g: BuffTypes.G) {
 export const defaultStorage = {
     enabled: true,
     darkMode: false,
+    hideFloatBar: false,
     listingOptions: {
         "3dinspect": true,
         inspectServer: true,
@@ -37,6 +38,13 @@ export namespace ExtensionStorage {
         'local:darkMode',
         {
             defaultValue: defaultStorage.darkMode,
+        },
+    );
+
+    export const hideFloatBar = storage.defineItem<IStorage["hideFloatBar"]>(
+        'local:hideFloatBar',
+        {
+            defaultValue: defaultStorage.hideFloatBar,
         },
     );
 

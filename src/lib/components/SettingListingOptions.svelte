@@ -34,7 +34,7 @@
 </script>
 
 <div class="form-control w-full mx-4 border border-base-300 bg-[#09090b]/90 rounded-lg py-2 px-3">
-	<div class="inline-flex gap-2 mt-1">
+	<div class="inline-flex gap-2 mt-1 mx-1">
 		<span class="label-text text-primary">{text}</span>
 		<Tooltip {dataTip} tooltipClass="tooltip-primary" svgClass="text-info hover:text-base-100" />
 	</div>

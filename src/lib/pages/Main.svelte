@@ -12,7 +12,7 @@
             <Power />
             <DarkMode />
         </div>
-        <SettingCheckbox text="Use Dark Mode" storage={ExtensionStorage.darkMode} dataTip="Enable the dark mode on the whole website." />
-        <SettingListingOptions text="Listing Options" dataTip="Actions displayed under each listing on the corresponding item page." />
+        <SettingCheckbox text="Hide floating bar" storage={ExtensionStorage.hideFloatBar} dataTip="Hide the floating bar on the right site." />
+        <SettingListingOptions text="Listing Options" dataTip="Actions displayed under each listing on the corresponding item page. Requires a page reload." />
     </div>
 </main>

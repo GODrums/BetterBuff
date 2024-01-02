@@ -9,6 +9,7 @@ export default defineContentScript({
     main(ctx) {
         activateHandler();
         activateURLHandler();
+        addStorageListeners();
 
         setTimeout(async () => {
             await applyStaticAdjustments();
@@ -16,9 +17,30 @@ export default defineContentScript({
     }
 });
 
+function addStorageListeners() {
+    ExtensionStorage.darkMode.watch((value) => {
+        applyDarkMode(value ?? false);
+    });
+    ExtensionStorage.hideFloatBar.watch((value) => {
+        hideFloatBar(value ?? false);
+    });
+}
+
 async function applyStaticAdjustments() {
     // apply dark mode
     if (await ExtensionStorage.darkMode.getValue()) {
-        document.body.classList.add('bb-dark-mode');
+        applyDarkMode(true);
     }
+
+    if (await ExtensionStorage.hideFloatBar.getValue()) {
+        hideFloatBar(true);
+    }
+}
+
+function applyDarkMode(darkMode: boolean) {
+    document.body.classList.toggle('bb-dark-mode', darkMode);
+}
+
+function hideFloatBar(hide: boolean) {
+    document.querySelector('.floatbar')?.setAttribute('style', hide ? 'display: none;' : '');
 }

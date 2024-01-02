@@ -39,6 +39,7 @@ export function handleFavoritesPage(state: BetterBuff.URLState) {
 
         const aBuy = row.querySelector('a.btn-buy-order');
         if (aBuy) {
+            // TODO: check if item is even bargainable
             const price = parseFloat(aBuy.getAttribute('data-price') ?? '0');
             const lowest_bargain_price = price * 0.8;
 

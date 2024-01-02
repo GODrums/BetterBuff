@@ -10,6 +10,17 @@
   -webkit-text-size-adjust: 100%;
 }
 
+::-webkit-scrollbar {
+  width: 0px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #00b3f0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #006b8f;
+}
+
 html,
 body {
   font-family: 'Poppins', sans-serif;

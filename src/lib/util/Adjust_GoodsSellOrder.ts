@@ -3,6 +3,7 @@ import { ExtensionStorage } from './storage';
 import { SchemaHelpers } from './schemaHelpers';
 import { BUFF_FLOAT_RANGES } from './globals';
 import Decimal from 'decimal.js';
+import { addSouvenirTeams, genCopyGenButton, genShareButton } from './uiGeneration';
 
 export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
     const goods_info = Object.values(apiData.goods_infos)?.pop() as BuffTypes.SellOrder.GoodsInfo;
@@ -18,7 +19,7 @@ export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
         let item = apiData.items[i];
 
         if (goods_info.short_name.includes('Souvenir Package')) {
-            addSouvenirTeams(row, item.asset_info.info.tournament_tags);
+            addSouvenirTeams(row.querySelector('.csgo_sticker') as HTMLElement, item.asset_info.info.tournament_tags);
         }
 
         if (!weaponSchema) continue;
@@ -76,19 +77,7 @@ async function adjustListingOptions(weaponSchema: SchemaHelpers.WeaponSchema, it
     // const listingOptions = await storage.getItem<IStorage['listingOptions']>('local:listingOptions');
     const listingOptions = await ExtensionStorage.listingOptions.getValue();
     if (listingOptions.copyGen) {
-        const gen = SchemaHelpers.getInspectCode(weaponSchema, item.asset_info.info.paintindex, item.asset_info.info.paintseed, item.asset_info.paintwear, item.asset_info?.info?.stickers ?? []);
-        let aCopyGen = document.createElement('a');
-        aCopyGen.setAttribute('class', 'ctag btn');
-        aCopyGen.setAttribute('title', gen);
-        aCopyGen.setAttribute('style', 'margin-top: 5px;');
-        if (weaponSchema?.type && weaponSchema.type == 'Gloves') {
-            aCopyGen.innerHTML = '<b><i class="icon icon_notes"></i></b>Copy !gengl';
-        } else {
-            aCopyGen.innerHTML = '<b><i class="icon icon_notes"></i></b>Copy !gen';
-        }
-        aCopyGen.addEventListener('click', () => {
-            navigator.clipboard.writeText(gen);
-        });
+        let aCopyGen = genCopyGenButton(weaponSchema, item.asset_info.info.paintindex, item.asset_info.info.paintseed, item.asset_info.paintwear, item.asset_info?.info?.stickers ?? [])
         elementsToAdd.push(aCopyGen);
     }
 
@@ -155,15 +144,7 @@ async function adjustListingOptions(weaponSchema: SchemaHelpers.WeaponSchema, it
     }
 
     if (listingOptions.share) {
-        const aShare = document.createElement('a');
-        aShare.innerHTML = '<b><i style="margin: -4px 0 0 0; filter: brightness(0);" class="icon icon_link"></i></b>Share';
-        aShare.setAttribute('class', 'ctag btn');
-        aShare.setAttribute(
-            'href',
-            `https://buff.163.com/goods/${item.goods_id}?appid=730&classid=${item.asset_info.classid}&instanceid=${item.asset_info.instanceid}&assetid=${item.asset_info.assetid}&contextid=2&sell_order_id=${item.id}`
-        );
-        aShare.setAttribute('target', '_blank');
-        aShare.setAttribute('style', 'margin-top: 5px;');
+        const aShare = genShareButton(item.goods_id, item.asset_info.classid, item.asset_info.instanceid, item.asset_info.assetid, item.id);
         elementsToAdd.push(aShare);
     }
 
@@ -209,13 +190,4 @@ async function adjustListingOptions(weaponSchema: SchemaHelpers.WeaponSchema, it
     }
 }
 
-function addSouvenirTeams(row: HTMLElement, tags: BuffTypes.CommonType.TournamentTag[]) {
-    const teams = tags.map((x) => x.localized_name).slice(0, 2);
-    const stickerContainer = <HTMLElement>row.querySelector('.csgo_sticker');
-    const teamsDiv = document.createElement('div');
-    teamsDiv.setAttribute('class', 'f_12px');
-    teamsDiv.setAttribute('style', 'display: flex; flex-direction: column; align-items: center; color: #ffd700; opacity: 0.8;');
-    teamsDiv.innerHTML = `<span>${teams[0]}</span><div class="clear"></div><span>vs</span><div class="clear"></div><span>${teams[1]}</span>`;
-    stickerContainer.setAttribute('style', 'float: none;');
-    stickerContainer.appendChild(teamsDiv);
-}
+

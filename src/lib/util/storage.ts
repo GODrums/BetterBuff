@@ -9,6 +9,7 @@ export function setWindowG(g: BuffTypes.G) {
 
 export const defaultStorage = {
     enabled: true,
+    darkMode: false,
     listingOptions: {
         "3dinspect": true,
         inspectServer: true,
@@ -29,6 +30,13 @@ export namespace ExtensionStorage {
         'local:enabled',
         {
           defaultValue: defaultStorage.enabled,
+        },
+    );
+
+    export const darkMode = storage.defineItem<IStorage['darkMode']>(
+        'local:darkMode',
+        {
+            defaultValue: defaultStorage.darkMode,
         },
     );
 

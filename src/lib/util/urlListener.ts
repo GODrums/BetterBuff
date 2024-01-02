@@ -9,7 +9,7 @@ export function activateURLHandler() {
             console.log('[BetterBuff] URL changed to: ', state);
             
             switch (state.path) {
-                case 'user-center/bookmark/sell_order':
+                case '/user-center/bookmark/sell_order':
                     handleFavoritesPage(state);
                     break;
             }

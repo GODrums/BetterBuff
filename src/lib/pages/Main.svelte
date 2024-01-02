@@ -1,11 +1,18 @@
 <script lang="ts">
-    import { onMount } from "svelte";
-	import SettingCheckbox from "../components/SettingCheckbox.svelte";
-	import SettingMultiChoice from "../components/SettingMultiChoice.svelte";
-    import {ExtensionStorage } from "../util/storage";
+    import SettingCheckbox from '../components/SettingCheckbox.svelte';
+    import SettingListingOptions from '../components/SettingListingOptions.svelte';
+    import { ExtensionStorage } from '../util/storage';
+    import Power from '../components/Power.svelte';
+    import DarkMode from '../components/DarkMode.svelte';
 </script>
 
-<div class="flex flex-col justify-center items-center gap-2 h-full w-full mx-8 z-10">
-	<SettingCheckbox text="Use Dark Mode" storage={ExtensionStorage.enabled} dataTip="Enable the dark mode on the whole website."/>
-    <SettingMultiChoice text="Listing Options" dataTip="Actions displayed under each listing on the corresponding item page." />
-</div>
+<main class="h-[410px] flex justify-center overflow-y-scroll">
+    <div class="flex flex-col justify-center items-center gap-2 h-full w-full mx-8 z-10">
+        <div class="flex gap-10">
+            <Power />
+            <DarkMode />
+        </div>
+        <SettingCheckbox text="Use Dark Mode" storage={ExtensionStorage.darkMode} dataTip="Enable the dark mode on the whole website." />
+        <SettingListingOptions text="Listing Options" dataTip="Actions displayed under each listing on the corresponding item page." />
+    </div>
+</main>

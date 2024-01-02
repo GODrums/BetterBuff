@@ -25,6 +25,6 @@ export default defineConfig({
     ],
   }),
   runner: {
-    // disabled: true,
+    disabled: true,
   }
 });

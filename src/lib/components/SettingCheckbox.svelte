@@ -23,7 +23,7 @@
     <label class="label items-center justify-between cursor-pointer">
         <div class="inline-flex gap-2">
             <span class="label-text text-primary">{text}</span>
-            <Tooltip {dataTip} tooltipClass="tooltip-info" svgClass="text-info hover:text-base-100" />
+            <Tooltip {dataTip} tooltipClass="tooltip-primary" svgClass="text-info hover:text-base-100" />
         </div>
         <input type="checkbox" class="toggle toggle-info" {checked} on:click={storeValue} />
     </label>

@@ -59,12 +59,18 @@ html {
     color: var(--bb-color-2, #bfbfbf) !important;
 }
 
+.bb-dark-mode .area1,
+.bb-dark-mode .area3,
+.bb-dark-mode .card_csgo li,
 .bb-dark-mode #j_market_card,
 .bb-dark-mode #j_list_card li,
 .bb-dark-mode .detail-tab-cont,
 .bb-dark-mode div.desc_content,
 .bb-dark-mode .detail-tab-cont .market-card,
+.bb-dark-mode .l_Layout .news-cont,
+.bb-dark-mode .l_Layout .news-cont .news-list li,
 .bb-dark-mode .l_Layout .cont_main .user-record,
+.bb-dark-mode .l_Layout .cont_main .user-record .msg-folder td,
 .bb-dark-mode .popup_supply .popup-header,
 .bb-dark-mode .popup_supply .popup-cont,
 .bb-dark-mode .popup_supply .popup-cont .popup-good-summary,
@@ -74,6 +80,8 @@ html {
 .bb-dark-mode .popup_guide_sell .popup-header,
 .bb-dark-mode .popup_guide_sell .popup-cont,
 .bb-dark-mode .popup_weaponbox,
+.bb-dark-mode .detail-tab-cont .count-chart,
+.bb-dark-mode .detail-tab-cont .count-item,
 .bb-dark-mode .popup_weaponbox .weapon-col1,
 .bb-dark-mode .popup_weaponbox .weapon-col2,
 .bb-dark-mode .popup_weaponbox .weapon-col2 li,
@@ -81,11 +89,28 @@ html {
 .bb-dark-mode .popup .popup-tip,
 .bb-dark-mode .popup .popup-cont,
 .bb-dark-mode .popup .popup-btns,
+.bb-dark-mode .popup .blank20,
 .bb-dark-mode .popup_custom,
 .bb-dark-mode .popup_flower .popup-header,
 .bb-dark-mode .popup_flower .popup-cont,
 .bb-dark-mode .popup_flower .popup-cont li {
     background: var(--bb-color-0, #121212);
+}
+
+.bb-dark-mode .detail-tab-cont .count-chart,
+.bb-dark-mode .detail-tab-cont .count-item {
+    border: none;
+}
+
+.bb-dark-mode a.ctag b {
+    background: transparent;
+}
+.bb-dark-mode a.ctag b i {
+    filter: none !important;
+}
+
+.bb-dark-mode a.ctag:hover b {
+    background: var(--bb-color-1, #1f1f1f);
 }
 
 /* shop pages */
@@ -110,15 +135,18 @@ html {
 }
 
 .bb-dark-mode .list_tb td,
+.bb-dark-mode .card_csgo li h3 a,
 .bb-dark-mode .pager .next, .bb-dark-mode .pager .page-link,
 .bb-dark-mode .l_Layout .cont_main .user-record a,
 .bb-dark-mode .l_Layout .cont_main .user-record .delete-bookmark,
 .bb-dark-mode .popup_supply .input-cont .c_Gray,
 .bb-dark-mode .popup_custom .popup_custom-title,
 .bb-dark-mode .popup_common .popup-cont h2,
+.bb-dark-mode .popup-header h2,
 .bb-dark-mode .popup_weaponbox h2,
 .bb-dark-mode .popup_weaponbox a,
-.bb-dark-mode .popup_weaponbox .weapon-cate {
+.bb-dark-mode .popup_weaponbox .weapon-cate,
+.bb-dark-mode .detail-tab-cont h3 {
     color: var(--bb-color-2, #bfbfbf) !important;
 }
 
@@ -141,4 +169,9 @@ html {
 .bb-dark-mode .l_Layout .cont_main .user-record .i_Btn_hollow {
     background-color: #959595;
     color: #fff;
+}
+
+.bb-dark-mode .popup-cont #bargain-price {
+    background: var(--bb-color-0, #121212) url(https://buff.163.com/static/images/site/yuan-ico.png) no-repeat 12px center;
+    color: var(--bb-color-2, #bfbfbf);
 }

@@ -4,7 +4,5 @@
 </script>
 
 <Layout>
-  <main class="h-[445px] flex justify-center">
-    <Main />
-  </main>
+  <Main />
 </Layout>

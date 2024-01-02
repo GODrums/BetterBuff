@@ -42,7 +42,7 @@ export namespace SchemaHelpers {
     export function getWeaponSchema(name: string, isVanilla?: boolean): WeaponSchema | undefined {
         const nameParts = name.split(' | ');
         const weapon = CSFloatSchema.weapons.find((weapon) => {
-            return nameParts[0] === weapon.name;
+            return nameParts[0].indexOf(weapon.name) > -1;
         });
 
         let result: WeaponSchema | undefined = weapon as unknown as WeaponSchema;

@@ -40,6 +40,8 @@ async function addStickerPercentage(row: HTMLElement, item: BuffTypes.SellOrder.
     let stickerPercentage = new Decimal(item.sticker_premium);
     if (stickerPercentage.gte(100)) {
         stickerText = '>100' + stickerText;
+    } else if (stickerPercentage.lt(10)) {
+        stickerText = stickerPercentage.toDP(2).toString() + stickerText;
     } else {
         stickerText = stickerPercentage.toDP(0).toString() + stickerText;
     }

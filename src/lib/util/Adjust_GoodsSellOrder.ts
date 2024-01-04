@@ -37,7 +37,7 @@ async function addStickerPercentage(row: HTMLElement, item: BuffTypes.SellOrder.
 
     const stickerContainer = <HTMLElement>row.querySelector('.csgo_sticker');
     let stickerText = '% SP';
-    let stickerPercentage = new Decimal(item.sticker_premium);
+    let stickerPercentage = new Decimal(item.sticker_premium).mul(100);
     if (stickerPercentage.gte(100)) {
         stickerText = '>100' + stickerText;
     } else if (stickerPercentage.lt(10)) {

@@ -41601,3 +41601,12 @@ export const BUFF_FLOAT_RANGES: [number, [string, string]][] = [
     [0.9, ['0.76', '0.90']],
     [1.0, ['0.90', '1.00']],
 ];
+
+export const PAYMENT_MAPPING = {
+    1: 'bank',
+    3: 'balance',
+    6: 'wechat',
+    10: 'card',
+    18: 'wechat-split',
+    43: 'combined'
+}

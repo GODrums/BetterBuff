@@ -4,6 +4,7 @@ import { SchemaHelpers } from './schemaHelpers';
 import { BUFF_FLOAT_RANGES } from './globals';
 import Decimal from 'decimal.js';
 import { addSouvenirTeams, genCopyGenButton, genShareButton } from './uiGeneration';
+import { isPaymentMethodAvailable } from './dataHelpers';
 
 export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
     const goods_info = Object.values(apiData.goods_infos)?.pop() as BuffTypes.SellOrder.GoodsInfo;
@@ -22,13 +23,24 @@ export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
             addSouvenirTeams(row.querySelector('.csgo_sticker') as HTMLElement, item.asset_info.info.tournament_tags);
         }
 
-        if (!weaponSchema) continue;
-
         await addStickerPercentage(row, item);
 
         await addListingAge(row, item);
 
-        await adjustListingOptions(weaponSchema, item, goods_info, row);
+        if (weaponSchema) {
+            await adjustListingOptions(weaponSchema, item, goods_info, row);
+        }
+
+        if (!await isPaymentMethodAvailable(item.supported_pay_methods)) {
+            markPurchaseUnavailable(row);
+        }
+    }
+}
+
+function markPurchaseUnavailable(row: HTMLElement) {
+    const purchaseButton = row.querySelector('td.t_Left > a.i_Btn');
+    if (purchaseButton) {
+        purchaseButton.setAttribute('style', 'background-color: gray; cursor: not-allowed;');
     }
 }
 
@@ -191,5 +203,3 @@ async function adjustListingOptions(weaponSchema: SchemaHelpers.WeaponSchema, it
         }
     }
 }
-
-

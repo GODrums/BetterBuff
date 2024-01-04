@@ -47,12 +47,13 @@ export namespace SchemaHelpers {
 
         let result: WeaponSchema | undefined = weapon as unknown as WeaponSchema;
 
+        if (!result) return undefined;
         if ((nameParts.length == 1 && !isVanilla)) {
-            if (weapon?.paints[0].name === 'Vanilla') {
+            if (weapon?.paints?.[0].name === 'Vanilla') {
                 result.paints = [weapon?.paints[0] as unknown as WeaponPaint];
             }
         } else {
-            result.paints = weapon?.paints.filter((paint) => {
+            result.paints = weapon?.paints?.filter((paint) => {
                 return paint.name == nameParts[1];
             }) as unknown as WeaponPaint[];
         }

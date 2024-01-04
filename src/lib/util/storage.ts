@@ -20,7 +20,14 @@ export const defaultStorage = {
         matchFloat: true,
         findSimilar: true,
         detail: true,
-    }
+    },
+    preferredPayments: {
+        'balance': true,
+        'card': true,
+        'bank': true,
+        'wechat': true,
+        'wechat-split': true,
+    },
 };
 
 export type IStorage = typeof defaultStorage;
@@ -45,6 +52,13 @@ export namespace ExtensionStorage {
         'local:hideFloatBar',
         {
             defaultValue: defaultStorage.hideFloatBar,
+        },
+    );
+
+    export const preferredPayments = storage.defineItem<IStorage['preferredPayments']>(
+        'local:preferredPayments',
+        {
+            defaultValue: defaultStorage.preferredPayments,
         },
     );
 

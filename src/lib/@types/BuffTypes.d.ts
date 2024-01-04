@@ -518,12 +518,56 @@ export namespace BuffTypes {
         export interface Data {
             fop_str: string;
             goods_infos: GoodsInfos;
+            has_market_stores?: CommonType.HasMarketStores;
             items: Item[];
             page_num: number;
             page_size: number;
-            preview_screenshots: PreviewScreenshots;
-            show_game_cms_icon: boolean;
-            src_url_background: string;
+            preview_screenshots?: PreviewScreenshots;
+            show_game_cms_icon?: boolean;
+            show_pay_method_icon?: boolean;
+            src_url_background?: string;
+            total_count: number;
+            total_page: number;
+            user_infos: CommonType.UserInfos;
+        }
+
+        export interface Response {
+            code: string;
+            data: Data;
+            msg?: any;
+        }
+
+    }
+    
+    export module BuyOrder {
+
+        export interface Item {
+            allow_tradable_cooldown: number;
+            appid: number;
+            created_at: number;
+            fee: string;
+            frozen_amount: string;
+            frozen_num: number;
+            game: string;
+            goods_id: number;
+            icon_url: string;
+            id: string;
+            num: number;
+            pay_method: number;
+            price: string;
+            real_num: number;
+            specific: any[];
+            state: string;
+            state_text: string;
+            tradable_cooldown?: any;
+            updated_at: number;
+            user_id: string;
+        }
+
+        export interface Data {
+            items: Item[];
+            page_num: number;
+            page_size: number;
             total_count: number;
             total_page: number;
             user_infos: CommonType.UserInfos;

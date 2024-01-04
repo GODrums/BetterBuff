@@ -1,5 +1,4 @@
 <script lang="ts">
-    import type { WxtStorageItem } from "wxt/storage";
     import Tooltip from "./Tooltip.svelte";
     import { onMount } from "svelte";
     import { ExtensionStorage, type IStorage } from "../util/storage";

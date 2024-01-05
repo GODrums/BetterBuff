@@ -45,23 +45,15 @@ function markPurchaseUnavailable(row: HTMLElement) {
 }
 
 async function addStickerPercentage(row: HTMLElement, item: BuffTypes.SellOrder.Item) {
-    if (item.sticker_premium == null) return;
+    const spElement = row.querySelector('span.stag_sp');
+    if (item.sticker_premium == null || !spElement) return;
 
-    const stickerContainer = <HTMLElement>row.querySelector('.csgo_sticker');
-    let stickerText = '% SP';
+    row.querySelector('.csgo_sticker')?.insertAdjacentElement('afterbegin', spElement.parentElement!);
+
+    const spData = (<HTMLElement>spElement).dataset;
     let stickerPercentage = new Decimal(item.sticker_premium).mul(100);
-    if (stickerPercentage.gte(100)) {
-        stickerText = '>100' + stickerText;
-    } else if (stickerPercentage.lt(10)) {
-        stickerText = stickerPercentage.toDP(2).toString() + stickerText;
-    } else {
-        stickerText = stickerPercentage.toDP(0).toString() + stickerText;
-    }
-
-    stickerContainer.insertAdjacentHTML(
-        'afterbegin',
-        `<div class="f_12px c_Gray sticker-percentage" style="text-align: center; padding: 4px 6px; font-size: 13px; font-weight: 600;">${stickerText}</div>`
-    );
+    spData.rate = stickerPercentage.toDP(2).toString() + '%';
+    spElement.innerHTML = spData.rate;
 }
 
 async function addListingAge(row: HTMLElement, item: BuffTypes.SellOrder.Item) {
@@ -101,7 +93,7 @@ async function adjustListingOptions(weaponSchema: SchemaHelpers.WeaponSchema, it
         const floatdb_category = SchemaHelpers.getFloatDBCategory(goods_info.tags?.quality?.internal_name ?? 'normal');
         const aMatchFloat = document.createElement('a');
 
-        aMatchFloat.innerHTML = '<b><i style="margin-right: 1px;" class="icon icon_change"></i></b>Match floatdb';
+        aMatchFloat.innerHTML = '<b><i style="margin-right: 1px;" class="icon icon_change"></i></b>Match Floatdb';
         aMatchFloat.setAttribute('class', 'ctag btn');
         aMatchFloat.setAttribute('style', 'margin-top: 5px;');
         aMatchFloat.setAttribute(

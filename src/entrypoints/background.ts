@@ -11,7 +11,8 @@ export default defineBackground(() => {
     });
     browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         if (changeInfo.status === 'complete') {
-            const url = new URL(tab.url || '');
+            if (!tab.url) return;
+            const url = new URL(tab.url);
             const state: BetterBuff.URLState = {
                 path: url.pathname,
                 search: url.search,

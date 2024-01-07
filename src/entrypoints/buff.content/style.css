@@ -113,6 +113,29 @@ html {
     background: var(--bb-color-1, #1f1f1f);
 }
 
+.bb-dark-mode .detail-tab-cont .w-Select,
+.bb-dark-mode .detail-tab-cont .w-Select ul {
+    background: #2D2F3E;
+    color: #9a9b9e;
+    border: none;
+}
+.bb-dark-mode .detail-tab-cont .w-Select ul li {
+    color: #9a9b9e;
+    border: none;
+}
+
+.bb-dark-mode .detail-tab-cont .w-Select ul .hover,
+.bb-dark-mode .detail-tab-cont .w-Select ul li:hover,
+.bb-dark-mode .detail-tab-cont .w-Select ul li.on:hover {
+    background: #505f7a;
+    color: #9a9b9e;
+}
+
+.bb-dark-mode .detail-tab-cont .w-Select ul .on {
+    background: #3a455a;
+    color: #9a9b9e;
+}
+
 /* shop pages */
 .bb-dark-mode .l_Layout .market-card,
 .bb-dark-mode .shop .list_card,

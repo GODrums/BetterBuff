@@ -48,7 +48,9 @@ async function addStickerPercentage(row: HTMLElement, item: BuffTypes.SellOrder.
     const spElement = row.querySelector('span.stag_sp');
     if (item.sticker_premium == null || !spElement) return;
 
-    row.querySelector('.csgo_sticker')?.insertAdjacentElement('afterbegin', spElement.parentElement!);
+    const csgoSticker = row.querySelector('.csgo_sticker');
+    csgoSticker?.insertAdjacentHTML('afterbegin', '<div class="sticker-premium"></div>');
+    csgoSticker?.firstElementChild?.appendChild(spElement);
 
     const spData = (<HTMLElement>spElement).dataset;
     let stickerPercentage = new Decimal(item.sticker_premium).mul(100);

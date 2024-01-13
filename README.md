@@ -10,11 +10,11 @@
 Based on the original [BuffUtility](https://github.com/PenguiniVogel/BuffUtility) by Penguini, this extension aims to improve the user experience on the chinese site [Buff163](https://buff.163.com/).
 
 <p align="center">
-  <a href="https://chromewebstore.google.com/detail/betterfloat/bphfhlfhnohppnleaehnlfigkkccpglk">
+  <a href="https://chromewebstore.google.com/detail/betterbuff/igacjekfbhgjnimlkmpdbgeekddolkaa?hl=en-GB">
     <picture>
       <source srcset="https://i.imgur.com/XBIE9pk.png" media="(prefers-color-scheme: dark)">
       <img height="58" src="https://i.imgur.com/oGxig2F.png" alt="Chrome Web Store"></picture></a>
-  <a href="https://addons.mozilla.org/en-US/firefox/addon/betterfloat/">
+  <a href="">
     <picture>
       <source srcset="https://i.imgur.com/ZluoP7T.png" media="(prefers-color-scheme: dark)">
       <img height="58" src="https://i.imgur.com/4PobQqE.png" alt="Firefox add-ons"></picture></a>
@@ -22,6 +22,11 @@ Based on the original [BuffUtility](https://github.com/PenguiniVogel/BuffUtility
 </p>
 
 ## 🤝 Community / Support
+
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/igacjekfbhgjnimlkmpdbgeekddolkaa.svg?label=Chrome%20Web%20Store&logo=googlechrome)](https://chrome.google.com/webstore/detail/igacjekfbhgjnimlkmpdbgeekddolkaa)
+[![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/igacjekfbhgjnimlkmpdbgeekddolkaa.svg)](https://chrome.google.com/webstore/detail/bphfhlfhnohppnleaehnlfigkkccpglk)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/igacjekfbhgjnimlkmpdbgeekddolkaa.svg)](https://chrome.google.com/webstore/detail/igacjekfbhgjnimlkmpdbgeekddolkaa)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/rating-count/igacjekfbhgjnimlkmpdbgeekddolkaa.svg)](https://chrome.google.com/webstore/detail/igacjekfbhgjnimlkmpdbgeekddolkaa)
 
 <p>
 We share the same discord server with my other extension <a href="https://github.com/GODrums/BetterFloat">BetterFloat</a>. Feel free to join us if you have any questions or suggestions:

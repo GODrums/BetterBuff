@@ -7,7 +7,7 @@ export default defineConfig({
   manifest: {
     name: 'BetterBuff',
     description: 'Enhance your website experience on Buff163',
-    version: '0.1.2',
+    version: '0.2.1',
     host_permissions: ["*://*.buff.163.com/*"],
     "permissions": ["storage"],
     web_accessible_resources: [{

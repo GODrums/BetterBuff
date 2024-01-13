@@ -19,7 +19,9 @@
             <DarkMode />
         </div>
         <SettingPaymentMethods bind:showModal={showModal}/>
-        <SettingCheckbox text="Hide floating bar" storage={ExtensionStorage.hideFloatBar} dataTip="Hide the floating bar on the right site." />
+        <SettingCheckbox text="Show Big Previews" storage={ExtensionStorage.showBigPreviews} dataTip="Show large item screenshots on image hover." />
+        <SettingCheckbox text="Hide Floating Bar" storage={ExtensionStorage.hideFloatBar} dataTip="Hide the floating bar on the right site." />
+        <SettingCheckbox text="Data Protection" storage={ExtensionStorage.dataProtection} dataTip="Blur privacy-relevant data in your account settings page. Relevant if you are screen-sharing or streaming." />
         <SettingListingOptions text="Listing Options" dataTip="Actions displayed under each listing on the corresponding item page. Requires a page reload." />
     </div>
     <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->

@@ -580,4 +580,363 @@ export namespace BuffTypes {
         }
 
     }
+
+    export module ShopSellOrder {
+
+        export interface GoodsInfo {
+            appid: number;
+            can_3d_inspect: boolean;
+            can_inspect: boolean;
+            description?: any;
+            game: string;
+            goods_id: number;
+            icon_url: string;
+            item_id?: any;
+            market_hash_name: string;
+            market_min_price: string;
+            name: string;
+            original_icon_url: string;
+            short_name: string;
+            steam_price: string;
+            steam_price_cny: string;
+            tags: CommonType.Tags;
+        }
+
+        export interface GoodsInfos {
+            [id: string]: GoodsInfo
+        }
+
+        export interface Sticker {
+            category: string;
+            img_url: string;
+            name: string;
+            slot: number;
+            sticker_id: number;
+            wear: number;
+        }
+
+        export interface Info {
+            fraudwarnings: string;
+            icon_url: string;
+            inspect_en_size: string;
+            inspect_en_url: string;
+            inspect_mobile_size: string;
+            inspect_mobile_url: string;
+            inspect_size: string;
+            inspect_start_at: string;
+            inspect_state: number;
+            inspect_trn_size: string;
+            inspect_trn_url: string;
+            inspect_url: string;
+            inspect_version: number;
+            inspected_at: string;
+            original_icon_url: string;
+            paintindex: number;
+            paintseed: number;
+            stickers: Sticker[];
+            tournament_tags: CommonType.TournamentTag[];
+        }
+
+        export interface AssetInfo {
+            action_link: string;
+            appid: number;
+            assetid: string;
+            classid: string;
+            contextid: number;
+            goods_id: number;
+            has_tradable_cooldown: boolean;
+            info: Info;
+            instanceid: string;
+            paintwear: string;
+            tradable_cooldown_text: string;
+            tradable_unfrozen_time?: any;
+        }
+
+        export interface Item {
+            allow_bargain: boolean;
+            appid: number;
+            asset_info: AssetInfo;
+            background_image_url: string;
+            can_bargain: boolean;
+            can_use_inspect_trn_url: boolean;
+            cannot_bargain_reason: string;
+            coupon_infos?: any;
+            created_at: number;
+            description: string;
+            featured: number;
+            fee: string;
+            game: string;
+            goods_id: number;
+            id: string;
+            img_src: string;
+            income: string;
+            lowest_bargain_price: string;
+            mode: number;
+            price: string;
+            recent_average_duration?: any;
+            recent_deliver_rate?: any;
+            state: number;
+            supported_pay_methods: number[];
+            tradable_cooldown?: any;
+            updated_at: number;
+            user_id: string;
+        }
+
+        export interface PreviewScreenshots {
+            bg_img: string;
+            top_bookmark: string;
+        }
+
+        export interface Data {
+            brief_info: string;
+            fop_str: string;
+            game: string;
+            goods_infos: GoodsInfos;
+            items: Item[];
+            mode?: any;
+            page_num: number;
+            page_size: number;
+            preview_screenshots: PreviewScreenshots;
+            show_game_cms_icon: boolean;
+            src_url_background: string;
+            total_amount: string;
+            total_count: number;
+            total_page: number;
+            user_infos: CommonType.UserInfos;
+        }
+
+        export interface Response {
+            code: string;
+            data: Data;
+            msg?: any;
+        }
+
+    }
+
+    export module ShopBillOrder {
+
+        export interface GoodsInfo {
+            appid: number;
+            description?: any;
+            game: string;
+            goods_id: number;
+            icon_url: string;
+            item_id?: any;
+            market_hash_name: string;
+            market_min_price: string;
+            name: string;
+            original_icon_url: string;
+            short_name: string;
+            steam_price: string;
+            steam_price_cny: string;
+            tags: CommonType.Tags;
+        }
+
+        export interface GoodsInfos {
+            [id: string]: GoodsInfo
+        }
+
+        export interface Info {
+            fraudwarnings?: any;
+            icon_url: string;
+            inspect_en_size: string;
+            inspect_en_url: string;
+            inspect_mobile_size: string;
+            inspect_mobile_url: string;
+            inspect_size: string;
+            inspect_start_at: string;
+            inspect_state: number;
+            inspect_trn_size: string;
+            inspect_trn_url: string;
+            inspect_url: string;
+            inspect_version: number;
+            inspected_at: string;
+            original_icon_url: string;
+            paintindex: number;
+            paintseed: number;
+            stickers: any[];
+            tournament_tags: any[];
+            metaphysic: CommonType.Metaphysic;
+            phase_data: CommonType.PhaseData;
+        }
+
+        export interface AssetInfo {
+            action_link: string;
+            appid: number;
+            assetid: string;
+            classid: string;
+            contextid: number;
+            goods_id: number;
+            has_tradable_cooldown: boolean;
+            id: string;
+            info: Info;
+            instanceid: string;
+            paintwear: string;
+            tradable_cooldown_text: string;
+            tradable_unfrozen_time: number;
+        }
+
+        export interface Item {
+            appid: number;
+            asset_info: AssetInfo;
+            bundle_info: unknown;
+            buyer_cancel_timeout?: any;
+            buyer_cookie_invalid: boolean;
+            buyer_id: string;
+            buyer_pay_time: number;
+            buyer_send_offer_timeout: number;
+            can_replace_asset: boolean;
+            coupon_info?: any;
+            coupon_infos?: any;
+            created_at: number;
+            deliver_expire_timeout: number;
+            error_text?: any;
+            fail_confirm?: any;
+            fee: string;
+            game: string;
+            goods_id: number;
+            has_bargain: boolean;
+            has_sent_offer: boolean;
+            id: string;
+            income: string;
+            is_seller_asked_to_send_offer: boolean;
+            mode: number;
+            original_price?: any;
+            pay_expire_timeout: number;
+            pay_method: number;
+            pay_method_text: string;
+            price: string;
+            receive_expire_timeout: number;
+            sell_order_id?: any;
+            seller_can_cancel: boolean;
+            seller_cookie_invalid: boolean;
+            seller_id: string;
+            trade_offer_trace_url?: any;
+            trade_offer_url?: any;
+            tradeofferid?: any;
+            transact_time: number;
+            type: number;
+            updated_at: number;
+        }
+
+        export interface Data {
+            goods_infos: GoodsInfos;
+            items: Item[];
+            user_infos: CommonType.UserInfo;
+        }
+
+        export interface Response {
+            code: string;
+            data: Data;
+            msg?: any;
+        }
+    }
+    
+    export module ShopFeatured {
+
+        export interface GoodsInfo {
+            appid: number;
+            description?: any;
+            game: string;
+            goods_id: number;
+            icon_url: string;
+            item_id?: any;
+            market_hash_name: string;
+            market_min_price: string;
+            name: string;
+            original_icon_url: string;
+            short_name: string;
+            steam_price: string;
+            steam_price_cny: string;
+            tags: CommonType.Tags;
+        }
+
+        export interface GoodsInfos {
+            [id: string]: GoodsInfo
+        }
+
+        export interface Sticker {
+            category: string;
+            img_url: string;
+            name: string;
+            slot: number;
+            sticker_id: number;
+            wear: number;
+        }
+
+        export interface Info {
+            fraudwarnings?: any;
+            icon_url: string;
+            inspect_en_size: string;
+            inspect_en_url: string;
+            inspect_mobile_size: string;
+            inspect_mobile_url: string;
+            inspect_size: string;
+            inspect_start_at: string;
+            inspect_state: number;
+            inspect_trn_size: string;
+            inspect_trn_url: string;
+            inspect_url: string;
+            inspect_version: number;
+            inspected_at: string;
+            original_icon_url: string;
+            paintindex: number;
+            paintseed: number;
+            stickers: Sticker[];
+            tournament_tags: CommonType.TournamentTag[];
+        }
+
+        export interface AssetInfo {
+            action_link: string;
+            appid: number;
+            assetid: string;
+            classid: string;
+            contextid: number;
+            goods_id: number;
+            has_tradable_cooldown: boolean;
+            id: string;
+            info: Info;
+            instanceid: string;
+            paintwear: string;
+            tradable_cooldown_text: string;
+            tradable_unfrozen_time?: any;
+        }
+
+        export interface Item {
+            allow_bargain: boolean;
+            appid: number;
+            asset_info: AssetInfo;
+            coupon_infos?: any;
+            created_at: number;
+            description: string;
+            featured: number;
+            fee: string;
+            game: string;
+            goods_id: number;
+            id: string;
+            income: string;
+            lowest_bargain_price: string;
+            mode: number;
+            price: string;
+            recent_average_duration?: any;
+            recent_deliver_rate?: any;
+            state: number;
+            tradable_cooldown?: any;
+            updated_at: number;
+            user_id: string;
+        }
+
+        export interface Data {
+            goods_infos: GoodsInfos;
+            items: Item[];
+            user_infos: CommonType.UserInfos;
+        }
+
+        export interface Response {
+            code: string;
+            data: Data;
+            msg?: any;
+        }
+
+    }
 }

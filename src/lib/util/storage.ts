@@ -11,6 +11,8 @@ export const defaultStorage = {
     enabled: true,
     darkMode: false,
     hideFloatBar: false,
+    showBigPreviews: false,
+    dataProtection: false,
     listingOptions: {
         "3dinspect": true,
         inspectServer: true,
@@ -52,6 +54,20 @@ export namespace ExtensionStorage {
         'local:hideFloatBar',
         {
             defaultValue: defaultStorage.hideFloatBar,
+        },
+    );
+
+    export const showBigPreviews = storage.defineItem<IStorage['showBigPreviews']>(
+        'local:showBigPreviews',
+        {
+            defaultValue: defaultStorage.showBigPreviews,
+        },
+    );
+
+    export const dataProtection = storage.defineItem<IStorage['dataProtection']>(
+        'local:dataProtection',
+        {
+            defaultValue: defaultStorage.dataProtection,
         },
     );
 

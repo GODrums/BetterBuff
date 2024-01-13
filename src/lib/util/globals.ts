@@ -41610,3 +41610,8 @@ export const PAYMENT_MAPPING = {
     18: 'wechat-split',
     43: 'combined'
 }
+
+export const TIME_TO_TEXT = {
+    '小时前': 'hours ago',
+    '天前': 'days ago',
+};

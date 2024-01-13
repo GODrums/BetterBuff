@@ -198,3 +198,18 @@ html {
     background: var(--bb-color-0, #121212) url(https://buff.163.com/static/images/site/yuan-ico.png) no-repeat 12px center;
     color: var(--bb-color-2, #bfbfbf);
 }
+
+.betterbuff-item-detail-img {
+    visibility: hidden;
+    position: absolute;
+    z-index: 999;
+}
+
+td.img_td:hover .betterbuff-item-detail-img {
+  visibility: visible;
+}
+
+.user-setting #mobile,
+.user-setting tr.steam_bind > .t_Left > a {
+    filter: blur(5px);
+}

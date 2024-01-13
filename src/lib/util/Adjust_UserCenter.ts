@@ -1,7 +1,21 @@
 import type { BetterBuff } from '../@types/BetterBuff';
 import type { BuffTypes } from '../@types/BuffTypes';
 import { SchemaHelpers } from './schemaHelpers';
+import { ExtensionStorage } from './storage';
 import { addSouvenirTeams, genCopyGenButton, genShareButton } from './uiGeneration';
+
+export async function handleAccountPage(state: BetterBuff.URLState) {
+    const dataProtection = await ExtensionStorage.dataProtection.getValue();
+
+    if (!dataProtection) {
+        const blurStyle = 'filter: none;';
+        document.querySelector('#mobile')?.setAttribute('style', blurStyle);
+        document.querySelector('tr.steam_bind a')?.setAttribute('style', blurStyle);
+    }
+
+    const oldSettings = `<h3>BetterBuff</h3><p>If you are looking for the BetterBuff-Settings, please use the extension popup available through your browser's toolbar.</p>`
+    document.querySelector('.user-setting')?.insertAdjacentHTML('beforeend', oldSettings);
+}
 
 export function handleFavoritesPage(state: BetterBuff.URLState) {
     if (state.search.indexOf('game=csgo') == -1) return;

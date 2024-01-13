@@ -2,6 +2,7 @@ import type { BuffTypes } from "../@types/BuffTypes";
 import { adjustGoodsBuyOrder } from "./Adjust_GoodsBuyOrder";
 import { adjustGoodsSellOrder } from "./Adjust_GoodsSellOrder";
 import { adjustSearchPage, adjustTopBookmarked } from "./Adjust_Market";
+import { adjustShopBillOrder, adjustShopFeatured, adjustShopSellOrder } from "./Adjust_Shop";
 import { adjustWindow } from "./Adjust_Window";
 import { setWindowG } from "./storage";
 
@@ -43,5 +44,13 @@ function processEvent(eventData: EventData<unknown>) {
         // (eventData as EventData<BuffTypes.MarketGoods.Response>).data.data
     } else if (eventData.url.includes('api/market/sell_order/top_bookmarked?')) {
         adjustTopBookmarked((eventData as EventData<BuffTypes.TopPopular.Response>).data.data);
+    } else if (eventData.url.includes('api/market/shop/')) {
+        if (eventData.url.includes('/sell_order')) {
+            adjustShopSellOrder((eventData as EventData<BuffTypes.ShopSellOrder.Response>).data.data);
+        } else if (eventData.url.includes('/bill_order')) {
+            adjustShopBillOrder((eventData as EventData<BuffTypes.ShopBillOrder.Response>).data.data);
+        } else if (eventData.url.includes('/featured')) {
+            adjustShopFeatured((eventData as EventData<BuffTypes.ShopFeatured.Response>).data.data);
+        }
     }
 }

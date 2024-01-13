@@ -1,5 +1,5 @@
 import type { BuffTypes } from '../@types/BuffTypes';
-import { ExtensionStorage } from './storage';
+import { ExtensionStorage, type IStorage } from './storage';
 import { SchemaHelpers } from './schemaHelpers';
 import { BUFF_FLOAT_RANGES } from './globals';
 import Decimal from 'decimal.js';
@@ -15,6 +15,10 @@ export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
     const weaponSchema = SchemaHelpers.getWeaponSchema(goods_info.market_hash_name, goods_info?.tags?.exterior?.internal_name == 'wearcategoryna');
 
     console.log('API Data: ', apiData);
+
+    const showBigPreviews = await ExtensionStorage.showBigPreviews.getValue();
+    const listingOptions = await ExtensionStorage.listingOptions.getValue();
+
     for (let i = 0; i < rows.length; i++) {
         let row = <HTMLElement>rows[i];
         let item = apiData.items[i];
@@ -28,13 +32,38 @@ export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
         await addListingAge(row, item);
 
         if (weaponSchema) {
-            await adjustListingOptions(weaponSchema, item, goods_info, row);
+            await adjustListingOptions(weaponSchema, item, goods_info, row, listingOptions);
         }
 
         if (!await isPaymentMethodAvailable(item.supported_pay_methods)) {
             markPurchaseUnavailable(row);
         }
+
+        if (showBigPreviews) {
+            addBigPreviews(row, item);
+        }
     }
+}
+
+function addBigPreviews(row: HTMLElement, item: BuffTypes.SellOrder.Item) {
+    if (!item.img_src.includes('fop')) return;
+    const bigPreview = document.createElement('div');
+    bigPreview.setAttribute('class', 'betterbuff-item-detail-img');
+    bigPreview.setAttribute('style', 'display: none; max-width: 600px; max-height: 400px;');
+
+    const img = document.createElement('img');
+    img.setAttribute('src', item.img_src.split('%7CimageView')[0]);
+    img.setAttribute('style', 'width: 50%; object-fit: contain; translate: -5% -50%;');
+
+    bigPreview.appendChild(img);
+
+    const itemImage = row.querySelector('td.img_td');
+    itemImage?.appendChild(bigPreview);
+
+    itemImage?.addEventListener('mouseover', () => {
+        bigPreview.setAttribute('style', 'display: block;');
+    });
+
 }
 
 function markPurchaseUnavailable(row: HTMLElement) {
@@ -78,12 +107,10 @@ async function addListingAge(row: HTMLElement, item: BuffTypes.SellOrder.Item) {
     row.querySelector('td.t_Left > .j_shoptip_handler')?.parentElement?.appendChild(dateDiv);
 }
 
-async function adjustListingOptions(weaponSchema: SchemaHelpers.WeaponSchema, item: BuffTypes.SellOrder.Item, goods_info: BuffTypes.SellOrder.GoodsInfo, row: HTMLElement) {
+async function adjustListingOptions(weaponSchema: SchemaHelpers.WeaponSchema, item: BuffTypes.SellOrder.Item, goods_info: BuffTypes.SellOrder.GoodsInfo, row: HTMLElement, listingOptions: IStorage['listingOptions']) {
     const wearContainer = <HTMLElement>row.querySelector('td.t_Left div.csgo_value');
     let elementsToAdd: HTMLElement[] = [];
 
-    // const listingOptions = await storage.getItem<IStorage['listingOptions']>('local:listingOptions');
-    const listingOptions = await ExtensionStorage.listingOptions.getValue();
     if (listingOptions.copyGen) {
         let aCopyGen = genCopyGenButton(weaponSchema, item.asset_info.info.paintindex, item.asset_info.info.paintseed, item.asset_info.paintwear, item.asset_info?.info?.stickers ?? [])
         elementsToAdd.push(aCopyGen);

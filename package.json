@@ -12,25 +12,30 @@
     "zip:firefox": "wxt zip -b firefox",
     "update": "pnpm up --latest",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "postinstall": "wxt prepare"
+    "postinstall": "wxt prepare",
+    "submit": "env-cmd -f .env.submit -- publish-extension",
+    "submit:dry": "env-cmd -f .env.submit -- publish-extension --dry-run"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.0.1",
     "@tailwindcss/typography": "^0.5.10",
     "@tsconfig/svelte": "^5.0.2",
     "autoprefixer": "^10.4.16",
-    "daisyui": "^4.5.0",
+    "daisyui": "^4.6.0",
+    "env-cmd": "^10.1.0",
     "postcss": "^8.4.33",
+    "publish-browser-extension": "^1.4.1",
     "svelte": "^4.2.8",
-    "svelte-check": "^3.6.2",
-    "tailwindcss": "^3.4.0",
+    "svelte-check": "^3.6.3",
+    "tailwindcss": "^3.4.1",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3",
     "vite": "^5.0.11",
-    "wxt": "^0.13.3"
+    "wxt": "^0.14.1"
   },
   "dependencies": {
-    "@types/chrome": "^0.0.254",
+    "@types/chrome": "^0.0.256",
+    "decimal": "^0.0.2",
     "decimal.js": "^10.4.3"
   }
 }

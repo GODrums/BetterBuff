@@ -37,13 +37,15 @@ We share the same discord server with my other extension <a href="https://github
 
 ### 💻 The Tech Stack
 
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/svelte/svelte-original.svg" title="Svelte" height="35" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" title="TailwindCSS" height="35"/>
-<img src="https://api.iconify.design/logos:daisyui.svg" title="DaisyUI" height="35"/>
-<img src="https://api.iconify.design/vscode-icons:file-type-vite.svg" title="Vite" height="35"/>
-<img src="https://wxt.dev/logo.svg" title="Web Extension Framework (WXT)" height="35"/>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" title="Typescript" height="35"/>
-<img src="https://api.iconify.design/devicon:pnpm.svg" title="PNPM" height="35"/>
+<p>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/svelte/svelte-original.svg" title="Svelte" height="35" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" title="TailwindCSS" height="35"/>
+  <img src="https://api.iconify.design/logos:daisyui.svg" title="DaisyUI" height="35"/>
+  <img src="https://api.iconify.design/vscode-icons:file-type-vite.svg" title="Vite" height="35"/>
+  <img src="https://wxt.dev/logo.svg" title="Web Extension Framework (WXT)" height="35"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" title="Typescript" height="35"/>
+  <img src="https://api.iconify.design/devicon:pnpm.svg" title="PNPM" height="35"/>
+</p>
 
 ### 🛠️ Build Instructions
 
@@ -57,7 +59,7 @@ We share the same discord server with my other extension <a href="https://github
 
 #### 2. Run the extension
 
-- Run a development command
+-   Run a development command
 
 ```bash
   # For chrome
@@ -68,10 +70,9 @@ We share the same discord server with my other extension <a href="https://github
   pnpm watch
 ```
 
-
 #### 4. Build the extension
 
-- Run the build command
+-   Run the build command
 
 ```bash
   # Build for chrome
@@ -80,9 +81,9 @@ We share the same discord server with my other extension <a href="https://github
   pnpm build:firefox
 ```
 
-- This will update the `dist` folder in the root directory with the necessary changes
-- It it always recommended to run the `clean` command before building the extension
-- When publishing the extension, a zipped version is required. `scripts/publish.ts` can be used to create a zip file of the `dist` folder
+-   This will update the `dist` folder in the root directory with the necessary changes
+-   It it always recommended to run the `clean` command before building the extension
+-   When publishing the extension, a zipped version is required. `scripts/publish.ts` can be used to create a zip file of the `dist` folder
 
 ### 5. Miscellaneous
 

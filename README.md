@@ -51,6 +51,8 @@ We share the same discord server with my other extension <a href="https://github
 
 ```bash
   pnpm install
+  # Setup your local WXT environment
+  pnpm postinstall
 ```
 
 #### 2. Run the extension
@@ -84,16 +86,16 @@ We share the same discord server with my other extension <a href="https://github
 
 ### 5. Miscellaneous
 
-- Cleaning the build folder:
-
 ```bash
+  # Update all dependencies
+  pnpm update
+  # Clean the /dist folder
   pnpm clean
-```
-
-- Svelte checks:
-
-```bash
+  # Check for Svelte errors
   pnpm check
+  # Zip the extension for release
+  pnpm zip
+  pnpm zip:firefox
 ```
 
 ### Contributing

@@ -54,7 +54,8 @@ html {
     background: var(--bb-color-0, #121212) !important;
 }
 
-.bb-dark-mode .popup_guide_sell textarea {
+.bb-dark-mode .popup_guide_sell textarea,
+.bb-dark-mode .popup_bulkbuy_input #batch-buy-num {
     background: var(--bb-color-0, #121212);
     color: var(--bb-color-2, #bfbfbf) !important;
 }
@@ -93,7 +94,9 @@ html {
 .bb-dark-mode .popup_custom,
 .bb-dark-mode .popup_flower .popup-header,
 .bb-dark-mode .popup_flower .popup-cont,
-.bb-dark-mode .popup_flower .popup-cont li {
+.bb-dark-mode .popup_flower .popup-cont li,
+.bb-dark-mode .popup_bulkbuy .popup_bulkbuy_item,
+.bb-dark-mode .popup_bulkbuy .popup_bulkbuy_price {
     background: var(--bb-color-0, #121212);
 }
 
@@ -169,7 +172,8 @@ html {
 .bb-dark-mode .popup_weaponbox h2,
 .bb-dark-mode .popup_weaponbox a,
 .bb-dark-mode .popup_weaponbox .weapon-cate,
-.bb-dark-mode .detail-tab-cont h3 {
+.bb-dark-mode .detail-tab-cont h3,
+.bb-dark-mode .popup_bulkbuy .popup_bulkbuy_item h3 {
     color: var(--bb-color-2, #bfbfbf) !important;
 }
 
@@ -194,7 +198,8 @@ html {
     color: #fff;
 }
 
-.bb-dark-mode .popup-cont #bargain-price {
+.bb-dark-mode .popup-cont #bargain-price,
+.bb-dark-mode .popup_bulkbuy_input #batch-buy-max-price {
     background: var(--bb-color-0, #121212) url(https://buff.163.com/static/images/site/yuan-ico.png) no-repeat 12px center;
     color: var(--bb-color-2, #bfbfbf);
 }
@@ -209,7 +214,59 @@ td.img_td:hover .betterbuff-item-detail-img {
   visibility: visible;
 }
 
-.user-setting #mobile,
-.user-setting tr.steam_bind > .t_Left > a {
+.bb-dark-mode .user-setting #mobile,
+.bb-dark-mode .user-setting tr.steam_bind > .t_Left > a {
     filter: blur(5px);
+}
+
+.bb-dark-mode .popup_bulkbuy .w-Select,
+.bb-dark-mode .popup_bulkbuy .w-Select-Multi {
+    background: #2D2F3E;
+    color: #9a9b9e;
+    border: none;
+}
+
+.bb-dark-mode .popup_bulkbuy .w-Select-Multi:hover,
+.bb-dark-mode .popup_bulkbuy .w-Select:hover {
+    background: #3A455A;
+    color: #E4E8EE
+}
+
+.bb-dark-mode .popup_bulkbuy .w-Select h3 span.raw,
+.bb-dark-mode .popup_bulkbuy .w-Select-Multi h3 span.raw {
+    color: #9a9b9e
+}
+
+.bb-dark-mode .popup_bulkbuy .w-Select ul,
+.bb-dark-mode .popup_bulkbuy .w-Select-Multi ul {
+    background: #2D2F3E;
+    top: 33px;
+    border: none;
+    left: 0
+}
+
+.bb-dark-mode .popup_bulkbuy .w-Select ul li,
+.bb-dark-mode .popup_bulkbuy .w-Select-Multi ul li {
+    color: #E4E8EE;
+    border-color: #373A4C
+}
+
+.bb-dark-mode .popup_bulkbuy .w-Select ul li:hover,
+.bb-dark-mode .popup_bulkbuy .w-Select-Multi ul li:hover,
+.bb-dark-mode .popup_bulkbuy .w-Select ul li.on,
+.bb-dark-mode .popup_bulkbuy .w-Select-Multi ul li.on,
+.bb-dark-mode .popup_bulkbuy .w-Select-Multi ul li div p:hover,
+.bb-dark-mode .popup_bulkbuy .w-Select-Multi ul li div p.on {
+    background: #3A455A
+}
+
+.bb-dark-mode .popup_bulkbuy .w-Select-Multi ul li div {
+    background: #2D2F3E;
+    border: none;
+    top: 1px
+}
+
+.bb-dark-mode .popup_bulkbuy .w-Select-Multi ul li div p {
+    color: #E4E8EE;
+    border-color: #373A4C
 }

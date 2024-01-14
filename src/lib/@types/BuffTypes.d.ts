@@ -68,6 +68,17 @@ export namespace BuffTypes {
         }
     }
 
+    export namespace CaptchaRequired {
+        export interface Response {
+            code: "Captcha Validate Required";
+            confirm_entry: any;
+            error: string; // e.g. 访问异常, 请完成安全验证
+            extra: unknown;
+            target: unknown;
+            target_type: string;
+        }
+    }
+
     export namespace SellOrder {
         export interface GoodsInfo {
             appid: number;

@@ -4,7 +4,7 @@ import { SchemaHelpers } from './schemaHelpers';
 import { ExtensionStorage } from './storage';
 import { addSouvenirTeams, genCopyGenButton, genShareButton } from './uiGeneration';
 
-export async function handleAccountPage(state: BetterBuff.URLState) {
+export async function handleAccountPage() {
     const dataProtection = await ExtensionStorage.dataProtection.getValue();
 
     if (!dataProtection) {

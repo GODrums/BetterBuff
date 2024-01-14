@@ -7,10 +7,10 @@ import { addSouvenirTeams, genCopyGenButton, genShareButton } from './uiGenerati
 import { isPaymentMethodAvailable } from './dataHelpers';
 
 export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
-    const goods_info = Object.values(apiData.goods_infos)?.pop() as BuffTypes.SellOrder.GoodsInfo;
+    const goods_info = Object.values(apiData.goods_infos)?.pop() as BuffTypes.SellOrder.GoodsInfo | undefined;
     let rows = document.querySelectorAll('tr.selling');
 
-    if (!apiData.items || goods_info.appid !== 730 || rows.length < 0) return;
+    if (!apiData.items || !goods_info || goods_info.appid !== 730 || rows.length < 0) return;
 
     const weaponSchema = SchemaHelpers.getWeaponSchema(goods_info.market_hash_name, goods_info?.tags?.exterior?.internal_name == 'wearcategoryna');
 
@@ -23,6 +23,8 @@ export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
         let row = <HTMLElement>rows[i];
         let item = apiData.items[i];
 
+        if (row.classList.contains('betterbuff-done')) continue;
+        
         if (goods_info.short_name.includes('Souvenir Package')) {
             addSouvenirTeams(row.querySelector('.csgo_sticker') as HTMLElement, item.asset_info.info.tournament_tags);
         }
@@ -42,6 +44,8 @@ export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
         if (showBigPreviews) {
             addBigPreviews(row, item);
         }
+
+        row.classList.add('betterbuff-done');
     }
 }
 

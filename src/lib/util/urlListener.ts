@@ -1,3 +1,4 @@
+import { handleSales } from "./Adjust_Sales";
 import { handleAccountPage, handleFavoritesPage } from "./Adjust_UserCenter";
 
 // listen for url changes and update the state accordingly
@@ -13,8 +14,10 @@ export function activateURLHandler() {
                     handleFavoritesPage(state);
                     break;
                 case '/user-center/profile':
-                    await handleAccountPage(state);
+                    await handleAccountPage();
                     break;
+                case '/market/sell_order/on_sale':
+                    await handleSales();
                 default:
                     break;
             }

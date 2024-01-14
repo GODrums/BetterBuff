@@ -28,9 +28,17 @@ export function activateHandler() {
     });
 }
 
+function dataIsError(data: unknown): data is BuffTypes.CaptchaRequired.Response {
+    return (data as BuffTypes.CaptchaRequired.Response)?.error !== undefined;
+}
+
 function processEvent(eventData: EventData<unknown>) {
     if (!eventData.url.includes('notification')) {
         console.debug('[BetterBuff] Received data from url: ' + eventData.url + ', data:', eventData.data);
+    }
+    if (dataIsError(eventData.data)) {
+        console.error('[BetterBuff] Error from url: ' + eventData.url + ', data:', eventData.data);
+        return;
     }
     if (eventData.url.includes('api/market/goods/sell_order')) {
         adjustGoodsSellOrder((eventData as EventData<BuffTypes.SellOrder.Response>).data.data);

@@ -3,7 +3,7 @@ import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import { loadEnv } from 'vite';
 
-const releaseVersion = '0.2.3';
+const releaseVersion = '0.3.2';
 
 const getViteConfig: ((env: ConfigEnv) => WxtViteConfig | Promise<WxtViteConfig>) = (env) => {
   process.env = {...process.env, ...loadEnv(env.mode, process.cwd())};

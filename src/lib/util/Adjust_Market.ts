@@ -59,6 +59,7 @@ export function adjustSearchPage(apiData: BuffTypes.MarketGoods.Data) {
             priceContainer.replaceWith(priceGrid);
         }
     }
+    throw new Error('Not implemented');
 }
 
 export function adjustTopBookmarked(apiData: BuffTypes.TopPopular.Data) {

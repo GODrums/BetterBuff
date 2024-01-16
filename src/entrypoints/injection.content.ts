@@ -1,3 +1,5 @@
+import './buff.content/style.css';
+
 export default defineContentScript({
     matches: ["*://*.buff.163.com/*"],
     runAt: 'document_start',

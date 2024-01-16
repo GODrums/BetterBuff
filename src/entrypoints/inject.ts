@@ -3,8 +3,20 @@ let loadNumber = 0;
 export default defineUnlistedScript({
     main() {
         openIntercept();
+        windowListener();
     },
 });
+
+function windowListener() {
+    window.addEventListener('message', (event) => {
+        if (event.data?.type === 'toast') {
+            // @ts-ignore
+            Buff.toast(event.data.text, {
+                type: event.data?.success ? 'success' : 'error',
+            });
+        }
+    });
+}
 
 function openIntercept() {
     const open = window.XMLHttpRequest.prototype.open;
@@ -30,6 +42,18 @@ function openIntercept() {
 
             // request finished loading
             if (target.readyState == 4) {
+                if (loadNumber++ == 0) {
+                    const globalG = window['g' as any];
+                    document.dispatchEvent(
+                        new CustomEvent('BetterBuff_INTERCEPTED_REQUEST', {
+                            detail: {
+                                status: 200,
+                                url: 'betterbuff_global_data',
+                                data: globalG,
+                            },
+                        })
+                    );
+                }
                 document.dispatchEvent(
                     new CustomEvent('BetterBuff_INTERCEPTED_REQUEST', {
                         detail: {
@@ -39,21 +63,6 @@ function openIntercept() {
                         },
                     })
                 );
-                // dispatch again on first page load
-                if (loadNumber++ == 0) {
-                    setTimeout(() => {
-                        const globalG = window['g' as any];
-                        document.dispatchEvent(
-                            new CustomEvent('BetterBuff_INTERCEPTED_REQUEST', {
-                                detail: {
-                                    status: 200,
-                                    url: 'betterbuff_global_data',
-                                    data: globalG,
-                                },
-                            })
-                        );
-                    }, 100);
-                }
             }
         });
 

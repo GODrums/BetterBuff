@@ -41604,7 +41604,9 @@ export const BUFF_FLOAT_RANGES: [number, [string, string]][] = [
 
 export const PAYMENT_MAPPING = {
     1: 'bank',
+    2: 'quick-pay',
     3: 'balance',
+    4: 'alipay-page',
     6: 'wechat',
     10: 'card',
     18: 'wechat-split',

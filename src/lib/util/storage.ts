@@ -2,6 +2,11 @@ import { storage } from 'wxt/storage';
 import type { BuffTypes } from '../@types/BuffTypes';
 
 export let WINDOW_G: BuffTypes.G | null = null;
+export let BUFF_CRX: any = null;
+
+export function setBuffCrx(crx: any) {
+    BUFF_CRX = crx;
+}
 
 export function setWindowG(g: BuffTypes.G) {
     WINDOW_G = g;

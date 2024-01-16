@@ -1,11 +1,11 @@
 import { activateHandler } from "@/lib/util/eventListeners";
-import './style.css';
 import { activateURLHandler } from "@/lib/util/urlListener";
-import { ExtensionStorage } from "@/lib/util/storage";
+import { ExtensionStorage, setBuffCrx } from "@/lib/util/storage";
 import { adjustTooltip } from "@/lib/util/Adjust_Tooltip";
 import { initSentry } from "@/lib/util/sentry";
 
 export default defineContentScript({
+    cssInjectionMode: "ui",
     matches: ["*://*.buff.163.com/*"],
     runAt: 'document_end',
     main(ctx) {
@@ -17,6 +17,7 @@ export default defineContentScript({
 
         setTimeout(async () => {
             await applyStaticAdjustments();
+            setBuffCrx(ctx);
         }, 50);
     }
 });

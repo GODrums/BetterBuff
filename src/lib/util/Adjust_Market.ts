@@ -1,7 +1,77 @@
 import Decimal from 'decimal.js';
 import type { BuffTypes } from '../@types/BuffTypes';
-import { WINDOW_G } from './storage';
+import { BUFF_CRX, WINDOW_G } from './storage';
 import { SchemaHelpers } from './schemaHelpers';
+import { genCopyGenButton } from './uiGeneration';
+import ListingOptions from '../pages/ListingOptions.svelte';
+
+export async function adjustItemDetails(apiData: BuffTypes.ItemDescDetail.Data) {
+    const container = document.querySelector('.popup-inspect-cont');
+    const data = (container?.querySelector('.btn-buy-order') as HTMLElement | null)?.dataset;
+    if (!container || !data?.goodsName) return;
+
+    console.log('API Data: ', apiData);
+
+    const name = data.goodsName;
+    const isVanilla = name.includes('★') && !name.includes('|');
+    const weaponSchema = SchemaHelpers.getWeaponSchema(name, isVanilla);
+
+    // add listing options
+
+    const assetInfo = JSON.parse(data?.assetInfo ?? '{}') as BuffTypes.SellOrder.AssetInfo;
+    const listingData: Record<string, any> = {};
+
+    let elementsToAdd: HTMLElement[] = [];
+
+    if (weaponSchema) {
+        const gen = SchemaHelpers.getInspectCode(weaponSchema, apiData.steam_asset_info.paintindex, apiData.steam_asset_info.paintseed, assetInfo.paintwear, apiData.steam_asset_info.stickers ?? []);
+        listingData['gen'] = gen;
+    }
+
+    if (weaponSchema) {
+        const goodsInfo = (document.querySelector('tr.selling') as HTMLElement | null)?.dataset.goodsInfo as unknown as BuffTypes.SellOrder.GoodsInfo | null;
+        const min = parseFloat(assetInfo.paintwear.slice(0, 5));
+        const max = min + 0.001;
+        const floatdb_category = goodsInfo ? SchemaHelpers.getFloatDBCategory(goodsInfo.tags?.quality?.internal_name ?? 'normal') : undefined;
+
+        listingData['matchFloat'] = `https://csgofloat.com/db?name=${weaponSchema.name}&defIndex=${weaponSchema.id}&paintIndex=${apiData.steam_asset_info.paintindex}&paintSeed=${apiData.steam_asset_info.paintseed}${
+            floatdb_category ? `&category=${floatdb_category}` : ''
+        }&min=${`${min}`.slice(0, 5)}&max=${`${max}`.slice(0, 5)}`;
+    }
+
+    if (apiData.qr_code_url) {
+        listingData['share'] = apiData.qr_code_url;
+    }
+
+    const listingDiv = document.createElement('div');
+    listingDiv.setAttribute('id', 'betterbuff-listing-anchor');
+    listingDiv.setAttribute('style', 'display: flex; align-items: center;');
+    listingDiv.setAttribute('data-betterbuff', JSON.stringify(listingData))
+    container.querySelector('.scope-tags')?.insertAdjacentElement('afterend', listingDiv);
+
+    if (BUFF_CRX) {
+        const ui = await createShadowRootUi(BUFF_CRX, {
+            name: 'demo-ui',
+            css: '../components/style.css',
+            position: 'inline',
+            anchor: '#betterbuff-listing-anchor',
+            onMount: (container) => {
+                // Create the Svelte app inside the UI container
+                const app = new ListingOptions({
+                    target: container,
+                });
+                return app;
+            },
+            onRemove: (app) => {
+                // Destroy the app when the UI is removed
+                app?.$destroy();
+            },
+        });
+    
+        // 4. Mount the UI
+        ui.mount();
+    }
+}
 
 export function adjustSearchPage(apiData: BuffTypes.MarketGoods.Data) {
     const cards = Array.from(document.querySelectorAll('#j_list_card li')) as HTMLLIElement[];
@@ -80,14 +150,17 @@ export function adjustTopBookmarked(apiData: BuffTypes.TopPopular.Data) {
         }
 
         const tagBox = card.querySelector('.tagBox > .g_Right');
-        const filter = "filter: brightness(0) saturate(100%) invert(60%) sepia(57%) saturate(1118%) hue-rotate(170deg) brightness(103%) contrast(101%);";
+        const filter = 'filter: brightness(0) saturate(100%) invert(60%) sepia(57%) saturate(1118%) hue-rotate(170deg) brightness(103%) contrast(101%);';
 
         if (!tagBox) continue;
         tagBox.setAttribute('style', 'max-width: 40%; display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 5px;');
 
         const aShare = document.createElement('a');
         aShare.innerHTML = '<i class="icon icon_link j_tips_handler" data-direction="bottom" data-title="Share"></i>';
-        aShare.setAttribute('href', `https://buff.163.com/goods/${item.goods_id}?appid=730&classid=${item.asset_info.classid}&instanceid=${item.asset_info.instanceid}&assetid=${item.asset_info.assetid}&contextid=2&sell_order_id=${item.id}`);
+        aShare.setAttribute(
+            'href',
+            `https://buff.163.com/goods/${item.goods_id}?appid=730&classid=${item.asset_info.classid}&instanceid=${item.asset_info.instanceid}&assetid=${item.asset_info.assetid}&contextid=2&sell_order_id=${item.id}`
+        );
         aShare.setAttribute('target', '_blank');
         aShare.setAttribute('style', 'cursor: pointer;' + filter);
         tagBox.appendChild(aShare);

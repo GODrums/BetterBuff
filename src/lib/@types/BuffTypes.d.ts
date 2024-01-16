@@ -948,6 +948,110 @@ export namespace BuffTypes {
             data: Data;
             msg?: any;
         }
-
     }
+
+    export namespace ItemDescDetail {
+
+        export interface Description {
+            app_data: '' | { 
+                def_index: string; 
+                is_item_name: string;
+            };
+            sticker_info?: (string | string[])[];
+            color?: string;
+            type: string;
+            value: string;
+        }
+
+        export interface Data {
+            bookmarked: boolean;
+            content_pic: string;
+            cs2_inspect_info: any;
+            csgo_inspect_allowed: boolean;
+            csgo_paintwear_allowed: boolean;
+            csgo_paintwear_load_success: boolean;
+            descriptions: Description[];
+            fade_name: string | null;
+            fraudwarnings: any;
+            ice_fire_name: any;
+            phase_color: any;
+            phase_name: any;
+            pic_with_bg: boolean;
+            qr_code_url: string;
+            rank: any;
+            rank_order_type: any;
+            seller: CommonType.UserInfo;
+            seller_stats: {
+                7: SellerStats<7>;
+                30: SellerStats<30>;
+            };
+            show_game_cms_icon: boolean;
+            stats?: {
+                bargain_count: number;
+                bookmark_count: number;
+                view_count: number;
+            } // requires premium
+            steam_asset_info: SteamAssetInfo;
+        }
+
+        export interface SteamAssetInfo {
+            fraudwarnings: any;
+            game_release_date: string;
+            icon_url: string;
+            inspect_en_size: string | null;
+            inspect_en_url: string | null;
+            inspect_mobile_size: string | null;
+            inspect_mobile_url: string | null;
+            inspect_preview_size: string | null;
+            inspect_preview_url: string | null;
+            inspect_size: string | null;
+            inspect_start_at: string | null;
+            inspect_state: number;
+            inspect_trn_size: string | null;
+            inspect_trn_url: string | null;
+            inspect_url: string | null;
+            inspect_version: string;
+            inspected_at: string | null;
+            is_cs2: boolean;
+            original_inspect_url: string | null;
+            paintindex: number;
+            paintseed: number;
+            stickers: Sticker[];
+            tournament_tags: CommonType.TournamentTag[];
+            version: number;
+        }
+
+        export interface Sticker {
+            category: string;
+            category_name: string;
+            goods_id: number;
+            img_url: string;
+            name: string;
+            sell_reference_price: string;
+            slot: number;
+            sticker_id: number;
+            sticker_name: string;
+            tag_id: number;
+            wear: number;
+        }
+
+        export interface SellerStats<T extends number> {
+            amount_success: number;
+            average_duration: any;
+            count_fail: number;
+            count_success: number;
+            deliver_rate: any;
+            formatted_average_duration: string;
+            formatted_count_success: string;
+            formatted_deliver_rate: string;
+            past_days: T;
+        }
+
+        export interface Response {
+            code: string;
+            data: Data;
+            msg?: any;
+        }
+    }
+
 }

@@ -30,6 +30,7 @@ export function genCopyGenButton(
     }
     aCopyGen.addEventListener('click', () => {
         navigator.clipboard.writeText(gen);
+        window.postMessage({ type: 'toast', text: 'Copied to clipboard', success: true });
     });
     return aCopyGen;
 }

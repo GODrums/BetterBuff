@@ -187,7 +187,7 @@ async function adjustListingOptions(weaponSchema: SchemaHelpers.WeaponSchema, it
         elementsToAdd.push(aShare);
     }
 
-    if (listingOptions.detail || true) {
+    if (listingOptions.detail) {
         const aDetail = document.createElement('a');
         aDetail.innerHTML = '<b><i style="filter: invert(1);" class="icon icon_search"></i></b>Detail';
         aDetail.setAttribute('class', 'ctag btn');

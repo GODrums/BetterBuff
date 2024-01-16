@@ -41,7 +41,8 @@ export namespace SchemaHelpers {
 
     export function getWeaponSchema(name: string, isVanilla?: boolean): WeaponSchema | undefined {
         const nameParts = name.split(' | ');
-        const weapon = CSFloatSchema.weapons.find((weapon) => {
+        console.log(nameParts);
+        const weapon = nameParts[0].includes('M9 Bayonet') ? CSFloatSchema.weapons[39] : CSFloatSchema.weapons.find((weapon) => {
             return nameParts[0].indexOf(weapon.name) > -1;
         });
 

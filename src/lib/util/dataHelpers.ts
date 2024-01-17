@@ -2,6 +2,18 @@ import Decimal from "decimal.js";
 import { ExtensionStorage } from "./storage";
 import { PAYMENT_MAPPING } from "./globals";
 
+export function priceToHtml(price: number) {
+    const priceParts = price.toFixed(2).split('.');
+    let dps = ``;
+    if (priceParts[1]) {
+        const cutDps = priceParts[1].split('0')[0];
+        if (cutDps.length > 0) {
+            dps = `<small>.${cutDps}</small>`;
+        }
+    }
+    return `${priceParts[0]}${dps}`;
+}
+
 export function convertSP(sticker_premium: number) {
     let stickerText = '% SP';
     let stickerPercentage = new Decimal(sticker_premium).mul(100);

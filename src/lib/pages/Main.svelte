@@ -5,6 +5,7 @@
     import Power from '../components/Power.svelte';
     import DarkMode from '../components/DarkMode.svelte';
     import SettingPaymentMethods from '../components/SettingPaymentMethods.svelte';
+    import ListingDifference from '../components/ListingDifference.svelte';
 
     let dialog: HTMLDialogElement;
     let showModal: boolean = false;
@@ -23,6 +24,7 @@
         <SettingCheckbox text="Hide Floating Bar" storage={ExtensionStorage.hideFloatBar} dataTip="Hide the floating bar on the right site." />
         <SettingCheckbox text="Data Protection" storage={ExtensionStorage.dataProtection} dataTip="Blur privacy-relevant data in your account settings page. Relevant if you are screen-sharing or streaming." />
         <SettingListingOptions text="Listing Options" dataTip="Actions displayed under each listing on the corresponding item page. Requires a page reload." />
+        <ListingDifference />
     </div>
     <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
     <dialog class="modal" bind:this={dialog} on:close={() => (showModal = false)} on:click|self={() => dialog.close()}>

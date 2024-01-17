@@ -18,6 +18,8 @@ export const defaultStorage = {
     hideFloatBar: false,
     showBigPreviews: false,
     dataProtection: false,
+    listingDifferenceStyle: 1 as 0 | 1 | 2 | 3,
+    steamTax: true,
     listingOptions: {
         "3dinspect": true,
         inspectServer: true,
@@ -80,6 +82,20 @@ export namespace ExtensionStorage {
         'local:preferredPayments',
         {
             defaultValue: defaultStorage.preferredPayments,
+        },
+    );
+
+    export const listingDifferenceStyle = storage.defineItem<IStorage['listingDifferenceStyle']>(
+        'local:listingDifferenceStyle',
+        {
+            defaultValue: defaultStorage.listingDifferenceStyle,
+        },
+    );
+
+    export const steamTax = storage.defineItem<IStorage['steamTax']>(
+        'local:steamTax',
+        {
+            defaultValue: defaultStorage.steamTax,
         },
     );
 

@@ -33,13 +33,15 @@ function dataIsError(data: unknown): data is BuffTypes.CaptchaRequired.Response 
 }
 
 function processEvent(eventData: EventData<unknown>) {
-    if (!eventData.url.includes('notification')) {
-        console.debug('[BetterBuff] Received data from url: ' + eventData.url + ', data:', eventData.data);
-    }
+    if (eventData.url.includes('api/message/notification')) return;
+
+    console.debug('[BetterBuff] Received data from url: ' + eventData.url + ', data:', eventData.data);
+
     if (dataIsError(eventData.data)) {
         console.error('[BetterBuff] Error from url: ' + eventData.url + ', data:', eventData.data);
         return;
     }
+
     if (eventData.url.includes('api/market/goods/sell_order')) {
         adjustGoodsSellOrder((eventData as EventData<BuffTypes.SellOrder.Response>).data.data);
     } else if (eventData.url.includes('api/market/goods/buy_order')) {

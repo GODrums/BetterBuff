@@ -1,10 +1,10 @@
 import type { BuffTypes } from '../@types/BuffTypes';
-import { ExtensionStorage, type IStorage } from './storage';
+import { ExtensionStorage, WINDOW_G, type IStorage } from './storage';
 import { SchemaHelpers } from './schemaHelpers';
 import { BUFF_FLOAT_RANGES } from './globals';
 import Decimal from 'decimal.js';
 import { addSouvenirTeams, genCopyGenButton, genShareButton } from './uiGeneration';
-import { isPaymentMethodAvailable } from './dataHelpers';
+import { isPaymentMethodAvailable, priceToHtml } from './dataHelpers';
 
 export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
     const goods_info = Object.values(apiData.goods_infos)?.pop() as BuffTypes.SellOrder.GoodsInfo | undefined;
@@ -24,7 +24,7 @@ export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
         let item = apiData.items[i];
 
         if (row.classList.contains('betterbuff-done')) continue;
-        
+
         if (goods_info.short_name.includes('Souvenir Package')) {
             addSouvenirTeams(row.querySelector('.csgo_sticker') as HTMLElement, item.asset_info.info.tournament_tags);
         }
@@ -37,7 +37,7 @@ export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
             await adjustListingOptions(weaponSchema, item, goods_info, row, listingOptions);
         }
 
-        if (!await isPaymentMethodAvailable(item.supported_pay_methods)) {
+        if (!(await isPaymentMethodAvailable(item.supported_pay_methods))) {
             markPurchaseUnavailable(row);
         }
 
@@ -45,8 +45,51 @@ export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
             addBigPreviews(row, item);
         }
 
+        const listingDifferenceStyle = await ExtensionStorage.listingDifferenceStyle.getValue();
+        if (listingDifferenceStyle > 0) {
+            await addListingDifference(row, item, goods_info, listingDifferenceStyle);
+        }
+
         row.classList.add('betterbuff-done');
     }
+}
+
+async function addListingDifference(row: HTMLElement, item: BuffTypes.SellOrder.Item, goodsInfo: BuffTypes.SellOrder.GoodsInfo, style: IStorage['listingDifferenceStyle']) {
+    let priceContainer = row.querySelector('p.hide-cny')?.parentElement;
+
+    if (!priceContainer || !(style > 0)) return;
+
+    let steamPriceCNY = parseFloat(goodsInfo.steam_price_cny);
+    if (await ExtensionStorage.steamTax.getValue()) {
+        steamPriceCNY = new Decimal(steamPriceCNY).div(1.15).minus(0.01).toDP(2).toNumber();
+    }
+
+    let price = parseFloat(item.price);
+    let priceDiff = price - steamPriceCNY;
+    let priceDiffEx = `Steam price: ¥ ${steamPriceCNY} | Buff price: ¥ ${price}&#10;${price} - ${steamPriceCNY} = ${priceDiff.toFixed(2)}&#10;`;
+
+    let priceDiffStr = '';
+    if (style == 1) {
+        priceDiffStr = `¥ ${priceToHtml(priceDiff)}`;
+        priceDiffEx += `=> This item is ¥ ${Math.abs(priceDiff).toFixed(2)} ${priceDiff < 0 ? 'cheaper' : 'more expensive'} than on Steam.`;
+    } else if (style == 2) {
+        const convertedDiff = new Decimal(priceDiff).mul(WINDOW_G?.currency?.rate_base_cny ?? 1).toDP(2);
+        const sign = convertedDiff.isNegative() ? '-' : '+';
+        const currencySymbol = WINDOW_G?.currency?.symbol ?? '¥';
+        priceDiffStr = `${sign}${currencySymbol} ${Math.abs(convertedDiff.toNumber())}`;
+        priceDiffEx += `=> ${currencySymbol} ${convertedDiff}&#10;`;
+        priceDiffEx += `=> This item is ${currencySymbol} ${Math.abs(convertedDiff.toNumber()).toFixed(2)} ${priceDiff < 0 ? 'cheaper' : 'more expensive'} than on Steam.`;
+    } else if (style == 3) {
+        const priceRel = new Decimal(priceDiff).div(steamPriceCNY).mul(100).toDP(2);
+        const sign = priceRel.isNegative() ? '-' : '+';
+        priceDiffStr = `${sign}${priceToHtml(priceRel.absoluteValue().toNumber())}%`;
+        priceDiffEx += `=> ${priceDiff.toFixed(2)} / ${steamPriceCNY} * 100&#10;`;
+        priceDiffEx += `=> This item is ${priceRel.absoluteValue().toNumber()}% ${priceDiff < 0 ? 'cheaper' : 'more expensive'} than on Steam.`;
+    }
+
+    // console.debug(`[BuffUtility] Price difference:`, priceDiffEx, priceDiffStr, style);
+
+    priceContainer.insertAdjacentHTML('beforeend', `<div class="f_12px" style="color: ${priceDiff < 0 ? '#009800' : '#c90000'}; font-weight: 700;" title="${priceDiffEx}">${priceDiffStr}</div>`);
 }
 
 function addBigPreviews(row: HTMLElement, item: BuffTypes.SellOrder.Item) {
@@ -67,7 +110,6 @@ function addBigPreviews(row: HTMLElement, item: BuffTypes.SellOrder.Item) {
     itemImage?.addEventListener('mouseover', () => {
         bigPreview.setAttribute('style', 'display: block;');
     });
-
 }
 
 function markPurchaseUnavailable(row: HTMLElement) {
@@ -111,12 +153,18 @@ async function addListingAge(row: HTMLElement, item: BuffTypes.SellOrder.Item) {
     row.querySelector('td.t_Left > .j_shoptip_handler')?.parentElement?.appendChild(dateDiv);
 }
 
-async function adjustListingOptions(weaponSchema: SchemaHelpers.WeaponSchema, item: BuffTypes.SellOrder.Item, goods_info: BuffTypes.SellOrder.GoodsInfo, row: HTMLElement, listingOptions: IStorage['listingOptions']) {
+async function adjustListingOptions(
+    weaponSchema: SchemaHelpers.WeaponSchema,
+    item: BuffTypes.SellOrder.Item,
+    goods_info: BuffTypes.SellOrder.GoodsInfo,
+    row: HTMLElement,
+    listingOptions: IStorage['listingOptions']
+) {
     const wearContainer = <HTMLElement>row.querySelector('td.t_Left div.csgo_value');
     let elementsToAdd: HTMLElement[] = [];
 
     if (listingOptions.copyGen) {
-        let aCopyGen = genCopyGenButton(weaponSchema, item.asset_info.info.paintindex, item.asset_info.info.paintseed, item.asset_info.paintwear, item.asset_info?.info?.stickers ?? [])
+        let aCopyGen = genCopyGenButton(weaponSchema, item.asset_info.info.paintindex, item.asset_info.info.paintseed, item.asset_info.paintwear, item.asset_info?.info?.stickers ?? []);
         elementsToAdd.push(aCopyGen);
     }
 
@@ -220,10 +268,10 @@ async function adjustListingOptions(weaponSchema: SchemaHelpers.WeaponSchema, it
     if (initElementCount === 3) {
         wearContainer.appendChild(document.createElement('br'));
     }
-    for (let i=0; i<elementsToAdd.length; i++) {
+    for (let i = 0; i < elementsToAdd.length; i++) {
         const element = elementsToAdd[i];
         wearContainer.appendChild(element);
-        if ((initElementCount + i > 0) && ((initElementCount + i + 1) % 3 == 0)) {
+        if (initElementCount + i > 0 && (initElementCount + i + 1) % 3 == 0) {
             wearContainer.appendChild(document.createElement('br'));
         }
     }

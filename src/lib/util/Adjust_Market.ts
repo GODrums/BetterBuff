@@ -1,9 +1,10 @@
 import Decimal from 'decimal.js';
 import type { BuffTypes } from '../@types/BuffTypes';
-import { BUFF_CRX, WINDOW_G } from './storage';
+import { BUFF_CRX, ExtensionStorage, WINDOW_G } from './storage';
 import { SchemaHelpers } from './schemaHelpers';
 import { genCopyGenButton } from './uiGeneration';
 import ListingOptions from '../pages/ListingOptions.svelte';
+import { getListingDifference, priceToHtml } from './dataHelpers';
 
 export async function adjustItemDetails(apiData: BuffTypes.ItemDescDetail.Data) {
     const container = document.querySelector('.popup-inspect-cont');
@@ -34,9 +35,9 @@ export async function adjustItemDetails(apiData: BuffTypes.ItemDescDetail.Data) 
         const max = min + 0.001;
         const floatdb_category = goodsInfo ? SchemaHelpers.getFloatDBCategory(goodsInfo.tags?.quality?.internal_name ?? 'normal') : undefined;
 
-        listingData['matchFloat'] = `https://csgofloat.com/db?name=${weaponSchema.name}&defIndex=${weaponSchema.id}&paintIndex=${apiData.steam_asset_info.paintindex}&paintSeed=${apiData.steam_asset_info.paintseed}${
-            floatdb_category ? `&category=${floatdb_category}` : ''
-        }&min=${`${min}`.slice(0, 5)}&max=${`${max}`.slice(0, 5)}`;
+        listingData['matchFloat'] = `https://csgofloat.com/db?name=${weaponSchema.name}&defIndex=${weaponSchema.id}&paintIndex=${apiData.steam_asset_info.paintindex}&paintSeed=${
+            apiData.steam_asset_info.paintseed
+        }${floatdb_category ? `&category=${floatdb_category}` : ''}&min=${`${min}`.slice(0, 5)}&max=${`${max}`.slice(0, 5)}`;
     }
 
     if (apiData.qr_code_url) {
@@ -46,7 +47,7 @@ export async function adjustItemDetails(apiData: BuffTypes.ItemDescDetail.Data) 
     const listingDiv = document.createElement('div');
     listingDiv.setAttribute('id', 'betterbuff-listing-anchor');
     listingDiv.setAttribute('style', 'display: flex; align-items: center;');
-    listingDiv.setAttribute('data-betterbuff', JSON.stringify(listingData))
+    listingDiv.setAttribute('data-betterbuff', JSON.stringify(listingData));
     container.querySelector('.scope-tags')?.insertAdjacentElement('afterend', listingDiv);
 
     if (BUFF_CRX) {
@@ -67,13 +68,13 @@ export async function adjustItemDetails(apiData: BuffTypes.ItemDescDetail.Data) 
                 app?.$destroy();
             },
         });
-    
+
         // 4. Mount the UI
         ui.mount();
     }
 }
 
-export function adjustSearchPage(apiData: BuffTypes.MarketGoods.Data) {
+export async function adjustSearchPage(apiData: BuffTypes.MarketGoods.Data) {
     const cards = Array.from(document.querySelectorAll('#j_list_card li')) as HTMLLIElement[];
 
     for (let i = 0, l = cards.length; i < l; i++) {
@@ -89,43 +90,37 @@ export function adjustSearchPage(apiData: BuffTypes.MarketGoods.Data) {
         }
 
         if (priceContainer) {
-            const sellingPriceCNY = item.sell_min_price.split('.');
+            const sellingPriceCNY = parseFloat(item.sell_min_price);
             const sellingPriceCUR = new Decimal(item.sell_min_price)
                 .mul(currency?.rate_base_cny ?? 1)
-                .toFixed(2)
-                .split('.');
-            const buyingPriceCNY = item.buy_max_price.split('.');
+                .toDP(2)
+                .toNumber();
+            const buyingPriceCNY = parseFloat(item.buy_max_price);
             const buyingPriceCUR = new Decimal(item.buy_max_price)
                 .mul(currency?.rate_base_cny ?? 1)
-                .toFixed(2)
-                .split('.');
+                .toDP(2)
+                .toNumber();
             const priceDiffPercentage = new Decimal(item.goods_info.steam_price_cny).sub(item.sell_min_price).div(item.sell_min_price).mul(100).mul(-1).toNumber();
 
             const priceGrid = document.createElement('div');
             priceGrid.setAttribute('style', 'display: grid; grid-template-columns: auto 20%; grid-template-rows: 20px 20px; align-items: center; margin: 2px 10px;');
-            const genPriceFormatted = (parts: string[], symbol: string) => {
-                if (!parts) return '';
-                let dps = ``;
-                if (parseInt(parts[0]) < 1000 && parts[1]) {
-                    const cutDps = parts[1].split('0')[0];
-                    if (cutDps.length > 0) {
-                        dps = `<small>.${cutDps}</small>`;
-                    }
-                }
-                return `${symbol}${parts[0]}${dps}`;
-            };
-            const genPriceElement = (partsCNY: string[], color: string, text: 'sell' | 'buy', amount: number, partsCUR?: string[]) => {
+            const genPriceElement = (priceCNY: number, color: string, text: 'sell' | 'buy', amount: number, priceCUR?: number) => {
                 return `
-                <div class="f_12px" style="grid-column: 1; text-wrap: nowrap;"><span style="color: ${color};font-weight: 700;">${genPriceFormatted(partsCNY, '¥')}${
-                    partsCUR && currency?.symbol ? ` | ${genPriceFormatted(partsCUR, currency?.symbol)}` : ''
+                <div class="f_12px" style="grid-column: 1; text-wrap: nowrap;"><span style="color: ${color};font-weight: 700;">${priceToHtml(priceCNY, '¥')}${
+                    priceCUR !== undefined && currency?.symbol ? ` | ${priceToHtml(priceCUR, currency?.symbol)}` : ''
                 }</span> ${text} <small title="Amount of items">(${amount})</small></div>`;
             };
+            const listingDifferenceStyle = await ExtensionStorage.listingDifferenceStyle.getValue();
+            let differenceElement = '';
+            if (listingDifferenceStyle > 0) {
+                const steamTax = await ExtensionStorage.steamTax.getValue();
+                differenceElement = getListingDifference(sellingPriceCNY, parseFloat(item.goods_info.steam_price_cny), listingDifferenceStyle, steamTax);
+            }
+
             priceGrid.innerHTML =
                 genPriceElement(sellingPriceCNY, '#eea20e', 'sell', item.sell_num, sellingPriceCUR) +
                 genPriceElement(buyingPriceCNY, '#0e87ee', 'buy', item.buy_num, buyingPriceCUR) +
-                `<div style="grid-column: 2; grid-row: 1 / span 2; text-align: end;"><span class="f_12px" style="color: ${
-                    priceDiffPercentage < 0 ? '#009800' : '#c90000'
-                };font-weight: 700;">${priceDiffPercentage.toFixed(1)}%</span></div>`;
+                `<div style="grid-column: 2; grid-row: 1 / span 2; text-align: end; white-space: nowrap;">${differenceElement}</div>`;
             priceContainer.replaceWith(priceGrid);
         }
     }
@@ -175,7 +170,9 @@ export function adjustTopBookmarked(apiData: BuffTypes.TopPopular.Data) {
                 weaponSchema?.type && weaponSchema.type == 'Gloves' ? 'gl' : ''
             }" style="${filter}"></i>`;
             aCopyGen.addEventListener('click', () => {
-                navigator.clipboard.writeText(gen);
+                navigator.clipboard.writeText(gen).then(() => {
+                    window.postMessage({ type: 'toast', text: 'Copied to clipboard', success: true });
+                });
             });
             tagBox.appendChild(aCopyGen);
         }

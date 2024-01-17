@@ -29,8 +29,9 @@ export function genCopyGenButton(
         aCopyGen.innerHTML = '<b><i class="icon icon_notes"></i></b>Copy !gen';
     }
     aCopyGen.addEventListener('click', () => {
-        navigator.clipboard.writeText(gen);
-        window.postMessage({ type: 'toast', text: 'Copied to clipboard', success: true });
+        navigator.clipboard.writeText(gen).then(() => {
+            window.postMessage({ type: 'toast', text: 'Copied to clipboard', success: true });
+        });
     });
     return aCopyGen;
 }

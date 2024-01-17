@@ -4,7 +4,7 @@ import { SchemaHelpers } from './schemaHelpers';
 import { BUFF_FLOAT_RANGES } from './globals';
 import Decimal from 'decimal.js';
 import { addSouvenirTeams, genCopyGenButton, genShareButton } from './uiGeneration';
-import { isPaymentMethodAvailable, priceToHtml } from './dataHelpers';
+import { getListingDifference, isPaymentMethodAvailable, priceToHtml } from './dataHelpers';
 
 export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
     const goods_info = Object.values(apiData.goods_infos)?.pop() as BuffTypes.SellOrder.GoodsInfo | undefined;
@@ -47,7 +47,10 @@ export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
 
         const listingDifferenceStyle = await ExtensionStorage.listingDifferenceStyle.getValue();
         if (listingDifferenceStyle > 0) {
-            await addListingDifference(row, item, goods_info, listingDifferenceStyle);
+            const steamTax = await ExtensionStorage.steamTax.getValue();
+            let priceContainer = row.querySelector('p.hide-cny')?.parentElement;
+            if (!priceContainer) return;
+            priceContainer.insertAdjacentHTML('beforeend', getListingDifference(parseFloat(item.price), parseFloat(goods_info.steam_price_cny), listingDifferenceStyle, steamTax));
         }
 
         row.classList.add('betterbuff-done');
@@ -57,39 +60,11 @@ export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
 async function addListingDifference(row: HTMLElement, item: BuffTypes.SellOrder.Item, goodsInfo: BuffTypes.SellOrder.GoodsInfo, style: IStorage['listingDifferenceStyle']) {
     let priceContainer = row.querySelector('p.hide-cny')?.parentElement;
 
-    if (!priceContainer || !(style > 0)) return;
-
-    let steamPriceCNY = parseFloat(goodsInfo.steam_price_cny);
-    if (await ExtensionStorage.steamTax.getValue()) {
-        steamPriceCNY = new Decimal(steamPriceCNY).div(1.15).minus(0.01).toDP(2).toNumber();
-    }
-
-    let price = parseFloat(item.price);
-    let priceDiff = price - steamPriceCNY;
-    let priceDiffEx = `Steam price: ¥ ${steamPriceCNY} | Buff price: ¥ ${price}&#10;${price} - ${steamPriceCNY} = ${priceDiff.toFixed(2)}&#10;`;
-
-    let priceDiffStr = '';
-    if (style == 1) {
-        priceDiffStr = `¥ ${priceToHtml(priceDiff)}`;
-        priceDiffEx += `=> This item is ¥ ${Math.abs(priceDiff).toFixed(2)} ${priceDiff < 0 ? 'cheaper' : 'more expensive'} than on Steam.`;
-    } else if (style == 2) {
-        const convertedDiff = new Decimal(priceDiff).mul(WINDOW_G?.currency?.rate_base_cny ?? 1).toDP(2);
-        const sign = convertedDiff.isNegative() ? '-' : '+';
-        const currencySymbol = WINDOW_G?.currency?.symbol ?? '¥';
-        priceDiffStr = `${sign}${currencySymbol} ${Math.abs(convertedDiff.toNumber())}`;
-        priceDiffEx += `=> ${currencySymbol} ${convertedDiff}&#10;`;
-        priceDiffEx += `=> This item is ${currencySymbol} ${Math.abs(convertedDiff.toNumber()).toFixed(2)} ${priceDiff < 0 ? 'cheaper' : 'more expensive'} than on Steam.`;
-    } else if (style == 3) {
-        const priceRel = new Decimal(priceDiff).div(steamPriceCNY).mul(100).toDP(2);
-        const sign = priceRel.isNegative() ? '-' : '+';
-        priceDiffStr = `${sign}${priceToHtml(priceRel.absoluteValue().toNumber())}%`;
-        priceDiffEx += `=> ${priceDiff.toFixed(2)} / ${steamPriceCNY} * 100&#10;`;
-        priceDiffEx += `=> This item is ${priceRel.absoluteValue().toNumber()}% ${priceDiff < 0 ? 'cheaper' : 'more expensive'} than on Steam.`;
-    }
+    if (!priceContainer) return;
 
     // console.debug(`[BuffUtility] Price difference:`, priceDiffEx, priceDiffStr, style);
 
-    priceContainer.insertAdjacentHTML('beforeend', `<div class="f_12px" style="color: ${priceDiff < 0 ? '#009800' : '#c90000'}; font-weight: 700;" title="${priceDiffEx}">${priceDiffStr}</div>`);
+    priceContainer.insertAdjacentHTML('beforeend', getListingDifference(parseFloat(item.price), parseFloat(goodsInfo.steam_price_cny), style, await ExtensionStorage.steamTax.getValue()));
 }
 
 function addBigPreviews(row: HTMLElement, item: BuffTypes.SellOrder.Item) {

@@ -75,7 +75,7 @@ function addBigPreviews(row: HTMLElement, item: BuffTypes.SellOrder.Item) {
 
     const img = document.createElement('img');
     img.setAttribute('src', item.img_src.split('%7CimageView')[0]);
-    img.setAttribute('style', 'width: 50%; object-fit: contain; translate: -5% -50%;');
+    img.setAttribute('style', 'width: 50%; object-fit: contain; translate: 15% -50%;');
 
     bigPreview.appendChild(img);
 

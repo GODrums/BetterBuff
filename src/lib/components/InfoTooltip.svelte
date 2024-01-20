@@ -1,0 +1,59 @@
+<script lang="ts">
+    import Decimal from 'decimal.js';
+    import type { BuffTypes } from '../@types/BuffTypes';
+
+    export let data: BuffTypes.PriceHistory.Data;
+    let isHovered = false, isClicked = false;
+
+    const minPrice = data.price_history.reduce((a, b) => Math.min(a, b[1]), Infinity);
+    const maxPrice = data.price_history.reduce((a, b) => Math.max(a, b[1]), -Infinity);
+    const priceChange = new Decimal(data.price_history[data.price_history.length - 1][1]).minus(data.price_history[0][1]);
+    const priceChangePercentage = priceChange.div(data.price_history[0][1]).times(100);
+
+    const minElement = data.price_history.find((e) => e[1] === minPrice)!;
+    const maxElement = data.price_history.find((e) => e[1] === maxPrice)!;
+</script>
+
+<!-- svelte-ignore a11y-mouse-events-have-key-events -->
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div on:mouseover={() => isHovered = true} on:mouseleave={() => isHovered = false} on:click={() => isClicked=!isClicked}>
+    <slot />
+</div>
+
+{#if isHovered || isClicked}
+    <div class="tooltip">
+        <div class="stats stats-vertical shadow">
+            <div class="stat w-auto bborder">
+              <div class="stat-title">Minimum</div>
+              <div class="stat-value text-xl">{data.currency_symbol} {minElement[1]}</div>
+              <div class="stat-desc">{new Date(minElement[0]).toLocaleDateString()}</div>
+            </div>
+            <div class="stat w-auto bborder">
+              <div class="stat-title">Maximum</div>
+              <div class="stat-value text-xl">{data.currency_symbol} {maxElement[1]}</div>
+              <div class="stat-desc">{new Date(maxElement[0]).toLocaleDateString()}</div>
+            </div>
+            <div class="stat w-auto px-4">
+              <div class="stat-title">Change</div>
+              <div class="stat-value text-xl flex justify-center items-center gap-2">
+                {priceChange.isNegative() ? '-': '+'}{data.currency_symbol}{priceChange.absoluteValue().toFixed(1)} 
+                <span class="font-medium text-base">({priceChangePercentage.toFixed(1)}%)</span>
+            </div>
+              <div class="stat-desc">{new Date(data.price_history[0][0]).toLocaleDateString()} - {new Date(data.price_history[data.price_history.length - 1][0]).toLocaleDateString()}</div>
+            </div>
+        </div>
+    </div>
+{/if}
+
+<style>
+    .tooltip {
+        position: absolute;
+        translate: -40% 5%;
+        border-radius: 4px;
+    }
+    .bborder {
+        border-bottom-style: solid;
+        border-bottom-width: 1px!important;
+    }
+</style>

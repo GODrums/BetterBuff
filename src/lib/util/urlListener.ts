@@ -1,3 +1,5 @@
+import type { BetterBuff } from "../@types/BetterBuff";
+import { staticAdjustGoodsSellOrder } from "./Adjust_GoodsSellOrder";
 import { handleSales } from "./Adjust_Sales";
 import { handleAccountPage, handleFavoritesPage } from "./Adjust_UserCenter";
 
@@ -5,21 +7,18 @@ import { handleAccountPage, handleFavoritesPage } from "./Adjust_UserCenter";
 export function activateURLHandler() {
     browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
         if (message.type === 'BetterBuff_URL_CHANGED') {
-            const state = message.state;
+            const state: BetterBuff.URLState = message.state;
 
             console.log('[BetterBuff] URL changed to: ', state);
             
-            switch (state.path) {
-                case '/user-center/bookmark/sell_order':
+            if (state.path === '/user-center/bookmark/sell_order') {
                     handleFavoritesPage(state);
-                    break;
-                case '/user-center/profile':
-                    await handleAccountPage();
-                    break;
-                case '/market/sell_order/on_sale':
-                    await handleSales();
-                default:
-                    break;
+            } else if (state.path === '/user-center/profile') {
+                await handleAccountPage();
+            } else if (state.path === '/market/sell_order/on_sale') {
+                await handleSales();
+            } else if (state.path.startsWith('/goods/')) {
+                staticAdjustGoodsSellOrder();
             }
         }
     });

@@ -4,7 +4,7 @@ import { SchemaHelpers } from './schemaHelpers';
 import { BUFF_FLOAT_RANGES } from './globals';
 import Decimal from 'decimal.js';
 import { addSouvenirTeams, genCopyGenButton, genShareButton } from './uiGeneration';
-import { getListingDifference, isPaymentMethodAvailable, priceToHtml } from './dataHelpers';
+import { getListingDifference, isPaymentMethodAvailable } from './dataHelpers';
 
 export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
     const goods_info = Object.values(apiData.goods_infos)?.pop() as BuffTypes.SellOrder.GoodsInfo | undefined;
@@ -57,12 +57,22 @@ export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
     }
 }
 
+export function staticAdjustGoodsSellOrder() {
+    const container = document.querySelector('.criteria > .l_Left');
+    if (!container || container.querySelector('.betterbuff-forcereload')) return;
+
+    let reloadA = document.createElement('a');
+    reloadA.className = 'betterbuff-forcereload i_Btn i_Btn_mid i_Btn_sub';
+    reloadA.href = 'javascript:betterbuff_forceNewestReload()';
+    reloadA.setAttribute('style', 'margin: 0; min-width: 32px;');
+    reloadA.innerHTML = '<i class="icon icon_refresh" style=" margin: 0 0 3px 0; filter: grayscale(1) brightness(2);"></i>';
+    container.appendChild(reloadA);
+}
+
 async function addListingDifference(row: HTMLElement, item: BuffTypes.SellOrder.Item, goodsInfo: BuffTypes.SellOrder.GoodsInfo, style: IStorage['listingDifferenceStyle']) {
     let priceContainer = row.querySelector('p.hide-cny')?.parentElement;
 
     if (!priceContainer) return;
-
-    // console.debug(`[BuffUtility] Price difference:`, priceDiffEx, priceDiffStr, style);
 
     priceContainer.insertAdjacentHTML('beforeend', getListingDifference(parseFloat(item.price), parseFloat(goodsInfo.steam_price_cny), style, await ExtensionStorage.steamTax.getValue()));
 }

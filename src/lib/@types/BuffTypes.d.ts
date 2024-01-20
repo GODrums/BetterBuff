@@ -1054,4 +1054,20 @@ export namespace BuffTypes {
         }
     }
 
+    export namespace PriceHistory {
+        export interface Data {
+            currency: string;
+            currency_symbol: string;
+            days: 7 | 30 | 180;
+            price_history: [number, number][];
+            price_type: "Steam price" | "BUFF price";
+            steam_price_currency: string;
+        }
+
+        export interface Response {
+            code: string;
+            data: Data;
+            msg?: any;
+        }
+    }
 }

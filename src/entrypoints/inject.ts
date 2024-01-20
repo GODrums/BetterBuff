@@ -3,11 +3,11 @@ let loadNumber = 0;
 export default defineUnlistedScript({
     main() {
         openIntercept();
-        windowListener();
+        adjustWindow();
     },
 });
 
-function windowListener() {
+function adjustWindow() {
     window.addEventListener('message', (event) => {
         if (event.data?.type === 'toast') {
             // @ts-ignore
@@ -15,6 +15,26 @@ function windowListener() {
                 type: event.data?.success ? 'success' : 'error',
             });
         }
+    });
+    // @ts-ignore
+    window.betterbuff_forceNewestReload = betterbuff_forceNewestReload;
+}
+
+function betterbuff_forceNewestReload() {
+    const reloadKey = 'bb_reload';
+
+    // @ts-ignore
+    let hash = getParamsFromHash();
+
+    let currentReload = +(hash[reloadKey] ?? '0');
+
+    currentReload++;
+
+    // @ts-ignore
+    updateHashData({
+        page: 1,
+        sort_by: 'created.desc',
+        [reloadKey]: currentReload,
     });
 }
 

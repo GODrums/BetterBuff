@@ -2,6 +2,7 @@ import type { BuffTypes } from "../@types/BuffTypes";
 import { adjustGoodsBuyOrder } from "./Adjust_GoodsBuyOrder";
 import { adjustGoodsSellOrder } from "./Adjust_GoodsSellOrder";
 import { adjustItemDetails, adjustSearchPage, adjustTopBookmarked } from "./Adjust_Market";
+import { adjustPriceTrend } from "./Adjust_PriceTrend";
 import { adjustShopBillOrder, adjustShopFeatured, adjustShopSellOrder } from "./Adjust_Shop";
 import { adjustWindow } from "./Adjust_Window";
 import { setWindowG } from "./storage";
@@ -65,5 +66,7 @@ function processEvent(eventData: EventData<unknown>) {
         }
     } else if (eventData.url.includes('api/market/item_desc_detail')) {
         adjustItemDetails((eventData as EventData<BuffTypes.ItemDescDetail.Response>).data.data);
+    } else if (eventData.url.includes('api/market/goods/price_history') && !eventData.url.includes('/days')) {
+        adjustPriceTrend((eventData as EventData<BuffTypes.PriceHistory.Response>).data.data);
     }
 }

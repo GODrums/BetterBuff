@@ -10,8 +10,7 @@ export default defineBackground(() => {
         console.log('onInstalled');
     });
     browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-        if (changeInfo.status === 'complete') {
-            if (!tab.url) return;
+        if (tab.url?.includes('https://buff.163.com') && changeInfo.status === 'complete') {
             const url = new URL(tab.url);
             const state: BetterBuff.URLState = {
                 path: url.pathname,
@@ -19,7 +18,7 @@ export default defineBackground(() => {
                 hash: url.hash
             };
             console.log('[BetterBuff] URL changed to: ', state);
-            chrome.tabs.sendMessage(tabId, {
+            browser.tabs.sendMessage(tabId, {
                 type: 'BetterBuff_URL_CHANGED',
                 state
             });

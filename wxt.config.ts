@@ -52,7 +52,7 @@ export default defineConfig({
     host_permissions: ["*://*.buff.163.com/*"],
     "permissions": ["storage"],
     web_accessible_resources: [{
-      resources: ["inject.js"],
+      resources: ["inject.js", "ch_patterns.json"],
       matches: ["*://*.buff.163.com/*"]
     }],
   },

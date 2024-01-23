@@ -10,3 +10,14 @@
   -webkit-text-size-adjust: 100%;
   background-color: transparent;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #00b3f0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #006b8f;
+}

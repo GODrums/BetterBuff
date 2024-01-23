@@ -11,7 +11,7 @@ export async function adjustPriceTrend(apiData: BuffTypes.PriceHistory.Data) {
     document.querySelector('#price-history-days')?.insertAdjacentElement('afterend', infoDiv);
 
     const ui = await createShadowRootUi(BUFF_CRX, {
-        name: 'demo-ui',
+        name: 'app-price-trend',
         css: '../components/style.css',
         position: 'inline',
         anchor: '#betterbuff-pricetrend-info',

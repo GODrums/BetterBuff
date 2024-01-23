@@ -1,10 +1,11 @@
 import type { BuffTypes } from '../@types/BuffTypes';
-import { ExtensionStorage, type IStorage } from './storage';
+import { BUFF_CRX, ExtensionStorage, type IStorage } from './storage';
 import { SchemaHelpers } from './schemaHelpers';
 import { BUFF_FLOAT_RANGES } from './globals';
 import Decimal from 'decimal.js';
 import { addSouvenirTeams, genCopyGenButton, genShareButton } from './uiGeneration';
 import { getListingDifference, isPaymentMethodAvailable } from './dataHelpers';
+import ChExplorer from '../pages/CHExplorer.svelte';
 
 export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
     const goods_info = Object.values(apiData.goods_infos)?.pop() as BuffTypes.SellOrder.GoodsInfo | undefined;
@@ -67,6 +68,39 @@ export function staticAdjustGoodsSellOrder() {
     reloadA.setAttribute('style', 'margin: 0; min-width: 32px;');
     reloadA.innerHTML = '<i class="icon icon_refresh" style=" margin: 0 0 3px 0; filter: grayscale(1) brightness(2);"></i>';
     container.appendChild(reloadA);
+
+    const itemName = document.querySelector('h1')?.textContent;
+    if (itemName?.includes('Case Hardened')) {
+        chPatternExplorer(container);
+    }
+}
+
+async function chPatternExplorer(container: Element) {
+    const patternExplorer = document.createElement('div');
+    patternExplorer.id = 'betterbuff-patternexplorer-ch';
+    patternExplorer.setAttribute('style', 'display: inline-block; vertical-align: middle;');
+    container.appendChild(patternExplorer);
+
+    const ui = await createShadowRootUi(BUFF_CRX, {
+        name: 'app-pattern-explorer',
+        css: '../components/style.css',
+        position: 'inline',
+        anchor: '#betterbuff-patternexplorer-ch',
+        onMount: (container) => {
+            // Create the Svelte app inside the UI container
+            const app = new ChExplorer({
+                target: container,
+            });
+            return app;
+        },
+        onRemove: (app) => {
+            // Destroy the app when the UI is removed
+            app?.$destroy();
+        },
+    });
+
+    // 4. Mount the UI
+    ui.mount();
 }
 
 function addBigPreviews(row: HTMLElement, item: BuffTypes.SellOrder.Item) {

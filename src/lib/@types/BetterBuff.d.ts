@@ -4,4 +4,15 @@ export namespace BetterBuff {
         search: string,
         hash: string
     }
+
+    export interface CHPatterns {
+        [weapon: string]: {
+            "playside": {
+                [pattern: string]: number
+            },
+            "backside": {
+                [pattern: string]: number
+            },
+        }
+    }
 }

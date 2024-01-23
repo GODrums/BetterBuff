@@ -2,7 +2,6 @@ import Decimal from 'decimal.js';
 import type { BuffTypes } from '../@types/BuffTypes';
 import { BUFF_CRX, ExtensionStorage, WINDOW_G } from './storage';
 import { SchemaHelpers } from './schemaHelpers';
-import { genCopyGenButton } from './uiGeneration';
 import ListingOptions from '../pages/ListingOptions.svelte';
 import { getListingDifference, priceToHtml } from './dataHelpers';
 
@@ -21,8 +20,6 @@ export async function adjustItemDetails(apiData: BuffTypes.ItemDescDetail.Data) 
 
     const assetInfo = JSON.parse(data?.assetInfo ?? '{}') as BuffTypes.SellOrder.AssetInfo;
     const listingData: Record<string, any> = {};
-
-    let elementsToAdd: HTMLElement[] = [];
 
     if (weaponSchema) {
         const gen = SchemaHelpers.getInspectCode(weaponSchema, apiData.steam_asset_info.paintindex, apiData.steam_asset_info.paintseed, assetInfo.paintwear, apiData.steam_asset_info.stickers ?? []);
@@ -100,7 +97,6 @@ export async function adjustSearchPage(apiData: BuffTypes.MarketGoods.Data) {
                 .mul(currency?.rate_base_cny ?? 1)
                 .toDP(2)
                 .toNumber();
-            const priceDiffPercentage = new Decimal(item.goods_info.steam_price_cny).sub(item.sell_min_price).div(item.sell_min_price).mul(100).mul(-1).toNumber();
 
             const priceGrid = document.createElement('div');
             priceGrid.setAttribute('style', 'display: grid; grid-template-columns: auto 20%; grid-template-rows: 20px 20px; align-items: center; margin: 2px 10px;');

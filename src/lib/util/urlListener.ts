@@ -1,5 +1,6 @@
 import type { BetterBuff } from "../@types/BetterBuff";
 import { staticAdjustGoodsSellOrder } from "./Adjust_GoodsSellOrder";
+import { handleInventory } from "./Adjust_Inventory";
 import { handleSales } from "./Adjust_Sales";
 import { handleAccountPage, handleFavoritesPage } from "./Adjust_UserCenter";
 
@@ -19,6 +20,8 @@ export function activateURLHandler() {
                 await handleSales();
             } else if (state.path.startsWith('/goods/')) {
                 staticAdjustGoodsSellOrder();
+            } else if (state.path.startsWith('/market/steam_inventory')) {
+                await handleInventory();
             }
         }
     });

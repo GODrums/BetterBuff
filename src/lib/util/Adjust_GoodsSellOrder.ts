@@ -1,5 +1,5 @@
 import type { BuffTypes } from '../@types/BuffTypes';
-import { ExtensionStorage, WINDOW_G, type IStorage } from './storage';
+import { ExtensionStorage, type IStorage } from './storage';
 import { SchemaHelpers } from './schemaHelpers';
 import { BUFF_FLOAT_RANGES } from './globals';
 import Decimal from 'decimal.js';
@@ -67,14 +67,6 @@ export function staticAdjustGoodsSellOrder() {
     reloadA.setAttribute('style', 'margin: 0; min-width: 32px;');
     reloadA.innerHTML = '<i class="icon icon_refresh" style=" margin: 0 0 3px 0; filter: grayscale(1) brightness(2);"></i>';
     container.appendChild(reloadA);
-}
-
-async function addListingDifference(row: HTMLElement, item: BuffTypes.SellOrder.Item, goodsInfo: BuffTypes.SellOrder.GoodsInfo, style: IStorage['listingDifferenceStyle']) {
-    let priceContainer = row.querySelector('p.hide-cny')?.parentElement;
-
-    if (!priceContainer) return;
-
-    priceContainer.insertAdjacentHTML('beforeend', getListingDifference(parseFloat(item.price), parseFloat(goodsInfo.steam_price_cny), style, await ExtensionStorage.steamTax.getValue()));
 }
 
 function addBigPreviews(row: HTMLElement, item: BuffTypes.SellOrder.Item) {

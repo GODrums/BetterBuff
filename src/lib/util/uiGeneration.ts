@@ -1,6 +1,22 @@
 import type { BuffTypes } from '../@types/BuffTypes';
 import { SchemaHelpers } from './schemaHelpers';
 
+export function createMutationObserver<T extends HTMLElement>(selector: string, callback: (element: T) => void) {
+    const observer = new MutationObserver(async (mutations) => {
+        for (const mutation of mutations) {
+            for (let i = 0; i < mutation.addedNodes.length; i++) {
+                const addedNode = mutation.addedNodes[i];
+                if (!(addedNode instanceof HTMLElement)) continue;
+
+                if (addedNode.matches(selector)) {
+                    callback(addedNode as T);
+                }
+            }
+        }
+    });
+    return observer;
+}
+
 export function genShareButton(goods_id: number, classid: string, instanceid: string, assetid: string, id: string) {
     const aShare = document.createElement('a');
     aShare.innerHTML = '<b><i style="margin: -4px 0 0 0;" class="icon icon_link"></i></b>Share';
@@ -45,4 +61,23 @@ export function addSouvenirTeams(stickerContainer: HTMLElement, tags: BuffTypes.
     teamsDiv.innerHTML = `<span>${teams[0]}</span><div class="clear"></div><span>vs</span><div class="clear"></div><span>${teams[1]}</span>`;
     stickerContainer.setAttribute('style', 'float: none;');
     stickerContainer.appendChild(teamsDiv);
+}
+
+export function addItemLink(popup: HTMLElement) {
+    const items = Array.from(popup.querySelectorAll('tr.assets-item'));
+    for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        const priceElement = item.querySelector('.price-set > input ') as HTMLInputElement | null;
+        const dataset = priceElement?.dataset;
+
+        if (!priceElement || !dataset?.price) {
+            console.debug('[BetterBuff] No price found for ', item);
+            continue;
+        }
+
+        const h3 = item.querySelector('h3');
+        if (h3 && !h3.querySelector('a')) {
+            h3.innerHTML = `<a href="https://buff.163.com/goods/${dataset.goodsid}" target="_blank">${h3.innerHTML}</a>`;
+        }
+    }
 }

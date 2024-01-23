@@ -1,7 +1,7 @@
 import Decimal from "decimal.js";
 import { addItemLink, createMutationObserver } from "./uiGeneration";
 
-export async function handleSales() {
+export async function handleInventory() {
     createMutationObserver('.popup.popup_charge', addItemLink).observe(document.body, { childList: true, subtree: true });
 
     const cards = document.querySelectorAll('#j_list_card li.my_selling');

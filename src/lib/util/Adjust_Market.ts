@@ -10,11 +10,23 @@ export async function adjustItemDetails(apiData: BuffTypes.ItemDescDetail.Data) 
     const data = (container?.querySelector('.btn-buy-order') as HTMLElement | null)?.dataset;
     if (!container || !data?.goodsName) return;
 
-    console.log('API Data: ', apiData);
-
     const name = data.goodsName;
     const isVanilla = name.includes('★') && !name.includes('|');
     const weaponSchema = SchemaHelpers.getWeaponSchema(name, isVanilla);
+
+    // adjust price to show both CNY and CUR
+    const priceContainer = container.querySelector('.scope-price');
+    if (priceContainer && !priceContainer.querySelector('span')) {
+        const strongElement = priceContainer.querySelector('strong');
+        if (strongElement && data.price) {
+            const priceCUR = priceContainer.querySelector('strong')?.textContent;
+
+            strongElement.textContent = `¥ ${priceToHtml(parseFloat(data.price))}`;
+            if (priceCUR) {
+                strongElement.insertAdjacentHTML('afterend', `<span>(${priceCUR})</span>`);
+            }
+        }
+    }
 
     // add listing options
 

@@ -22,8 +22,8 @@
 </div>
 
 {#if isHovered || isClicked}
-    <div class="tooltip">
-        <div class="stats stats-vertical shadow">
+    <div class="absolute bb-tooltip">
+        <div class="stats stats-vertical shadow justify-items-center">
             <div class="stat w-auto bborder">
               <div class="stat-title">Minimum</div>
               <div class="stat-value text-xl">{data.currency_symbol} {minElement[1]}</div>
@@ -34,7 +34,7 @@
               <div class="stat-value text-xl">{data.currency_symbol} {maxElement[1]}</div>
               <div class="stat-desc">{new Date(maxElement[0]).toLocaleDateString()}</div>
             </div>
-            <div class="stat w-auto px-4">
+            <div class="stat w-auto px-4 justify-items-center">
               <div class="stat-title">Change</div>
               <div class="stat-value text-xl flex justify-center items-center gap-2">
                 {priceChange.isNegative() ? '-': '+'}{data.currency_symbol}{priceChange.absoluteValue().toFixed(1)} 
@@ -47,8 +47,7 @@
 {/if}
 
 <style>
-    .tooltip {
-        position: absolute;
+    .bb-tooltip {
         translate: -40% 5%;
         border-radius: 4px;
     }

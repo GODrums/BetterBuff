@@ -101,22 +101,22 @@
                 </div>
                 <button class="btn btn-ghost btn-sm p-1 ml-2" on:click={() => (extended = !extended)}>
                     {#if extended}
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24"><path fill="currentColor" d="m12 10.8l-4.6 4.6L6 14l6-6l6 6l-1.4 1.4z" /></svg>
+                        <svg class="h-6 w-6" viewBox="0 0 24 24"><path fill="currentColor" d="m12 10.8l-4.6 4.6L6 14l6-6l6 6l-1.4 1.4z" /></svg>
                     {:else}
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24"><path fill="currentColor" d="m12 15.4l-6-6L7.4 8l4.6 4.6L16.6 8L18 9.4z" /></svg>
+                        <svg class="h-6 w-6" viewBox="0 0 24 24"><path fill="currentColor" d="m12 15.4l-6-6L7.4 8l4.6 4.6L16.6 8L18 9.4z" /></svg>
                     {/if}
                 </button>
             </div>
             {#key filterItems}
                 {#if filterItems > 0}
-                    <div class="flex justify-center items-center flex-wrap pt-2 max-w-64 gap-2">
+                    <div class="flex items-center flex-wrap pt-2 max-w-64 gap-2">
                         {#each filters as { site, range, value }, index}
                             <div class="badge badge-info whitespace-nowrap pl-0 pr-1" transition:fade={{ delay: 100, duration: 200 }}>
                                 <button class="btn btn-circle btn-ghost btn-xs" on:click={() => removeFilter(index)}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 stroke-current"
                                         ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                                 </button>
-                                <span class="pr-0.5">{site === 'playside' ? 'front' : 'back'}-{range}: {value}</span>
+                                <span class="pr-0.5">{site === 'playside' ? 'front' : 'back'}-{range}: {value}%</span>
                             </div>
                         {/each}
                     </div>

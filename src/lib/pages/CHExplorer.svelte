@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
     import PatternPopup from '../components/PatternPopup.svelte';
     import type { BetterBuff } from '../@types/BetterBuff';
 

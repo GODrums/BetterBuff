@@ -75,5 +75,11 @@ export function handleFavoritesPage(state: BetterBuff.URLState) {
                 aBuy.parentElement?.querySelector('a')?.after(aBargain);
             }
         }
+
+        // add margin to %sp
+        const spDiv = row.querySelector('div.sticker-premium');
+        if (spDiv) {
+            spDiv.setAttribute('style', 'margin-right: 20px;');
+        }
     }
 }

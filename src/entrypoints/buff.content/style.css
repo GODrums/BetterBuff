@@ -173,7 +173,8 @@ html {
 .bb-dark-mode .popup_weaponbox a,
 .bb-dark-mode .popup_weaponbox .weapon-cate,
 .bb-dark-mode .detail-tab-cont h3,
-.bb-dark-mode .popup_bulkbuy .popup_bulkbuy_item h3 {
+.bb-dark-mode .popup_bulkbuy .popup_bulkbuy_item h3,
+.bb-dark-mode .popup_flower .list_tb .name-cont .textOne {
     color: var(--bb-color-2, #bfbfbf) !important;
 }
 

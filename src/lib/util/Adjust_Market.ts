@@ -100,18 +100,10 @@ export async function adjustSearchPage(apiData: BuffTypes.MarketGoods.Data) {
 
         if (priceContainer) {
             const sellingPriceCNY = parseFloat(item.sell_min_price);
-            const sellingPriceCUR = new Decimal(item.sell_min_price)
-                .mul(currency?.rate_base_cny ?? 1)
-                .toDP(2)
-                .toNumber();
             const buyingPriceCNY = parseFloat(item.buy_max_price);
-            const buyingPriceCUR = new Decimal(item.buy_max_price)
-                .mul(currency?.rate_base_cny ?? 1)
-                .toDP(2)
-                .toNumber();
 
             const priceGrid = document.createElement('div');
-            priceGrid.setAttribute('style', 'display: grid; grid-template-columns: auto 20%; grid-template-rows: 20px 20px; align-items: center; margin: 2px 10px;');
+            priceGrid.setAttribute('style', 'display: grid; grid-template-columns: auto 25%; grid-template-rows: 20px 20px; align-items: center; margin: 2px 10px;');
             const genPriceElement = (priceCNY: number, color: string, text: 'sell' | 'buy', amount: number, priceCUR?: number) => {
                 return `
                 <div class="f_12px" style="grid-column: 1; text-wrap: nowrap;"><span style="color: ${color};font-weight: 700;">${priceToHtml(priceCNY, '¥')}${
@@ -125,6 +117,19 @@ export async function adjustSearchPage(apiData: BuffTypes.MarketGoods.Data) {
                 differenceElement = getListingDifference(sellingPriceCNY, parseFloat(item.goods_info.steam_price_cny), listingDifferenceStyle, steamTax);
             }
 
+            
+            let sellingPriceCUR = undefined, buyingPriceCUR = undefined;
+            // if user currency is CNY, don't show CUR
+            if (currency?.symbol && currency?.symbol !== '¥') {
+                sellingPriceCUR = new Decimal(item.sell_min_price)
+                    .mul(currency?.rate_base_cny ?? 1)
+                    .toDP(2)
+                    .toNumber();
+                buyingPriceCUR = new Decimal(item.buy_max_price)
+                    .mul(currency?.rate_base_cny ?? 1)
+                    .toDP(2)
+                    .toNumber();
+            }
             priceGrid.innerHTML =
                 genPriceElement(sellingPriceCNY, '#eea20e', 'sell', item.sell_num, sellingPriceCUR) +
                 genPriceElement(buyingPriceCNY, '#0e87ee', 'buy', item.buy_num, buyingPriceCUR) +

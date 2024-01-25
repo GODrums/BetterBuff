@@ -48,7 +48,7 @@ export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
 
         const listingDifferenceStyle = await ExtensionStorage.listingDifferenceStyle.getValue();
         if (listingDifferenceStyle > 0) {
-            const steamTax = await ExtensionStorage.steamTax.getValue();
+            const steamTax = await ExtensionStorage.platformTax.getValue();
             let priceContainer = row.querySelector('p.hide-cny')?.parentElement;
             if (!priceContainer) return;
             priceContainer.insertAdjacentHTML('beforeend', getListingDifference(parseFloat(item.price), parseFloat(goods_info.steam_price_cny), listingDifferenceStyle, steamTax));

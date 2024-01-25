@@ -104,21 +104,24 @@ export async function adjustSearchPage(apiData: BuffTypes.MarketGoods.Data) {
 
             const priceGrid = document.createElement('div');
             priceGrid.setAttribute('style', 'display: grid; grid-template-columns: auto 25%; grid-template-rows: 20px 20px; align-items: center; margin: 2px 10px;');
+            const listingDifferenceStyle = await ExtensionStorage.listingDifferenceStyle.getValue();
+            let differenceElement = '';
+            if (listingDifferenceStyle > 0) {
+                const platformTax = await ExtensionStorage.platformTax.getValue();
+                const listingDenominator = await ExtensionStorage.listingDenominator.getValue();
+                const platformPrice = parseFloat(listingDenominator == 1 ? item.buy_max_price : item.goods_info.steam_price_cny);
+                const profitThreshold = await ExtensionStorage.profitThreshold.getValue();
+                differenceElement = getListingDifference(sellingPriceCNY, platformPrice, listingDifferenceStyle, platformTax, profitThreshold, listingDenominator);
+            }
+
+            
+            let sellingPriceCUR = undefined, buyingPriceCUR = undefined;
             const genPriceElement = (priceCNY: number, color: string, text: 'sell' | 'buy', amount: number, priceCUR?: number) => {
                 return `
                 <div class="f_12px" style="grid-column: 1; text-wrap: nowrap;"><span style="color: ${color};font-weight: 700;">${priceToHtml(priceCNY, '¥')}${
                     priceCUR !== undefined && currency?.symbol ? ` | ${priceToHtml(priceCUR, currency?.symbol)}` : ''
                 }</span> ${text} <small title="Amount of items">(${amount})</small></div>`;
             };
-            const listingDifferenceStyle = await ExtensionStorage.listingDifferenceStyle.getValue();
-            let differenceElement = '';
-            if (listingDifferenceStyle > 0) {
-                const steamTax = await ExtensionStorage.steamTax.getValue();
-                differenceElement = getListingDifference(sellingPriceCNY, parseFloat(item.goods_info.steam_price_cny), listingDifferenceStyle, steamTax);
-            }
-
-            
-            let sellingPriceCUR = undefined, buyingPriceCUR = undefined;
             // if user currency is CNY, don't show CUR
             if (currency?.symbol && currency?.symbol !== '¥') {
                 sellingPriceCUR = new Decimal(item.sell_min_price)

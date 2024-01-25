@@ -9,34 +9,46 @@ export function priceToHtml(price: number, symbol: string | null = null) {
     return `${symbol ?? ''}${priceParts[0]}${dps}`;
 }
 
-export function getListingDifference(price: number, steamPriceCNY: number, style: IStorage['listingDifferenceStyle'], steamTax: IStorage['steamTax']) {
+export function getListingDifference(price: number, steamPriceCNY: number, style: IStorage['listingDifferenceStyle'], steamTax: IStorage['platformTax'], profitThreshold?: IStorage['profitThreshold'], listingDenominator?: IStorage['listingDenominator']) {
     if (!(style > 0)) return '';
 
+    console.log('[BetterBuff] Calculating listing difference: ', price, steamPriceCNY, style, steamTax, profitThreshold, listingDenominator);
     if (steamTax) {
-        steamPriceCNY = new Decimal(steamPriceCNY).div(1.15).minus(0.01).toDP(2).toNumber();
+        if (listingDenominator == 1) {
+            steamPriceCNY = new Decimal(steamPriceCNY).mul(0.975).toDP(2).toNumber();
+        } else {
+            steamPriceCNY = new Decimal(steamPriceCNY).div(1.15).minus(0.01).toDP(2).toNumber();
+        }
     }
+    console.log('[BetterBuff] New reference price: ', steamPriceCNY);
 
     let priceDiff = new Decimal(price).minus(steamPriceCNY);
-    let priceDiffEx = `Steam price: ¥ ${steamPriceCNY} | Buff price: ¥ ${price}&#10;${price} - ${steamPriceCNY} = ${priceDiff.toFixed(2)}&#10;`;
+    let priceDiffEx = `Platform price: ¥ ${steamPriceCNY} | Buff price: ¥ ${price}&#10;${price} - ${steamPriceCNY} = ${priceDiff.toFixed(2)}&#10;`;
 
     let priceDiffStr = '';
     if (style == 1) {
-        const sign = priceDiff.isNegative() ? '-' : '+';
+        const sign = priceDiff.isZero() ? '' : (priceDiff.isNegative() ? '-' : '+');
         priceDiffStr = `${sign}¥ ${priceToHtml(priceDiff.absoluteValue().toNumber())}`;
         priceDiffEx += `=> This item is ¥ ${priceDiff.absoluteValue().toFixed(2)} ${priceDiff.isNegative() ? 'cheaper' : 'more expensive'} than on Steam.`;
     } else if (style == 2) {
         const convertedDiff = priceDiff.mul(WINDOW_G?.currency?.rate_base_cny ?? 1).toDP(2);
-        const sign = convertedDiff.isNegative() ? '-' : '+';
+        const sign = convertedDiff.isZero() ? '' : (convertedDiff.isNegative() ? '-' : '+');
         const currencySymbol = WINDOW_G?.currency?.symbol ?? '¥';
         priceDiffStr = `${sign}${currencySymbol} ${Math.abs(convertedDiff.toNumber())}`;
         priceDiffEx += `=> ${currencySymbol} ${convertedDiff}&#10;`;
         priceDiffEx += `=> This item is ${currencySymbol} ${Math.abs(convertedDiff.toNumber()).toFixed(2)} ${priceDiff.isNegative() ? 'cheaper' : 'more expensive'} than on Steam.`;
     } else if (style == 3) {
         const priceRel = priceDiff.div(steamPriceCNY).mul(100).toDP(2);
-        const sign = priceRel.isNegative() ? '-' : '+';
+        const sign = priceRel.isZero() ? '' : (priceRel.isNegative() ? '-' : '+');
         priceDiffStr = `${sign}${priceToHtml(priceRel.absoluteValue().toNumber())}%`;
         priceDiffEx += `=> ${priceDiff.toFixed(2)} / ${steamPriceCNY} * 100&#10;`;
         priceDiffEx += `=> This item is ${priceRel.absoluteValue().toNumber()}% ${priceDiff.isNegative() ? 'cheaper' : 'more expensive'} than on Steam.`;
+    } else if (style == 4) {
+        const priceRel = priceDiff.div(steamPriceCNY).mul(100).toDP(2);
+        const sign = priceRel.isZero() ? '' : (priceRel.isNegative() ? '-' : '+');
+        priceDiffStr = `${sign}¥ ${priceToHtml(priceDiff.absoluteValue().toNumber())}`;
+        const priceDiffStr2 = `${sign}${priceToHtml(priceRel.absoluteValue().toNumber())}%`;
+        return `<div class="f_12px" style="color: ${(priceDiff.isNegative() || priceRel.lessThan(profitThreshold ?? 0)) ? '#009800' : '#c90000'}; font-weight: 700;" title="${priceDiffEx}">${priceDiffStr}<br>${priceDiffStr2}</div>`;
     }
 
     return `<div class="f_12px" style="color: ${priceDiff.isNegative() ? '#009800' : '#c90000'}; font-weight: 700;" title="${priceDiffEx}">${priceDiffStr}</div>`;

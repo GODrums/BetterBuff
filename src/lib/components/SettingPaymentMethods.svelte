@@ -23,7 +23,6 @@
 
     onMount(async () => {
         values = await storage.getValue();
-        console.log(values);
     });
 
     const storeValue = async (choice: keyof IStorage["preferredPayments"]) => {

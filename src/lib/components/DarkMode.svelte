@@ -8,7 +8,6 @@
 
     onMount(async () => {
         darkMode = await ExtensionStorage.darkMode.getValue();
-        console.log('darkMode: ', darkMode);
     });
 
     const toggle = async () => {

@@ -11,8 +11,9 @@ export async function adjustGoodsBuyOrder(apiData: BuffTypes.BuyOrder.Data) {
         let item = apiData.items[i - 1];
 
         if (!item) {
-            console.log('API Data: ', apiData);
+            continue;
         }
+        
         if (item.pay_method !== 43 && !await isPaymentMethodAvailable([item.pay_method])) {
             markPurchaseUnavailable(row);
         }

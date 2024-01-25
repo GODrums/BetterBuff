@@ -18,8 +18,10 @@ export const defaultStorage = {
     hideFloatBar: false,
     showBigPreviews: false,
     dataProtection: false,
-    listingDifferenceStyle: 1 as 0 | 1 | 2 | 3,
-    steamTax: true,
+    listingDenominator: 0 as 0 | 1,
+    listingDifferenceStyle: 1 as 0 | 1 | 2 | 3 | 4,
+    platformTax: true,
+    profitThreshold: 0,
     listingOptions: {
         "3dinspect": true,
         inspectServer: true,
@@ -85,6 +87,13 @@ export namespace ExtensionStorage {
         },
     );
 
+    export const listingDenominator = storage.defineItem<IStorage['listingDenominator']>(
+        'local:listingDenominator',
+        {
+            defaultValue: defaultStorage.listingDenominator,
+        },
+    );
+
     export const listingDifferenceStyle = storage.defineItem<IStorage['listingDifferenceStyle']>(
         'local:listingDifferenceStyle',
         {
@@ -92,10 +101,17 @@ export namespace ExtensionStorage {
         },
     );
 
-    export const steamTax = storage.defineItem<IStorage['steamTax']>(
+    export const platformTax = storage.defineItem<IStorage['platformTax']>(
         'local:steamTax',
         {
-            defaultValue: defaultStorage.steamTax,
+            defaultValue: defaultStorage.platformTax,
+        },
+    );
+
+    export const profitThreshold = storage.defineItem<IStorage['profitThreshold']>(
+        'local:profitThreshold',
+        {
+            defaultValue: defaultStorage.profitThreshold,
         },
     );
 

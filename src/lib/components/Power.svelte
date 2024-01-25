@@ -10,7 +10,6 @@
 
     onMount(async () => {
         enabled = await ExtensionStorage.enabled.getValue();
-        console.log('enabled: ', enabled);
     });
     
     const toggle = async () => {

@@ -17,9 +17,13 @@ function adjustWallet() {
     walletAmount.appendChild(document.createElement('br'));
 
     const amountCNY = walletAmount.textContent?.split(/\s/)[1] ?? '0';
-    const convertedElement = `<span class="c_Gray f_12px">(${currency.symbol} ${new Decimal(amountCNY).mul(currency.rate_base_cny).toFixed(2)})</span>`;
-
-    walletAmount.insertAdjacentHTML('beforeend', convertedElement);
+    
+    try {
+        const convertedElement = `<span class="c_Gray f_12px">(${currency.symbol} ${new Decimal(amountCNY).mul(currency.rate_base_cny).toFixed(2)})</span>`;
+        walletAmount.insertAdjacentHTML('beforeend', convertedElement);
+    } catch (e) {
+        console.error('Failed to convert wallet amount to CNY: ', e);
+    }
 }
 
 function addLottery() {

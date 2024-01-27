@@ -12,15 +12,17 @@ export function priceToHtml(price: number, symbol: string | null = null) {
 export function getListingDifference(price: number, steamPriceCNY: number, style: IStorage['listingDifferenceStyle'], steamTax: IStorage['platformTax'], profitThreshold?: IStorage['profitThreshold'], listingDenominator?: IStorage['listingDenominator']) {
     if (!(style > 0)) return '';
 
-    console.log('[BetterBuff] Calculating listing difference: ', price, steamPriceCNY, style, steamTax, profitThreshold, listingDenominator);
-    if (steamTax) {
+    if (steamTax > 0) {
         if (listingDenominator == 1) {
-            steamPriceCNY = new Decimal(steamPriceCNY).mul(0.975).toDP(2).toNumber();
+            if (steamTax == 1) {
+                steamPriceCNY = new Decimal(steamPriceCNY).mul(0.975).toDP(2).toNumber();
+            } else {
+                price = new Decimal(price).mul(0.975).toDP(2).toNumber();
+            }
         } else {
             steamPriceCNY = new Decimal(steamPriceCNY).div(1.15).minus(0.01).toDP(2).toNumber();
         }
     }
-    console.log('[BetterBuff] New reference price: ', steamPriceCNY);
 
     let priceDiff = new Decimal(price).minus(steamPriceCNY);
     let priceDiffEx = `Platform price: ¥ ${steamPriceCNY} | Buff price: ¥ ${price}&#10;${price} - ${steamPriceCNY} = ${priceDiff.toFixed(2)}&#10;`;

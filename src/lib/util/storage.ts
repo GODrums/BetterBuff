@@ -20,7 +20,7 @@ export const defaultStorage = {
     dataProtection: false,
     listingDenominator: 0 as 0 | 1,
     listingDifferenceStyle: 1 as 0 | 1 | 2 | 3 | 4,
-    platformTax: true,
+    platformTax: 0  as 0 | 1 | 2,
     profitThreshold: 0,
     listingOptions: {
         "3dinspect": true,

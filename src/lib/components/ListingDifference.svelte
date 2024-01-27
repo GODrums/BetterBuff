@@ -8,18 +8,17 @@
     let denominatorStorage = ExtensionStorage.listingDenominator;
     let thresholdStorage = ExtensionStorage.profitThreshold;
 
-    $: taxValue = 1;
-    $: checked = false;
+    $: differenceValue = 1;
+    $: taxValue = 0;
     $: denominator = 0;
     $: threshold = 0;
 
     const storeValue = async () => {
-        await differenceStorage.setValue(taxValue as IStorage['listingDifferenceStyle']);
+        await differenceStorage.setValue(differenceValue as IStorage['listingDifferenceStyle']);
     };
 
     const storeSteamTax = async () => {
-        checked = !checked;
-        await taxStorage.setValue(checked);
+        await taxStorage.setValue(taxValue as IStorage['platformTax']);
     };
 
     const storeDenominator = async () => {
@@ -31,8 +30,8 @@
     };
 
     onMount(async () => {
-        taxValue = await differenceStorage.getValue();
-        checked = await taxStorage.getValue();
+        differenceValue = await differenceStorage.getValue();
+        taxValue = await taxStorage.getValue();
         denominator = await denominatorStorage.getValue();
         threshold = await thresholdStorage.getValue();
     });
@@ -46,37 +45,62 @@
     <label class="label items-center justify-between cursor-pointer mx-2">
         <div class="inline-flex gap-2">
             <span class="label-text text-primary">Denominator</span>
-            <Tooltip dataTip="Platform to use as denominator of the formula. Either the lowest listed on the steam market or Buff buy order" tooltipClass="tooltip-primary" svgClass="text-info hover:text-base-100" />
+            <Tooltip
+                dataTip="Platform to use as denominator of the formula. Either the lowest listed on the steam market or Buff buy order"
+                tooltipClass="tooltip-primary"
+                svgClass="text-info hover:text-base-100" />
         </div>
-        <select class="select select-sm w-1/2" bind:value={denominator} on:click={storeDenominator} >
-          <option value=0>Steam</option>
-          <option value=1>Buff Bid</option>
+        <select class="select select-sm w-2/5" bind:value={denominator} on:click={storeDenominator}>
+            <option value="0">Steam</option>
+            <option value="1">Buff Bid</option>
         </select>
     </label>
     <label class="label items-center justify-between cursor-pointer mx-2">
         <div class="inline-flex gap-2">
             <span class="label-text text-primary">Format</span>
         </div>
-        <select class="select select-sm w-1/2" bind:value={taxValue} on:click={storeValue} >
-          <option value=0>None</option>
-          <option value=1 selected>¥ Difference</option>
-          <option value=2>Converted Difference</option>
-          <option value=3>% Difference</option>
-          <option value=4>Combined</option>
+        <select class="select select-sm w-1/2" bind:value={differenceValue} on:click={storeValue}>
+            <option value="0">None</option>
+            <option value="1" selected>¥ Difference</option>
+            <option value="2">Converted Difference</option>
+            <option value="3">% Difference</option>
+            <option value="4">Combined</option>
         </select>
     </label>
     <label class="label items-center justify-between cursor-pointer mx-2">
         <div class="inline-flex gap-2">
-            <span class="label-text text-primary">Apply Platform Tax</span>
-            <Tooltip dataTip="Apply platform tax before calculating the difference. The result is equivalent to the seller's income at the given price point." tooltipClass="tooltip-primary" svgClass="text-info hover:text-base-100" />
+            <span class="label-text text-primary">Apply Tax</span>
+            <Tooltip
+                dataTip="Apply platform tax before calculating the difference. The result is equivalent to the seller's income at the given price point."
+                tooltipClass="tooltip-primary"
+                svgClass="text-info hover:text-base-100" />
         </div>
-        <input type="checkbox" class="toggle toggle-info" bind:checked={checked} on:click={storeSteamTax} />
+        <select class="select select-sm w-2/5" bind:value={taxValue} on:click={storeSteamTax}>
+            <option value="0">Off</option>
+            <option value="1">On</option>
+            <option value="2">Inverted</option>
+        </select>
     </label>
     <label class="label items-center justify-between cursor-pointer mx-2">
         <div class="inline-flex gap-2">
             <span class="label-text text-primary">Profit Threshold</span>
             <Tooltip dataTip="Threshold value in percent to still be colored in green." tooltipClass="tooltip-primary" svgClass="text-info hover:text-base-100" />
         </div>
-        <input type="number" class="input input-sm w-14 pr-0 focus:outline-none" min="0" max="99" step="1" bind:value={threshold} on:change={storeThreshold} />
+        <span class="label-text input-euro">
+            <input type="number" class="input input-sm w-20 pr-4 focus:outline-none" min="0" max="99" step="1" bind:value={threshold} on:change={storeThreshold} />
+        </span>
     </label>
 </div>
+
+<style>
+    .input-euro {
+        position: relative;
+    }
+
+    .input-euro:before {
+        position: absolute;
+        top: 5px;
+        content: '%';
+        right: 5px;
+    }
+</style>

@@ -1070,4 +1070,203 @@ export namespace BuffTypes {
             msg?: any;
         }
     }
+
+    // https://buff.163.com/api/market/bundle_overview
+    export namespace BundleOverview {
+
+        export interface Info {
+            fraudwarnings: any;
+            icon_url: string;
+            original_icon_url: string;
+            stickers: any[];
+            tournament_tags: any[];
+        }
+
+        export interface GoodsInfo {
+            
+            appid: number;
+            description?: any;
+            game: string;
+            goods_id: number;
+            icon_url: string;
+            item_id?: any;
+            market_hash_name: string;
+            market_min_price: string;
+            name: string;
+            original_icon_url: string;
+            short_name: string;
+            steam_price: string;
+            steam_price_cny: string;
+            steam_price_custom: string;
+            tags: CommonType.Tags;
+        }
+
+        export interface AssetInfo {
+            appid: number;
+            description?: any;
+            game: string;
+            goods_id: number;
+            icon_url: string;
+            item_id: string | null;
+            market_hash_name: string;
+            market_min_price: string;
+            name: string;
+            original_icon_url: string;
+            sell_min_price: string;
+            sell_reference_price: string;
+            short_name: string;
+            steam_price: string;
+            steam_price_cny: string;
+            tags: CommonType.Tags;
+        }
+
+        export interface Item {
+            asset_info: AssetInfo;
+            total_count: number;
+        }
+
+        export interface Data {
+            allow_bargain: boolean;
+            allow_bargain_chat: boolean;
+            appid: number;
+            asset_count: number;
+            asset_info: AssetInfo
+            coupon_infos: any[];
+            created_at: number;
+            description: string;
+            discount_rate: number;
+            featured: number;
+            fee: string;
+            fold_asset_count: any;
+            fold_unique_key: any;
+            game: string;
+            goods_id: number;
+            goods_infos: {
+                [id: number]: GoodsInfo
+            };
+            id: string;
+            income: string;
+            is_same_goods: boolean;
+            items: Item[];
+            lowest_bargain_price: string;
+            mode: number;
+            price: string;
+            recent_average_duration: number | null;
+            recent_deliver_rate: number | null;
+            state: number;
+            sticker_premium?: number; // SP
+            tradable_cooldown?: any | null;
+            unit_price: string;
+            updated_at: number;
+            user_id: string;
+        }
+
+        export interface Response {
+            code: string;
+            data: Data;
+            msg?: any;
+        }
+    }
+
+    // https://buff.163.com/api/market/goods/bundle_inventory?
+    export namespace BundleInventory {
+
+        export interface Info {
+            fraudwarnings: any;
+            icon_url: string;
+            original_icon_url: string;
+            stickers: any[];
+            tournament_tags: any[];
+        }
+
+        export interface GoodsInfo {
+            appid: number;
+            description?: any;
+            game: string;
+            goods_id: number;
+            icon_url: string;
+            item_id?: any;
+            market_hash_name: string;
+            market_min_price: string;
+            name: string;
+            original_icon_url: string;
+            short_name: string;
+            steam_price: string;
+            steam_price_cny: string;
+            steam_price_custom: string;
+            tags: CommonType.Tags;
+        }
+
+        export interface AssetInfo {
+            action_link: string;
+            appid: number;
+            assetid: string;
+            classid: string;
+            contextid: number;
+            goods_id: number;
+            has_tradable_cooldown: boolean;
+            id: string;
+            info: Info;
+            instanceid: string;
+            paintwear: string;
+            tradable_cooldown_text: string;
+            tradeable_unfrozen_time: number | null;
+        }
+
+        export interface Item {
+            allow_bargain: boolean;
+            allow_bargain_chat: boolean;
+            appid: number;
+            asset_count: number;
+            asset_info: AssetInfo;
+            coupon_infos: any[];
+            created_at: number;
+            description: string;
+            discount_rate: number;
+            featured: number;
+            fee: string;
+            game: string;
+            goods_id: number;
+            id: string;
+            income: string;
+            lowest_bargain_price: string;
+            mode: number;
+            paintwear: string;
+            preview_asset_infos: AssetInfo[];
+            price: string;
+            recent_average_duration: number | null;
+            recent_deliver_rate: number | null;
+            reference_price: string;
+            state: number;
+            steam_asset_ids: number[];
+            sticker_premium?: number;
+            supported_pay_methods: number[];
+            tradable_cooldown?: any;
+            unit_price: string;
+            updated_at: number;
+            user_id: string;
+        }
+
+        export interface Data {
+            goods_infos: {
+                [id: number]: GoodsInfo
+            };
+            has_market_stores: {
+                [userid: string]: boolean;
+            };
+            items: Item[];
+            page_num: number;
+            page_size: number;
+            show_pay_method_icon: boolean;
+            total_count: number;
+            total_page: number;
+            user_infos: CommonType.UserInfos;
+        }
+
+        export interface Response {
+            code: string;
+            data: Data;
+            msg?: any;
+        }
+    }
 }

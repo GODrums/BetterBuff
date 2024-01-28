@@ -1,4 +1,5 @@
 import type { BuffTypes } from "../@types/BuffTypes";
+import { adjustBundleInventory, adjustBundleOverview } from "./Adjust_Bundletrade";
 import { adjustGoodsBuyOrder } from "./Adjust_GoodsBuyOrder";
 import { adjustGoodsSellOrder } from "./Adjust_GoodsSellOrder";
 import { adjustItemDetails, adjustSearchPage, adjustTopBookmarked } from "./Adjust_Market";
@@ -47,6 +48,10 @@ function processEvent(eventData: EventData<unknown>) {
         adjustGoodsSellOrder((eventData as EventData<BuffTypes.SellOrder.Response>).data.data);
     } else if (eventData.url.includes('api/market/goods/buy_order')) {
         adjustGoodsBuyOrder((eventData as EventData<BuffTypes.BuyOrder.Response>).data.data);
+    } else if (eventData.url.includes('api/market/goods/bundle_inventory')) {
+        adjustBundleInventory((eventData as EventData<BuffTypes.BundleInventory.Response>).data.data);
+    } else if (eventData.url.includes('api/market/bundle_overview/')) {
+        adjustBundleOverview((eventData as EventData<BuffTypes.BundleOverview.Response>).data.data);
     } else if (eventData.url.includes('api/market/goods?')) {
         adjustSearchPage((eventData as EventData<BuffTypes.MarketGoods.Response>).data.data);
     } else if (eventData.url.includes('api/market/goods/buying?')) {

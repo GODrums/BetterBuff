@@ -96,7 +96,9 @@ html {
 .bb-dark-mode .popup_flower .popup-cont,
 .bb-dark-mode .popup_flower .popup-cont li,
 .bb-dark-mode .popup_bulkbuy .popup_bulkbuy_item,
-.bb-dark-mode .popup_bulkbuy .popup_bulkbuy_price {
+.bb-dark-mode .popup_bulkbuy .popup_bulkbuy_price,
+.bb-dark-mode .list_tb_csgo .tr_gallery td,
+.bb-dark-mode .list_tb_csgo .tr_gallery .bundle-items-list {
     background: var(--bb-color-0, #121212);
 }
 
@@ -165,6 +167,7 @@ html {
 .bb-dark-mode .pager .next, .bb-dark-mode .pager .page-link,
 .bb-dark-mode .l_Layout .cont_main .user-record a,
 .bb-dark-mode .l_Layout .cont_main .user-record .delete-bookmark,
+.bb-dark-mode .list_tb_csgo .tr_gallery .bundle-items-list h5,
 .bb-dark-mode .popup_supply .input-cont .c_Gray,
 .bb-dark-mode .popup_custom .popup_custom-title,
 .bb-dark-mode .popup_common .popup-cont h2,
@@ -178,6 +181,9 @@ html {
     color: var(--bb-color-2, #bfbfbf) !important;
 }
 
+.bb-dark-mode .list_tb_csgo .tr_gallery .bundle-items-list h5:hover {
+    color: var(--bb-color-3, #696969) !important;
+}
 
 /* settings */
 .bb-dark-mode,

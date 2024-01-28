@@ -50,10 +50,11 @@ export function getListingDifference(price: number, steamPriceCNY: number, style
         const sign = priceRel.isZero() ? '' : (priceRel.isNegative() ? '-' : '+');
         priceDiffStr = `${sign}¥ ${priceToHtml(priceDiff.absoluteValue().toNumber())}`;
         const priceDiffStr2 = `${sign}${priceToHtml(priceRel.absoluteValue().toNumber())}%`;
-        return `<div class="f_12px" style="color: ${(priceDiff.isNegative() || priceRel.lessThan(profitThreshold ?? 0)) ? '#009800' : '#c90000'}; font-weight: 700;" title="${priceDiffEx}">${priceDiffStr}<br>${priceDiffStr2}</div>`;
+        const coloring = (steamTax == 2 && priceRel.greaterThan(profitThreshold ?? 0)) || (steamTax < 2 && priceRel.lessThan(profitThreshold ?? 0)) ? '#009800' : '#c90000';
+        return `<div class="f_12px" style="color: ${coloring}; font-weight: 700;" title="${priceDiffEx}">${priceDiffStr}<br>${priceDiffStr2}</div>`;
     }
 
-    return `<div class="f_12px" style="color: ${priceDiff.isNegative() ? '#009800' : '#c90000'}; font-weight: 700;" title="${priceDiffEx}">${priceDiffStr}</div>`;
+    return `<div class="f_12px" style="color: ${priceDiff.lessThan(profitThreshold ?? 0) ? '#009800' : '#c90000'}; font-weight: 700;" title="${priceDiffEx}">${priceDiffStr}</div>`;
 }
 
 export function convertSP(sticker_premium: number) {

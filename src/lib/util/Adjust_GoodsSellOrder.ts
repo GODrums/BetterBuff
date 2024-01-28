@@ -3,7 +3,7 @@ import { BUFF_CRX, ExtensionStorage, type IStorage } from './storage';
 import { SchemaHelpers } from './schemaHelpers';
 import { BUFF_FLOAT_RANGES } from './globals';
 import Decimal from 'decimal.js';
-import { addSouvenirTeams, genCopyGenButton, genShareButton } from './uiGeneration';
+import { addSouvenirTeams, genCopyGenButton, genListingAge, genShareButton } from './uiGeneration';
 import { getListingDifference, isPaymentMethodAvailable } from './dataHelpers';
 import ChExplorer from '../pages/CHExplorer.svelte';
 
@@ -32,7 +32,12 @@ export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
 
         await addStickerPercentage(row, item);
 
-        await addListingAge(row, item);
+        // Listing age
+        const listingContainer = row.querySelector('td.t_Left > .j_shoptip_handler')?.parentElement;
+        if (listingContainer) {
+            const listingAge = genListingAge(item.created_at);
+            listingContainer.appendChild(listingAge);
+        }
 
         if (weaponSchema) {
             await adjustListingOptions(weaponSchema, item, goods_info, row, listingOptions);
@@ -46,6 +51,7 @@ export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
             addBigPreviews(row, item);
         }
 
+        // Listing difference
         const listingDifferenceStyle = await ExtensionStorage.listingDifferenceStyle.getValue();
         if (listingDifferenceStyle > 0) {
             const steamTax = await ExtensionStorage.platformTax.getValue();
@@ -142,26 +148,6 @@ async function addStickerPercentage(row: HTMLElement, item: BuffTypes.SellOrder.
     let stickerPercentage = new Decimal(item.sticker_premium).mul(100);
     spData.rate = stickerPercentage.toDP(2).toString() + '%';
     spElement.innerHTML = spData.rate;
-}
-
-async function addListingAge(row: HTMLElement, item: BuffTypes.SellOrder.Item) {
-    let date = new Date(item.created_at * 1_000);
-    let timeEpoch = Date.now() - item.created_at * 1_000;
-    let dateHours = Math.floor(timeEpoch / 3_600_000);
-    let dateDiv = document.createElement('div');
-
-    dateDiv.setAttribute('title', date.toUTCString());
-    dateDiv.setAttribute('style', 'font-size: 12px; color: #959595; transform: translate(4.5%, 20%);');
-
-    let dateText = `${dateHours < 49 ? `${dateHours} hour${dateHours == 1 ? '' : 's'}` : `${Math.floor(timeEpoch / 3_600_000 / 24)} days`} ago`;
-    dateDiv.innerHTML = `<i class="icon icon_time"></i><p style="display: inline; vertical-align: middle; margin-left: 5px;">${dateText}</p>`;
-
-    (<NodeListOf<HTMLElement>>row.querySelectorAll('td.t_Left')).forEach((element) => {
-        if (element.querySelector('.user-thum')) {
-            element.appendChild(dateDiv);
-        }
-    });
-    row.querySelector('td.t_Left > .j_shoptip_handler')?.parentElement?.appendChild(dateDiv);
 }
 
 async function adjustListingOptions(

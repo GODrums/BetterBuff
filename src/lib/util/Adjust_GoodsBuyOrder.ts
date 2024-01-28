@@ -1,5 +1,6 @@
 import type { BuffTypes } from "../@types/BuffTypes";
 import { isPaymentMethodAvailable } from "./dataHelpers";
+import { genListingAge } from "./uiGeneration";
 
 export async function adjustGoodsBuyOrder(apiData: BuffTypes.BuyOrder.Data) {
     let rows = document.querySelectorAll('.list_tb_csgo > tr');
@@ -16,6 +17,13 @@ export async function adjustGoodsBuyOrder(apiData: BuffTypes.BuyOrder.Data) {
         
         if (item.pay_method !== 43 && !await isPaymentMethodAvailable([item.pay_method])) {
             markPurchaseUnavailable(row);
+        }
+        
+        // Listing age
+        const listingContainer = row.querySelector('td.t_Left .user-info')?.parentElement;
+        if (listingContainer) {
+            const listingAge = genListingAge(item.created_at);
+            listingContainer.insertAdjacentElement('afterend', listingAge);
         }
     }
 }

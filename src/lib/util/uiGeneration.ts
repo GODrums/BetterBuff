@@ -17,6 +17,21 @@ export function createMutationObserver<T extends HTMLElement>(selector: string, 
     return observer;
 }
 
+export function genListingAge(created_at: number) {
+    let date = new Date(created_at * 1_000);
+    let timeEpoch = Date.now() - created_at * 1_000;
+    let dateHours = Math.floor(timeEpoch / 3_600_000);
+    let dateDiv = document.createElement('div');
+
+    dateDiv.setAttribute('title', date.toUTCString());
+    dateDiv.setAttribute('style', 'font-size: 12px; color: #959595; transform: translate(4.5%, 20%);');
+
+    let dateText = `${dateHours < 49 ? `${dateHours} hour${dateHours == 1 ? '' : 's'}` : `${Math.floor(timeEpoch / 3_600_000 / 24)} days`} ago`;
+    dateDiv.innerHTML = `<i class="icon icon_time"></i><p style="display: inline; vertical-align: middle; margin-left: 5px;">${dateText}</p>`;
+
+    return dateDiv;
+}
+
 export function genShareButton(goods_id: number, classid: string, instanceid: string, assetid: string, id: string) {
     const aShare = document.createElement('a');
     aShare.innerHTML = '<b><i style="margin: -4px 0 0 0;" class="icon icon_link"></i></b>Share';

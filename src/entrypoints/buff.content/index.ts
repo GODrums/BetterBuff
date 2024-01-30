@@ -8,12 +8,10 @@ export default defineContentScript({
     cssInjectionMode: "ui",
     matches: ["*://*.buff.163.com/*"],
     runAt: 'document_end',
-    main(ctx) {
+    async main(ctx) {
         initSentry();
 
-        ExtensionStorage.enabled.getValue().then((enabled) => {
-            initContentScript(enabled, ctx);
-        });
+        initContentScript(await ExtensionStorage.enabled.getValue(), ctx);
 
         ExtensionStorage.enabled.watch((enabled) => {
             initContentScript(enabled, ctx);

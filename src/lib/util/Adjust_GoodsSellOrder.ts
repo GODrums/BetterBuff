@@ -87,26 +87,26 @@ async function chPatternExplorer(container: Element) {
     patternExplorer.setAttribute('style', 'display: inline-block; vertical-align: middle;');
     container.appendChild(patternExplorer);
 
-    const ui = await createShadowRootUi(BUFF_CRX, {
-        name: 'app-pattern-explorer',
-        css: '../components/style.css',
-        position: 'inline',
-        anchor: '#betterbuff-patternexplorer-ch',
-        onMount: (container) => {
-            // Create the Svelte app inside the UI container
-            const app = new ChExplorer({
-                target: container,
-            });
-            return app;
-        },
-        onRemove: (app) => {
-            // Destroy the app when the UI is removed
-            app?.$destroy();
-        },
-    });
-
-    // 4. Mount the UI
-    ui.mount();
+    if (BUFF_CRX) {
+        const ui = await createShadowRootUi(BUFF_CRX, {
+            name: 'app-pattern-explorer',
+            css: '../components/style.css',
+            position: 'inline',
+            anchor: '#betterbuff-patternexplorer-ch',
+            onMount: (container) => {
+                // Create the Svelte app inside the UI container
+                const app = new ChExplorer({
+                    target: container,
+                });
+                return app;
+            },
+            onRemove: (app) => {
+                // Destroy the app when the UI is removed
+                app?.$destroy();
+            },
+        });
+        ui.mount();
+    }
 }
 
 function addBigPreviews(row: HTMLElement, item: BuffTypes.SellOrder.Item) {

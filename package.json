@@ -18,11 +18,11 @@
   },
   "devDependencies": {
     "@sentry/vite-plugin": "^2.10.3",
-    "@sveltejs/vite-plugin-svelte": "^3.0.1",
+    "@sveltejs/vite-plugin-svelte": "^3.0.2",
     "@tailwindcss/typography": "^0.5.10",
     "@tsconfig/svelte": "^5.0.2",
     "autoprefixer": "^10.4.17",
-    "daisyui": "^4.6.0",
+    "daisyui": "^4.6.1",
     "env-cmd": "^10.1.0",
     "postcss": "^8.4.33",
     "publish-browser-extension": "^1.4.1",
@@ -32,10 +32,10 @@
     "tslib": "^2.6.2",
     "typescript": "^5.3.3",
     "vite": "^5.0.12",
-    "wxt": "^0.14.6"
+    "wxt": "^0.14.7"
   },
   "dependencies": {
-    "@sentry/browser": "^7.95.0",
+    "@sentry/browser": "^7.98.0",
     "@types/chrome": "^0.0.258",
     "decimal": "^0.0.2",
     "decimal.js": "^10.4.3"

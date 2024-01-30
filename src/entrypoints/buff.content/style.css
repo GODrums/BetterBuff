@@ -189,6 +189,11 @@ html {
     color: var(--bb-color-3, #696969) !important;
 }
 
+.bb-dark-mode .list_tb_csgo tr.bookmark_order:hover,
+.bb-dark-mode .user-record tr:hover {
+    background: var(--bb-color-1, #1f1f1f) !important;
+}
+
 /* settings */
 .bb-dark-mode,
 .bb-dark-mode .user-setting,

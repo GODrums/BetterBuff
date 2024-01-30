@@ -2,9 +2,9 @@ import { storage } from 'wxt/storage';
 import type { BuffTypes } from '../@types/BuffTypes';
 
 export let WINDOW_G: BuffTypes.G | null = null;
-export let BUFF_CRX: any = null;
+export let BUFF_CRX: InstanceType<typeof ContentScriptContext> | null = null;
 
-export function setBuffCrx(crx: any) {
+export function setBuffCrx(crx: InstanceType<typeof ContentScriptContext>) {
     BUFF_CRX = crx;
 }
 

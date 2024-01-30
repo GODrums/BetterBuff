@@ -19,7 +19,7 @@ export default defineContentScript({
     }
 });
 
-function initContentScript(enabled: boolean | null, ctx: any) {
+function initContentScript(enabled: boolean | null, ctx: InstanceType<typeof ContentScriptContext>) {
     if (!enabled) {
         console.debug('[BetterBuff] Extension is disabled, not running.');
         return;

@@ -181,6 +181,10 @@ html {
     color: var(--bb-color-2, #bfbfbf) !important;
 }
 
+.bb-dark-mode .card_csgo li h3 a:hover {
+    color: #eea20e !important;
+}
+
 .bb-dark-mode .list_tb_csgo .tr_gallery .bundle-items-list h5:hover {
     color: var(--bb-color-3, #696969) !important;
 }

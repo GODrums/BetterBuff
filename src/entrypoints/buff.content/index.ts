@@ -10,17 +10,34 @@ export default defineContentScript({
     runAt: 'document_end',
     main(ctx) {
         initSentry();
-        activateHandler();
-        activateURLHandler();
-        addStorageListeners();
-        addMutationObserver();
 
-        setTimeout(async () => {
-            await applyStaticAdjustments();
-            setBuffCrx(ctx);
-        }, 50);
+        ExtensionStorage.enabled.getValue().then((enabled) => {
+            initContentScript(enabled, ctx);
+        });
+
+        ExtensionStorage.enabled.watch((enabled) => {
+            initContentScript(enabled, ctx);
+        });
     }
 });
+
+function initContentScript(enabled: boolean | null, ctx: any) {
+    if (!enabled) {
+        console.debug('[BetterBuff] Extension is disabled, not running.');
+        return;
+    }
+
+    activateHandler();
+    activateURLHandler();
+    addStorageListeners();
+    addMutationObserver();
+
+    setTimeout(async () => {
+        await applyStaticAdjustments();
+        setBuffCrx(ctx);
+    }, 50);
+}
+
 
 function addStorageListeners() {
     ExtensionStorage.darkMode.watch((value) => {

@@ -1,14 +1,10 @@
 import type { BetterBuff } from "@/lib/@types/BetterBuff";
-import { ExtensionStorage } from "@/lib/util/storage";
 
 export default defineBackground(() => {
-    console.log('Hello background!', { id: browser.runtime.id });
-    ExtensionStorage.enabled.getValue().then((enabled) => {
-        console.log('enabled: ', enabled);
-    });
     browser.runtime.onInstalled.addListener(() => {
-        console.log('onInstalled');
+        console.log('Extension installed, version: ', browser.runtime.getManifest().version);
     });
+
     browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         if (tab.url?.includes('https://buff.163.com') && changeInfo.status === 'complete') {
             const url = new URL(tab.url);

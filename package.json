@@ -13,8 +13,8 @@
     "update": "pnpm up --latest",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "postinstall": "wxt prepare",
-    "submit": "env-cmd -f .env.submit -- publish-extension",
-    "submit:dry": "env-cmd -f .env.submit -- publish-extension --dry-run"
+    "submit": "wxt submit",
+    "submit:dry": "wxt submit --dry-run"
   },
   "devDependencies": {
     "@sentry/vite-plugin": "^2.10.3",

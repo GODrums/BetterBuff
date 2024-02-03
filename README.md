@@ -27,6 +27,7 @@ Based on the original [BuffUtility](https://github.com/PenguiniVogel/BuffUtility
 [![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/igacjekfbhgjnimlkmpdbgeekddolkaa.svg)](https://chrome.google.com/webstore/detail/bphfhlfhnohppnleaehnlfigkkccpglk)
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/igacjekfbhgjnimlkmpdbgeekddolkaa.svg)](https://chrome.google.com/webstore/detail/igacjekfbhgjnimlkmpdbgeekddolkaa)
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/rating-count/igacjekfbhgjnimlkmpdbgeekddolkaa.svg)](https://chrome.google.com/webstore/detail/igacjekfbhgjnimlkmpdbgeekddolkaa)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FGODrums%2FBetterBuff.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FGODrums%2FBetterBuff?ref=badge_shield)
 
 <p>
 We share the same discord server with my other extension <a href="https://github.com/GODrums/BetterFloat">BetterFloat</a>. Feel free to join us if you have any questions or suggestions:
@@ -114,3 +115,7 @@ Please follow the [conventional commits](https://www.conventionalcommits.org/en/
 BetterBuff is developed independently, and is not officially endorsed by or affiliated with Buff163 (NetEase) in any way. If you are a legal representative of the aforementioned company and would like this project to be taken down, please contact me directly at legal@rums.dev.
 
 Built with 🖤 in Munich.
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FGODrums%2FBetterBuff.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FGODrums%2FBetterBuff?ref=badge_large)

@@ -17,7 +17,7 @@
     "submit:dry": "wxt submit --dry-run"
   },
   "devDependencies": {
-    "@sentry/vite-plugin": "^2.10.3",
+    "@sentry/vite-plugin": "^2.13.0",
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
     "@tailwindcss/typography": "^0.5.10",
     "@tsconfig/svelte": "^5.0.2",
@@ -32,7 +32,7 @@
     "tslib": "^2.6.2",
     "typescript": "^5.3.3",
     "vite": "^5.0.12",
-    "wxt": "^0.15.4"
+    "wxt": "^0.16.0"
   },
   "dependencies": {
     "@sentry/browser": "^7.99.0",

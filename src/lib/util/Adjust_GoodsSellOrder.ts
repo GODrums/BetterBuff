@@ -160,7 +160,7 @@ async function adjustListingOptions(
     let elementsToAdd: HTMLElement[] = [];
 
     if (listingOptions.copyGen) {
-        let aCopyGen = genCopyGenButton(weaponSchema, item.asset_info.info.paintindex, item.asset_info.info.paintseed, item.asset_info.paintwear, item.asset_info?.info?.stickers ?? []);
+        let aCopyGen = genCopyGenButton(weaponSchema, item.asset_info.info.paintindex, item.asset_info.info.paintseed, item.asset_info.paintwear, item.asset_info?.info?.stickers ?? [], goods_info.market_hash_name.includes('StatTrak™'));
         elementsToAdd.push(aCopyGen);
     }
 

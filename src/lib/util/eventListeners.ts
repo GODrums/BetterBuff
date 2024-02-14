@@ -40,7 +40,7 @@ function processEvent(eventData: EventData<unknown>) {
     console.debug('[BetterBuff] Received data from url: ' + eventData.url + ', data:', eventData.data);
 
     if (dataIsError(eventData.data)) {
-        console.error('[BetterBuff] Error from url: ' + eventData.url + ', data:', eventData.data);
+        console.log('[BetterBuff] Error from url: ' + eventData.url + ', data:', eventData.data);
         return;
     }
 

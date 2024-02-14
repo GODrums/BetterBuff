@@ -47,9 +47,10 @@ export function genCopyGenButton(
     paintindex: number,
     paintseed: number,
     paintwear: string,
-    stickers: { slot: number; sticker_id: number; wear?: number | undefined }[]
+    stickers: { slot: number; sticker_id: number; wear?: number | undefined }[],
+    statTrak = false
 ) {
-    const gen = SchemaHelpers.getInspectCode(weaponSchema, paintindex, paintseed, paintwear, stickers);
+    const gen = SchemaHelpers.getInspectCode(weaponSchema, paintindex, paintseed, paintwear, stickers, statTrak);
     let aCopyGen = document.createElement('a');
     aCopyGen.setAttribute('class', 'ctag btn');
     aCopyGen.setAttribute('title', gen);

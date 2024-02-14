@@ -1,19 +1,22 @@
 import { CSFloatSchema } from './globals';
 
 export namespace SchemaHelpers {
-    export function getInspectCode(schema: any, paintIndex: any, paintSeed: any, paintWear: any, stickers: { slot: number; sticker_id: number; wear?: number }[]) {
+    export function getInspectCode(schema: WeaponSchema, paintIndex: number, paintSeed: number, paintWear: string, stickers: { slot: number; sticker_id: number; wear?: number }[], statTrak?: boolean) {
         if (schema?.type == 'Gloves') {
             // !gengl weapon_id paint_id pattern float
             return `!gengl ${schema.id} ${paintIndex} ${paintSeed} ${paintWear}`;
         } else {
             // !gen weapon_id paint_id pattern float sticker1 wear1...
             let gen = `!gen ${schema.id} ${paintIndex} ${paintSeed} ${paintWear}`;
-            if (stickers?.length > 0) {
+            if (stickers?.length > 0 || statTrak) {
                 let str_stickers: string[] = ['0 0', '0 0', '0 0', '0 0'];
                 for (let l_sticker of stickers) {
-                    str_stickers[l_sticker.slot] = `${l_sticker.sticker_id} ${l_sticker.wear}`;
+                    str_stickers[l_sticker.slot] = `${l_sticker.sticker_id} ${l_sticker.wear ?? 0}`;
                 }
                 gen += ` ${str_stickers.join(' ')}`;
+            }
+            if (statTrak) {
+                gen += ' 0 0 1 0';
             }
 
             return gen;

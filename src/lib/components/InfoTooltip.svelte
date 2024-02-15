@@ -15,21 +15,19 @@
 </script>
 
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<div on:mouseover={() => isHovered = true} on:mouseleave={() => isHovered = false} on:click={() => isClicked=!isClicked}>
+<div on:mouseover={() => isHovered = true} on:mouseleave={() => isHovered = false} on:click={() => isClicked=!isClicked} role="none">
     <slot />
 </div>
 
 {#if isHovered || isClicked}
     <div class="absolute bb-tooltip">
         <div class="stats stats-vertical shadow justify-items-center">
-            <div class="stat w-auto bborder">
+            <div class="stat w-auto bborder justify-items-center">
               <div class="stat-title">Minimum</div>
               <div class="stat-value text-xl">{data.currency_symbol} {minElement[1]}</div>
               <div class="stat-desc">{new Date(minElement[0]).toLocaleDateString()}</div>
             </div>
-            <div class="stat w-auto bborder">
+            <div class="stat w-auto bborder justify-items-center">
               <div class="stat-title">Maximum</div>
               <div class="stat-value text-xl">{data.currency_symbol} {maxElement[1]}</div>
               <div class="stat-desc">{new Date(maxElement[0]).toLocaleDateString()}</div>

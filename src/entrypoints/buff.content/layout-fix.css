@@ -1,0 +1,161 @@
+/* show horizontal scrollbars if needed */
+body::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+@media (min-width: 1000px) and (max-width: 1100px) {
+    .l_Layout {
+        max-width: 980px !important;
+    }
+
+    .header .logo {
+        margin-right: 25px !important;
+    }
+
+    body {
+        min-width: 980px !important;
+    }
+
+    .focus {
+        min-width: unset !important;
+    }
+
+    .focus-text {
+        margin-left: -565px !important;
+        animation: rightInC .5s 0s ease-in-out 1 forwards !important;
+        -webkit-animation: rightInC .5s 0s ease-in-out 1 forwards !important;
+    }
+
+    .focus-pic {
+        z-index: -500;
+        margin-left: -150px !important;
+        animation: leftInC .5s 0s ease-in-out 1 forwards !important;
+        -webkit-animation: leftInC .5s 0s ease-in-out 1 forwards !important;
+    }
+
+    @keyframes leftInC {
+        0% {
+            transform: translateX(25px);
+            opacity: .5
+        }
+
+        100% {
+            transform: translateX(0);
+            opacity: 1
+        }
+    }
+
+    @-webkit-keyframes leftInC {
+        0% {
+            -webkit-transform: translateX(25px);
+            opacity: .5
+        }
+
+        100% {
+            -webkit-transform: translateX(0);
+            opacity: 1
+        }
+    }
+
+    @keyframes rightInC {
+        0% {
+            transform: translateX(-25px);
+            opacity: .5
+        }
+
+        100% {
+            transform: translateX(0);
+            opacity: 1
+        }
+    }
+
+    @-webkit-keyframes rightInC {
+        0% {
+            -webkit-transform: translateX(-25px);
+            opacity: .5
+        }
+
+        100% {
+            -webkit-transform: translateX(0);
+            opacity: 1
+        }
+    }
+
+    .focus-slider-nav {
+        margin-left: -485px !important;
+    }
+
+    .list_card ul {
+        width: unset !important;
+    }
+
+    .list_card ul:not(#index-popular_goods-data-list-csgo) {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 210px);
+        grid-gap: 28px;
+        justify-content: center;
+    }
+
+    .area1, .area2, .area3 {
+        height: unset !important;
+        background-size: cover !important;
+        padding: 0 !important;
+    }
+
+    .market-header {
+        width: unset !important;
+    }
+
+    .h1z1-selType {
+        margin: 0 15px !important;
+    }
+
+    .h1z1-selType .item.w-SelType {
+        width: 6.5% !important;
+    }
+
+    .criteria {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .criteria .w-SelHero, .criteria .w-Select, .criteria .w-Select-Multi {
+        margin-right: 0 !important;
+    }
+
+    .criteria .l_Right {
+        width: 100%;
+    }
+
+    .criteria .l_Right .w-Search {
+        margin-top: 12px;
+        float: right;
+    }
+
+    .list_card li {
+        margin: 0 !important;
+    }
+
+    .footer {
+        min-width: 980px !important;
+    }
+
+    .footer .guide {
+        width: unset !important;
+        padding-left: 0 !important;
+    }
+
+    .footer .guide .guide-section {
+        width: unset !important;
+        margin-right: 60px !important;
+    }
+
+    .footer .guide .guide-section:first-child {
+        margin-left: 60px !important;
+    }
+}
+
+@media (min-width: 1100px) and (max-width: 1250px) {
+    /* TODO */
+}

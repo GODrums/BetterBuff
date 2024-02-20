@@ -1,11 +1,17 @@
-/* show horizontal scrollbars if needed */
-body::-webkit-scrollbar:horizontal {
-    height: 10px;
+@media (max-width: 1250px) {
+    /* show horizontal scrollbars if needed */
+    body::-webkit-scrollbar:horizontal {
+        height: 10px;
+    }
 }
 
-@media (min-width: 1000px) and (max-width: 1100px) {
+@media (min-width: 1000px) and (max-width: 1250px) {
     .l_Layout {
         max-width: 980px !important;
+    }
+
+    div.header-cont.l_Layout {
+        max-width: 950px !important;
     }
 
     .header .logo {
@@ -91,9 +97,21 @@ body::-webkit-scrollbar:horizontal {
 
     .list_card ul:not(#index-popular_goods-data-list-csgo) {
         display: grid;
-        grid-template-columns: repeat(auto-fill, 210px);
-        grid-gap: 28px;
+        grid-template-columns: auto auto auto auto;
+        gap: 0;
         justify-content: center;
+    }
+
+    /* Use 5 columns for Place Buy Order grid */
+    .list_card.list_card_small ul:not(#index-popular_goods-data-list-csgo) {
+        display: grid;
+        grid-template-columns: auto auto auto auto auto;
+        gap: 0;
+        justify-content: center;
+    }
+
+    .list_card ul:not(#index-popular_goods-data-list-csgo) li {
+        margin: 11px !important;
     }
 
     .area1, .area2, .area3 {
@@ -117,24 +135,135 @@ body::-webkit-scrollbar:horizontal {
     .criteria {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: flex-start;
+        padding-bottom: 2px !important;
     }
 
-    .criteria .w-SelHero, .criteria .w-Select, .criteria .w-Select-Multi {
-        margin-right: 0 !important;
+    .criteria .w-SelHero, .criteria .w-Select, .criteria .w-Select-Multi, .criteria .w-SelDate {
+        margin-bottom: 12px;
     }
 
     .criteria .l_Right {
-        width: 100%;
+        margin-left: auto;
+        margin-bottom: 12px;
     }
 
     .criteria .l_Right .w-Search {
-        margin-top: 12px;
         float: right;
+    }
+
+    .criteria.search_auto_grow .l_Right {
+        flex: unset !important;
+    }
+
+    .w-Search .i_Text {
+        width: 175px !important;
     }
 
     .list_card li {
         margin: 0 !important;
+    }
+
+    .market-header .cont-tab, .market-header .criteria, .market-header .tab-games {
+        margin: 0 15px;
+    }
+
+    .cont-tab li {
+        margin-right: 25px !important;
+    }
+
+    .cont-tab li:last-child {
+        margin-right: 0 !important;
+    }
+
+    .market-header div.l_Right.export-btns.brief-info span {
+        max-width: 150px;
+    }
+
+    div.l_Right.export-btns.brief-info span {
+        display: inline-block;
+    }
+
+    .detail-tab-cont .sold-count {
+        padding-left: 0 !important;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .count-item {
+        width: unset !important;
+        margin: 0 12px 24px 12px !important;
+    }
+
+    .count-item li:not(.split) {
+        width: 135px !important;
+    }
+
+    .user-header {
+        width: unset !important;
+    }
+
+    .user-header > div {
+        padding-left: 50px !important;
+    }
+
+    .user-header .col {
+        width: 185px !important;
+        margin-right: 35px !important;
+    }
+
+    .cont_main {
+        margin-left: 230px !important;
+    }
+
+    .cont_panel {
+        width: 210px !important;
+    }
+
+    .cont_panel .my-menu li {
+        width: 210px !important;
+    }
+
+    .cont_panel .my-menu li a {
+        padding: 0 35px !important;
+    }
+
+    .g-w940 {
+        width: unset !important;
+    }
+
+    .change .list_tb td {
+        padding: 10px 3px !important;
+    }
+
+    .list_tb td {
+        height: unset !important;
+    }
+
+    .user-record {
+        width: fit-content;
+    }
+
+    #bookmark_sell_order_list table.list_tb tr td p {
+        white-space: nowrap;
+    }
+
+    #bookmark_sell_order_list table.list_tb tr td p.c_Gray.f_12px.gMT6 {
+        white-space: break-spaces;
+    }
+
+    #bookmark_sell_order_list table.list_tb tr td a {
+        white-space: nowrap;
+    }
+
+    #bookmark_sell_order_list table.list_tb tr td:last-child > * {
+        padding: 0 3px !important;
+        margin: 1px !important;
+    }
+
+    #bookmark_sell_order_list table.list_tb tr td:last-child > *:not(:last-child) {
+        margin-bottom: 2px !important;
     }
 
     .footer {

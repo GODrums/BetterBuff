@@ -156,7 +156,7 @@
         flex: unset !important;
     }
 
-    .w-Search .i_Text {
+    .criteria.search_auto_grow .w-Search input.i_Text, .w-Search .i_Text {
         width: 175px !important;
     }
 
@@ -286,5 +286,117 @@
 }
 
 @media (min-width: 1100px) and (max-width: 1250px) {
-    /* TODO */
+    .l_Layout {
+        max-width: 1060px !important;
+    }
+
+    div.header-cont.l_Layout {
+        max-width: 1040px !important;
+    }
+
+    .header .logo {
+        margin-right: 35px !important;
+    }
+
+    body {
+        min-width: 1060px !important;
+    }
+
+    .focus-text {
+        margin-left: -580px !important;
+    }
+
+    .focus-pic {
+        margin-left: -150px !important;
+    }
+
+    @keyframes leftInC {
+        0% {
+            transform: translateX(50px);
+            opacity: .5
+        }
+
+        100% {
+            transform: translateX(0);
+            opacity: 1
+        }
+    }
+
+    @-webkit-keyframes leftInC {
+        0% {
+            -webkit-transform: translateX(50px);
+            opacity: .5
+        }
+
+        100% {
+            -webkit-transform: translateX(0);
+            opacity: 1
+        }
+    }
+
+    @keyframes rightInC {
+        0% {
+            transform: translateX(-50px);
+            opacity: .5
+        }
+
+        100% {
+            transform: translateX(0);
+            opacity: 1
+        }
+    }
+
+    @-webkit-keyframes rightInC {
+        0% {
+            -webkit-transform: translateX(-50px);
+            opacity: .5
+        }
+
+        100% {
+            -webkit-transform: translateX(0);
+            opacity: 1
+        }
+    }
+
+    .focus-slider-nav {
+        margin-left: -500px !important;
+    }
+
+    .h1z1-selType .item.w-SelType {
+        width: 6.8% !important;
+    }
+
+    /* Use 6 columns for Place Buy Order grid */
+    .list_card.list_card_small ul:not(#index-popular_goods-data-list-csgo) {
+        grid-template-columns: auto auto auto auto auto auto;
+    }
+
+    .user-header > div {
+        padding-left: 75px !important;
+    }
+
+    .user-header .col {
+        width: 200px !important;
+        margin-right: 50px !important;
+    }
+
+    .change .list_tb td {
+        padding: 10px 6px !important;
+    }
+
+    #bookmark_sell_order_list table.list_tb tr td:last-child > * {
+        padding: 0 6px !important;
+    }
+
+    .footer {
+        min-width: 1060px !important;
+    }
+
+    .footer .guide .guide-section {
+        margin-right: 75px !important;
+    }
+
+    .footer .guide .guide-section:first-child {
+        margin-left: 100px !important;
+    }
 }

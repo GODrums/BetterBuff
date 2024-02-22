@@ -266,6 +266,81 @@
         margin-bottom: 2px !important;
     }
 
+    .detail-header {
+        width: 980px !important;
+    }
+
+    .relative-goods {
+        padding: 10px 25px !important;
+    }
+
+    .relative-goods div.scope-btns {
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .des_row .desc_content {
+        width: 75% !important
+    }
+
+    .betterbuff-forcereload.i_Btn.i_Btn_mid.i_Btn_sub {
+        margin-bottom: 12px !important;
+        height: 32px !important;
+    }
+
+    .l_Right .w-Checkbox#preview_screenshots {
+        margin-bottom: 12px;
+    }
+
+    .l_Right .w-Counter#j_counter {
+        margin-bottom: 12px;
+    }
+
+    /*
+    TODO: To achieve the Buff gallery original (pinterest) look we would need CSS masonry layout:
+    https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Masonry_layout
+    Let's pray that after 3 years this will eventually be supported by modern browsers.
+     */
+    .pinterest-list {
+        height: unset !important;
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        justify-content: space-between;
+        align-items: start;
+    }
+
+    .pinterest-item {
+        position: relative !important;
+        top: unset !important;
+        left: unset !important;
+        margin-bottom: 22px !important;
+    }
+
+    .detail-tab-cont .w-Switcher_tab span {
+        margin-right: 20px !important;
+    }
+
+    .detail-tab-cont .w-Switcher.w-Switcher_tab#history-type {
+        margin-left: 75px !important;
+        padding: 30px 0 !important;
+    }
+
+    .detail-tab-cont > div:nth-child(2) {
+        padding: 30px 0 !important;
+        margin: 0 !important;
+        margin-right: 75px !important;
+    }
+
+    .map_price {
+        padding: 20px 15px !important;
+    }
+
+    #tag-price-chart canvas {
+        width: 950px !important;
+        height: 475px !important;
+    }
+
     .footer {
         min-width: 980px !important;
     }
@@ -386,6 +461,19 @@
 
     #bookmark_sell_order_list table.list_tb tr td:last-child > * {
         padding: 0 6px !important;
+    }
+
+    .detail-header {
+        width: 1060px !important;
+    }
+
+    .map_price {
+        padding: 20px 30px !important;
+    }
+
+    #tag-price-chart canvas {
+        width: 1000px !important;
+        height: 500px !important;
     }
 
     .footer {

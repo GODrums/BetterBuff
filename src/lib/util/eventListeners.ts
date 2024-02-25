@@ -31,7 +31,9 @@ export function activateHandler() {
 }
 
 function dataIsError(data: unknown): data is BuffTypes.CaptchaRequired.Response {
-    return (data as BuffTypes.CaptchaRequired.Response)?.error !== undefined;
+    const captchaCheck = (data as BuffTypes.CaptchaRequired.Response)?.error !== undefined;
+    const tooManyRequests = (data as BuffTypes.TooManyRequests.Response)?.text !== undefined;
+    return captchaCheck || tooManyRequests;
 }
 
 function processEvent(eventData: EventData<unknown>) {

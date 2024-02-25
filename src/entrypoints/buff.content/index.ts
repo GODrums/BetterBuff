@@ -9,7 +9,9 @@ export default defineContentScript({
     matches: ["*://*.buff.163.com/*"],
     runAt: 'document_end',
     async main(ctx) {
-        initSentry();
+        if (import.meta.env.CHROME) {
+            initSentry()
+        }
 
         initContentScript(await ExtensionStorage.enabled.getValue(), ctx);
 
@@ -24,6 +26,7 @@ function initContentScript(enabled: boolean | null, ctx: InstanceType<typeof Con
         console.debug('[BetterBuff] Extension is disabled, not running.');
         return;
     }
+    console.debug('[BetterBuff] Initializing content script...');
 
     activateHandler();
     activateURLHandler();

@@ -2,8 +2,9 @@ import { defineConfig, type ConfigEnv, type WxtViteConfig } from 'wxt';
 import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import { loadEnv } from 'vite';
+import type { Manifest } from 'wxt/browser';
 
-const releaseVersion = '0.7.3';
+const releaseVersion = '0.7.4';
 
 const getViteConfig: ((env: ConfigEnv) => WxtViteConfig | Promise<WxtViteConfig>) = (env) => {
   process.env = {...process.env, ...loadEnv(env.mode, process.cwd())};
@@ -42,10 +43,8 @@ const getViteConfig: ((env: ConfigEnv) => WxtViteConfig | Promise<WxtViteConfig>
   }
 };
 
-// See https://wxt.dev/api/config.html
-export default defineConfig({
-  srcDir: 'src',
-  manifest: {
+const getManifest: ((env: ConfigEnv) => Partial<Manifest.WebExtensionManifest>) = (env) => {
+  const manifest: Partial<Manifest.WebExtensionManifest> = {
     name: 'BetterBuff',
     description: 'Enhance your website experience on Buff163',
     version: releaseVersion,
@@ -55,7 +54,26 @@ export default defineConfig({
       resources: ["inject.js", "ch_patterns.json"],
       matches: ["*://*.buff.163.com/*"]
     }],
-  },
+  };
+  if (env.browser === 'firefox') {
+    manifest.developer = {
+      name: "Rums",
+      url: "https://github.com/GODrums"
+    };
+    manifest.browser_specific_settings = {
+      "gecko": {
+        "id": "betterbuff@rums.dev",
+        "strict_min_version": "109.0"
+      },
+    };
+  }
+  return manifest;
+};
+
+// See https://wxt.dev/api/config.html
+export default defineConfig({
+  srcDir: 'src',
+  manifest: getManifest,
   vite: getViteConfig,
   runner: {
     disabled: true,

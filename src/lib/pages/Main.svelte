@@ -22,6 +22,7 @@
         <SettingPaymentMethods bind:showModal={showModal}/>
         <SettingCheckbox text="Show Big Previews" storage={ExtensionStorage.showBigPreviews} dataTip="Show large item screenshots on image hover." />
         <SettingCheckbox text="Hide Floating Bar" storage={ExtensionStorage.hideFloatBar} dataTip="Hide the floating bar on the right site." />
+        <SettingCheckbox text="Fix Website Layout" storage={ExtensionStorage.layoutFix} dataTip="Fixes the Buff website's layout for vertical/smaller displays." />
         <SettingCheckbox text="Data Protection" storage={ExtensionStorage.dataProtection} dataTip="Blur privacy-relevant data in your account settings page. Relevant if you are screen-sharing or streaming." />
         <SettingListingOptions text="Listing Options" dataTip="Actions displayed under each listing on the corresponding item page. Requires a page reload." />
         <ListingDifference />

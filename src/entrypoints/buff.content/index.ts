@@ -44,6 +44,9 @@ function addStorageListeners() {
     ExtensionStorage.hideFloatBar.watch((value) => {
         hideFloatBar(value ?? false);
     });
+    ExtensionStorage.layoutFix.watch((value) => {
+        applyLayoutFix(value ?? false);
+    });
 }
 
 function addMutationObserver() {
@@ -71,6 +74,11 @@ async function applyStaticAdjustments() {
     if (await ExtensionStorage.hideFloatBar.getValue()) {
         hideFloatBar(true);
     }
+
+    // apply layout fix
+    if (await ExtensionStorage.layoutFix.getValue()) {
+        applyLayoutFix(true);
+    }
 }
 
 function applyDarkMode(darkMode: boolean) {
@@ -79,4 +87,8 @@ function applyDarkMode(darkMode: boolean) {
 
 function hideFloatBar(hide: boolean) {
     document.querySelector('.floatbar')?.setAttribute('style', hide ? 'display: none;' : '');
+}
+
+function applyLayoutFix(layoutFix: boolean) {
+    document.body.classList.toggle('bb-layout-fix', layoutFix);
 }

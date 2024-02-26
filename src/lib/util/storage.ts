@@ -15,6 +15,7 @@ export function setWindowG(g: BuffTypes.G) {
 export const defaultStorage = {
     enabled: true,
     darkMode: false,
+    layoutFix: false,
     hideFloatBar: false,
     showBigPreviews: false,
     dataProtection: false,
@@ -63,6 +64,13 @@ export namespace ExtensionStorage {
         'local:hideFloatBar',
         {
             defaultValue: defaultStorage.hideFloatBar,
+        },
+    );
+
+    export const layoutFix = storage.defineItem<IStorage['layoutFix']>(
+        'local:layoutFix',
+        {
+            defaultValue: defaultStorage.layoutFix,
         },
     );
 

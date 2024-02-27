@@ -14,7 +14,7 @@ Based on the original [BuffUtility](https://github.com/PenguiniVogel/BuffUtility
     <picture>
       <source srcset="https://i.imgur.com/XBIE9pk.png" media="(prefers-color-scheme: dark)">
       <img height="58" src="https://i.imgur.com/oGxig2F.png" alt="Chrome Web Store"></picture></a>
-  <a href="">
+  <a href="https://addons.mozilla.org/en-US/firefox/addon/betterbuff/">
     <picture>
       <source srcset="https://i.imgur.com/ZluoP7T.png" media="(prefers-color-scheme: dark)">
       <img height="58" src="https://i.imgur.com/4PobQqE.png" alt="Firefox add-ons"></picture></a>

@@ -35,8 +35,8 @@
             <div class="stat w-auto px-4 justify-items-center">
               <div class="stat-title">Change</div>
               <div class="stat-value text-xl flex justify-center items-center gap-2">
-                {priceChange.isNegative() ? '-': '+'}{data.currency_symbol}{priceChange.absoluteValue().toFixed(1)} 
-                <span class="font-medium text-base">({priceChangePercentage.toFixed(1)}%)</span>
+                {priceChange.isNegative() ? '-': '+'}{data.currency_symbol}{priceChange.absoluteValue().toSD(3)} 
+                <span class="font-medium text-base">({priceChangePercentage.isNaN() ? '0' : priceChangePercentage.toSD(3)}%)</span>
             </div>
               <div class="stat-desc">{new Date(data.price_history[0][0]).toLocaleDateString()} - {new Date(data.price_history[data.price_history.length - 1][0]).toLocaleDateString()}</div>
             </div>

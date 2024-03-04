@@ -2,16 +2,17 @@ import type { BuffTypes } from '../@types/BuffTypes';
 import { BUFF_CRX, ExtensionStorage, type IStorage } from './storage';
 import { SchemaHelpers } from './schemaHelpers';
 import { BUFF_FLOAT_RANGES } from './globals';
-import Decimal from 'decimal.js';
 import { addSouvenirTeams, genCopyGenButton, genListingAge, genShareButton } from './uiGeneration';
 import { getListingDifference, isPaymentMethodAvailable } from './dataHelpers';
 import ChExplorer from '../pages/CHExplorer.svelte';
 
-export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data) {
+export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data | undefined) {
+    if (!apiData?.goods_infos || !apiData?.items) return;
+    
     const goods_info = Object.values(apiData.goods_infos)?.pop() as BuffTypes.SellOrder.GoodsInfo | undefined;
     let rows = document.querySelectorAll('tr.selling');
 
-    if (!apiData.items || !goods_info || goods_info.appid !== 730 || rows.length < 0) return;
+    if (!goods_info || goods_info.appid !== 730 || rows.length < 0) return;
 
     const weaponSchema = SchemaHelpers.getWeaponSchema(goods_info.market_hash_name, goods_info?.tags?.exterior?.internal_name == 'wearcategoryna');
 

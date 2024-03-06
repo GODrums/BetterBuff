@@ -44,7 +44,7 @@ We share the same discord server with my other extension <a href="https://github
 
 <p>
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/svelte/svelte-original.svg" title="Svelte" height="35" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" title="TailwindCSS" height="35"/>
+  <img src="https://api.iconify.design/logos:tailwindcss-icon.svg?color=%23888888" title="TailwindCSS" height="35"/>
   <img src="https://api.iconify.design/logos:daisyui.svg" title="DaisyUI" height="35"/>
   <img src="https://api.iconify.design/vscode-icons:file-type-vite.svg" title="Vite" height="35"/>
   <img src="https://wxt.dev/logo.svg" title="Web Extension Framework (WXT)" height="35"/>

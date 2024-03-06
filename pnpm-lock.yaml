@@ -65,8 +65,8 @@ devDependencies:
     specifier: ^5.1.4
     version: 5.1.4
   wxt:
-    specifier: ^0.17.3
-    version: 0.17.3
+    specifier: ^0.17.6
+    version: 0.17.6
 
 packages:
 
@@ -1028,6 +1028,14 @@ packages:
 
   /@types/node@20.11.20:
     resolution: {integrity: sha512-7/rR21OS+fq8IyHTgtLkDK949uzsa6n8BkziAKtPVpugIkO6D+/ooXMvzXxDnZrmtXVfjb1bKQafYpb8s89LOg==}
+    requiresBuild: true
+    dependencies:
+      undici-types: 5.26.5
+    dev: true
+    optional: true
+
+  /@types/node@20.11.24:
+    resolution: {integrity: sha512-Kza43ewS3xoLgCEpQrsT+xRo/EJej1y0kVYGiLFE1NEODXGzTfwiC6tXTLMQskn1X4/Rjlh0MQUvx9W+L9long==}
     dependencies:
       undici-types: 5.26.5
     dev: true
@@ -1418,7 +1426,7 @@ packages:
     engines: {node: '>=12.13.0'}
     hasBin: true
     dependencies:
-      '@types/node': 20.11.20
+      '@types/node': 20.11.24
       escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
       lighthouse-logger: 2.0.1
@@ -2204,7 +2212,7 @@ packages:
       consola: 3.2.3
       defu: 6.1.4
       node-fetch-native: 1.6.2
-      nypm: 0.3.6
+      nypm: 0.3.8
       ohash: 1.1.3
       pathe: 1.1.2
       tar: 6.2.0
@@ -2873,6 +2881,13 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
+  /magic-string@0.30.8:
+    resolution: {integrity: sha512-ISQTe55T2ao7XtlAStud6qwYPZjE4GK1S/BeVPus4jrq6JuOnQ00YKQC581RWhR122W7msZV263KzVeLoqidyQ==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@jridgewell/sourcemap-codec': 1.4.15
+    dev: true
+
   /make-error@1.3.6:
     resolution: {integrity: sha512-s8UhlNe7vPKomQhC1qFelMokr/Sc3AgNbso3n74mVPA5LTZwkB9NlXf4XPamLxJE8h0gh73rM94xvwRT2CVInw==}
     dev: true
@@ -3145,12 +3160,13 @@ packages:
       boolbase: 1.0.0
     dev: true
 
-  /nypm@0.3.6:
-    resolution: {integrity: sha512-2CATJh3pd6CyNfU5VZM7qSwFu0ieyabkEdnogE30Obn1czrmOYiZ8DOZLe1yBdLKWoyD3Mcy2maUs+0MR3yVjQ==}
+  /nypm@0.3.8:
+    resolution: {integrity: sha512-IGWlC6So2xv6V4cIDmoV0SwwWx7zLG086gyqkyumteH2fIgCAM4nDVFB2iDRszDvmdSVW9xb1N+2KjQ6C7d4og==}
     engines: {node: ^14.16.0 || >=16.10.0}
     hasBin: true
     dependencies:
       citty: 0.1.6
+      consola: 3.2.3
       execa: 8.0.1
       pathe: 1.1.2
       ufo: 1.4.0
@@ -4288,13 +4304,13 @@ packages:
       estree-walker: 3.0.3
       fast-glob: 3.3.2
       local-pkg: 0.5.0
-      magic-string: 0.30.7
+      magic-string: 0.30.8
       mlly: 1.6.1
       pathe: 1.1.2
       pkg-types: 1.0.3
       scule: 1.3.0
       strip-literal: 1.3.0
-      unplugin: 1.7.1
+      unplugin: 1.8.0
     transitivePeerDependencies:
       - rollup
     dev: true
@@ -4325,8 +4341,8 @@ packages:
       webpack-virtual-modules: 0.5.0
     dev: true
 
-  /unplugin@1.7.1:
-    resolution: {integrity: sha512-JqzORDAPxxs8ErLV4x+LL7bk5pk3YlcWqpSNsIkAZj972KzFZLClc/ekppahKkOczGkwIG6ElFgdOgOlK4tXZw==}
+  /unplugin@1.8.0:
+    resolution: {integrity: sha512-yGEQsodWICmgt7asHF7QzqDZYeEP9h14vyd9Lul98UnYf29pLZZLwI09z2QdTjwU/FCkum1SRvsK7cx232X8NA==}
     dependencies:
       acorn: 8.11.3
       chokidar: 3.6.0
@@ -4585,8 +4601,8 @@ packages:
         optional: true
     dev: true
 
-  /wxt@0.17.3:
-    resolution: {integrity: sha512-Hv0K6vsPJHKyMPh9PxlmQutQLoGKIu/8ccR8U9eNu129n89YCA/qiIwRJZQmzNB8aYYYzkp8Gy9dl+sopbD51A==}
+  /wxt@0.17.6:
+    resolution: {integrity: sha512-t/joVRPjazw4Xm/VxW5pysvGlIsQzfWwyFg8AX85UlU3QVxJYGe9FQYX5/8wnFh6f1HpZKM1wt9JSd7zBTTDhw==}
     engines: {node: '>=18', pnpm: '>=8'}
     hasBin: true
     dependencies:
@@ -4612,10 +4628,12 @@ packages:
       is-wsl: 3.1.0
       jiti: 1.21.0
       json5: 2.2.3
+      jszip: 3.10.1
       linkedom: 0.16.8
       minimatch: 9.0.3
       natural-compare: 1.4.0
       normalize-path: 3.0.0
+      nypm: 0.3.8
       ora: 7.0.1
       picocolors: 1.0.0
       prompts: 2.4.2
@@ -4624,7 +4642,6 @@ packages:
       vite: 5.1.4
       web-ext-run: 0.2.0
       webextension-polyfill: 0.10.0
-      zip-dir: 2.0.0
     transitivePeerDependencies:
       - '@types/node'
       - bufferutil

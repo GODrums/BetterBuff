@@ -110,6 +110,16 @@
             justify-content: center;
         }
 
+        /* Use 3 columns for shop grid */
+
+        div.shop .list_card.list_card_small2 ul {
+            grid-template-columns: auto auto auto !important;
+        }
+
+        .shop-list .list_card {
+            padding-left: unset !important;
+        }
+
         .list_card ul:not(#index-popular_goods-data-list-csgo) li {
             margin: 11px !important;
         }
@@ -157,7 +167,7 @@
         }
 
         .criteria.search_auto_grow .w-Search input.i_Text, .w-Search .i_Text {
-            width: 175px !important;
+            max-width: 175px !important;
         }
 
         .list_card li {
@@ -227,6 +237,16 @@
 
         .cont_panel .my-menu li a {
             padding: 0 35px !important;
+        }
+
+        .user-setting {
+            .list_tb .i_Btn_small {
+                white-space: nowrap;
+            }
+
+            .i_Text {
+                max-width: 285px;
+            }
         }
 
         .g-w940 {

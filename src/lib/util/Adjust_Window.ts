@@ -12,7 +12,7 @@ export function adjustWindow() {
 function adjustWallet() {
     const walletAmount = document.querySelector('#navbar-cash-amount');
     const currency = WINDOW_G?.currency;
-    if (!walletAmount || !currency) return;
+    if (!walletAmount || !currency || currency.code === 'CNY') return;
 
     walletAmount.appendChild(document.createElement('br'));
 

@@ -83,7 +83,7 @@ export async function isPaymentMethodAvailable(paymentMethods: number[]) {
 }
 
 /**
- * Given an item name and a list of lower-case keywords returns the item name where the occurrences any of
+ * Given an item name and a list of lower-case keywords returns the item name where any occurrences of
  * the keywords (case-insensitive) is highlighted using <match> XML tags.
  * @param itemName - the item name.
  * @param keywords - the keywords.

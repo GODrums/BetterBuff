@@ -85,14 +85,10 @@ export async function isPaymentMethodAvailable(paymentMethods: number[]) {
 /**
  * Given an item name and a list of lower-case keywords returns the item name where the occurrences any of
  * the keywords (case-insensitive) is highlighted using <match> XML tags.
- *
- * Note: This algorithm for matching a finite-set of string patterns has horrible performance but is very simple.
  * @param itemName - the item name.
  * @param keywords - the keywords.
  */
 export function getMatchedItemName(itemName: string, keywords: string[]): string {
-    console.time(`getMatchedItemName - ${itemName}`);
-
     const itemNameLower = itemName.toLowerCase();
     // the set of character indices in the itemName that are part of a keyword match
     const matchedIndices: Set<number> = new Set();
@@ -131,10 +127,12 @@ export function getMatchedItemName(itemName: string, keywords: string[]): string
             matchedItemName += '</match>';
         }
 
-        matchedItemName += matchedItemName[i];
+        matchedItemName += itemName.charAt(i);
     }
 
-    console.timeEnd(`getMatchedItemName - ${itemName}`);
+    if (isMatchingGroup) {
+        matchedItemName += '</match>';
+    }
 
     return matchedItemName;
 }

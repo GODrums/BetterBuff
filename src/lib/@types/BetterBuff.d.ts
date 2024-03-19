@@ -5,6 +5,10 @@ export namespace BetterBuff {
         hash: string
     }
 
+    export interface BuffItemEntry {
+        [key: string]: number;
+    }
+
     export interface CHPatterns {
         [weapon: string]: {
             "playside": {

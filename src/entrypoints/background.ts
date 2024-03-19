@@ -28,8 +28,6 @@ export default defineBackground(() => {
     });
 
     browser.omnibox.onInputChanged.addListener((text, suggest) => {
-        console.time('omnibox filter');
-
         const keywords = text.toLowerCase()
             .split(' ')
             .map(k => k.trim())
@@ -52,8 +50,6 @@ export default defineBackground(() => {
                 }
             }
         }
-
-        console.timeEnd('omnibox filter');
 
         suggest(suggestions);
     });

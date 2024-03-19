@@ -14,7 +14,8 @@
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "postinstall": "wxt prepare",
     "submit": "wxt submit",
-    "submit:dry": "wxt submit --dry-run"
+    "submit:dry": "wxt submit --dry-run",
+    "update-buff-items": "node ./scripts/generateBuffItemsSorted.js"
   },
   "devDependencies": {
     "@sentry/vite-plugin": "^2.16.0",

@@ -27,6 +27,10 @@ export default defineBackground(() => {
         }
     });
 
+    browser.omnibox.onInputStarted.addListener(() => {
+       browser.omnibox.setDefaultSuggestion({description: 'Type the name of any CS item on Buff'});
+    });
+
     browser.omnibox.onInputChanged.addListener((text, suggest) => {
         const keywords = text.toLowerCase()
             .split(' ')

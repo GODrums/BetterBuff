@@ -1,6 +1,6 @@
-import Decimal from "decimal.js";
-import { ExtensionStorage, WINDOW_G, type IStorage } from "./storage";
-import { PAYMENT_MAPPING } from "./globals";
+import Decimal from 'decimal.js';
+import { ExtensionStorage, type IStorage, WINDOW_G } from './storage';
+import { PAYMENT_MAPPING } from './globals';
 
 export function priceToHtml(price: number, symbol: string | null = null, space: boolean = false) {
     const priceParts = price.toFixed(2).split('.');
@@ -80,4 +80,61 @@ export async function isPaymentMethodAvailable(paymentMethods: number[]) {
         }
     }
     return isAvailable;
+}
+
+/**
+ * Given an item name and a list of lower-case keywords returns the item name where the occurrences any of
+ * the keywords (case-insensitive) is highlighted using <match> XML tags.
+ *
+ * Note: This algorithm for matching a finite-set of string patterns has horrible performance but is very simple.
+ * @param itemName - the item name.
+ * @param keywords - the keywords.
+ */
+export function getMatchedItemName(itemName: string, keywords: string[]): string {
+    console.time(`getMatchedItemName - ${itemName}`);
+
+    const itemNameLower = itemName.toLowerCase();
+    // the set of character indices in the itemName that are part of a keyword match
+    const matchedIndices: Set<number> = new Set();
+
+    // find matching characters that are part of a keyword
+    for (const keyword of keywords) {
+        let i = 0;
+
+        while (i < itemNameLower.length) {
+            const nextMatch = itemNameLower.indexOf(keyword, i);
+
+            if (nextMatch === -1) {
+                break;
+            }
+
+            // add matching indices
+            for (let j = 0; j < keyword.length; j++) {
+                matchedIndices.add(nextMatch + j);
+            }
+
+            i = nextMatch + keyword.length;
+        }
+    }
+
+    // construct matched item name string
+    let matchedItemName = '';
+    let isMatchingGroup = false;
+    for (let i = 0; i < itemName.length; i++) {
+        if (matchedIndices.has(i) && !isMatchingGroup) {
+            // start a new matching group
+            isMatchingGroup = true;
+            matchedItemName += '<match>';
+        } else if (!matchedIndices.has(i) && isMatchingGroup) {
+            // end current matching group
+            isMatchingGroup = false;
+            matchedItemName += '</match>';
+        }
+
+        matchedItemName += matchedItemName[i];
+    }
+
+    console.timeEnd(`getMatchedItemName - ${itemName}`);
+
+    return matchedItemName;
 }

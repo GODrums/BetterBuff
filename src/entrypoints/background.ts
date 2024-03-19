@@ -2,6 +2,7 @@ import type { BetterBuff } from '@/lib/@types/BetterBuff';
 import buffItemsSorted from '@/assets/buff-items-sorted.json';
 import { browser } from 'wxt/browser';
 import { defineBackground } from 'wxt/sandbox';
+import { getMatchedItemName } from '@/lib/util/dataHelpers';
 
 export default defineBackground(() => {
     const buffItems: BetterBuff.BuffItemEntry = buffItemsSorted;
@@ -27,15 +28,20 @@ export default defineBackground(() => {
     });
 
     browser.omnibox.onInputChanged.addListener((text, suggest) => {
+        console.time('omnibox filter');
+
         const keywords = text.toLowerCase().split(' ');
         const suggestions = [];
 
         for (const buffItem of Object.keys(buffItems)) {
             if (keywords.every(k => buffItem.toLowerCase().includes(k))) {
+                const url = `https://buff.163.com/goods/${buffItems[buffItem]}`;
+                const description = `${getMatchedItemName(buffItem, keywords)} - <url>${url}</url>`
+
                 suggestions.push({
                     deletable: false,
-                    description: buffItem,
-                    content: `https://buff.163.com/goods/${buffItems[buffItem]}`,
+                    description: description,
+                    content: url,
                 });
 
                 if (suggestions.length > 5) {
@@ -43,6 +49,8 @@ export default defineBackground(() => {
                 }
             }
         }
+
+        console.timeEnd('omnibox filter');
 
         suggest(suggestions);
     });

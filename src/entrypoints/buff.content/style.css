@@ -191,7 +191,9 @@ html {
 
 .bb-dark-mode .user-setting .list_tb tr:hover,
 .bb-dark-mode .list_tb_csgo tr.bookmark_order:hover,
-.bb-dark-mode .user-record tr:hover {
+.bb-dark-mode .user-record tr:hover,
+.bb-dark-mode .user-guestbook .guestbook-col1-item.on,
+.bb-dark-mode .user-guestbook .guestbook-col2-goods-top {
     background: var(--bb-color-1, #1f1f1f) !important;
 }
 
@@ -205,9 +207,20 @@ html {
 .bb-dark-mode .user-wallet,
 .bb-dark-mode .user-wallet .user-pay-desc,
 .bb-dark-mode .user-rights,
-.bb-dark-mode .user-feedback {
+.bb-dark-mode .user-feedback,
+.bb-dark-mode .user-guestbook,
+.bb-dark-mode .user-guestbook .guestbook-tab,
+.bb-dark-mode .user-guestbook .guestbook-col2,
+.bb-dark-mode .user-guestbook .bargain_chat_sell_div ul
+ {
     background: var(--bb-color-0, #121212) !important;
     color: var(--bb-color-2, #bfbfbf);
+}
+
+.bb-dark-mode .user-guestbook .message,
+.bb-dark-mode .user-guestbook .card_box {
+    background: var(--bb-color-1, #1f1f1f) !important;
+    color: var(--bb-color-2, #bfbfbf) !important;
 }
 
 .bb-dark-mode .l_Layout .cont_main .user-record .i_Btn_hollow {

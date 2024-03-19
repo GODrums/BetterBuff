@@ -30,13 +30,16 @@ export default defineBackground(() => {
     browser.omnibox.onInputChanged.addListener((text, suggest) => {
         console.time('omnibox filter');
 
-        const keywords = text.toLowerCase().split(' ');
+        const keywords = text.toLowerCase()
+            .split(' ')
+            .map(k => k.trim())
+            .filter(k => k.length > 0);
         const suggestions = [];
 
         for (const buffItem of Object.keys(buffItems)) {
             if (keywords.every(k => buffItem.toLowerCase().includes(k))) {
                 const url = `https://buff.163.com/goods/${buffItems[buffItem]}`;
-                const description = `${getMatchedItemName(buffItem, keywords)} - <url>${url}</url>`
+                const description = `${getMatchedItemName(buffItem, keywords)} - <url>${url}</url>`;
 
                 suggestions.push({
                     deletable: false,

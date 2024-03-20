@@ -1,6 +1,7 @@
 {
   "extends": ["./.wxt/tsconfig.json", "@tsconfig/svelte/tsconfig.json"],
   "compilerOptions": {
-    "useDefineForClassFields": true
+    "useDefineForClassFields": true,
+    "resolveJsonModule": true
   }
 }

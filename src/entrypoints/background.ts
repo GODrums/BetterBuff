@@ -1,12 +1,10 @@
 import type { BetterBuff } from '@/lib/@types/BetterBuff';
-import buffItemsSorted from '@/assets/buff-items-sorted.json';
+import buffItems from '@/assets/buff-items-sorted.json';
 import { browser } from 'wxt/browser';
 import { defineBackground } from 'wxt/sandbox';
 import { getMatchedItemName } from '@/lib/util/dataHelpers';
 
 export default defineBackground(() => {
-    const buffItems: BetterBuff.BuffItemEntry = buffItemsSorted;
-
     browser.runtime.onInstalled.addListener(() => {
         console.log('Extension installed, version: ', browser.runtime.getManifest().version);
     });
@@ -28,7 +26,7 @@ export default defineBackground(() => {
     });
 
     browser.omnibox.onInputStarted.addListener(() => {
-       browser.omnibox.setDefaultSuggestion({description: 'Type the name of any CS item on Buff'});
+        browser.omnibox.setDefaultSuggestion({description: 'Type the name of any CS item on Buff'});
     });
 
     browser.omnibox.onInputChanged.addListener((text, suggest) => {
@@ -40,7 +38,7 @@ export default defineBackground(() => {
 
         for (const buffItem of Object.keys(buffItems)) {
             if (keywords.every(k => buffItem.toLowerCase().includes(k))) {
-                const url = `https://buff.163.com/goods/${buffItems[buffItem]}`;
+                const url = `https://buff.163.com/goods/${buffItems[buffItem as keyof typeof buffItems]}`;
                 const description = `${getMatchedItemName(buffItem, keywords)} - <url>${url}</url>`;
 
                 suggestions.push({

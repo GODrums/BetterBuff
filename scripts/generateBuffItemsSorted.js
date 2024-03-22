@@ -341,10 +341,15 @@ async function generateBuffItemsSorted() {
 
         // generate buff items
         for (const key in serhatData) {
-            let name = serhatData[key];
+            let name = key;
 
-            if (name.includes('  ')) {
-                throw Error(`Serhat dataset has item with double whitespace "${name}"`);
+            try {
+                if (name.includes('  ')) {
+                    throw Error(`Serhat dataset has item with double whitespace "${name}"`);
+                }
+            } catch (e) {
+                console.error(name)
+                throw Error(e);
             }
 
             if (isSpecialSkin(name) && !name.includes(' | ')) {
@@ -355,7 +360,7 @@ async function generateBuffItemsSorted() {
                 throw Error(name + ' already exists');
             }
 
-            buffIdPerName[name] = +key;
+            buffIdPerName[name] = +serhatData[key];
         }
 
         // sort buff items

@@ -20,7 +20,7 @@ const namePerBuffId = {};
 const buffIdPerName = {};
 const skinsData = {};
 const stickersData = { 'Sticker': {} };
-const otherData = {};
+const othersData = {};
 
 function toLower(obj) {
     if (typeof obj === 'object') {
@@ -311,7 +311,7 @@ function insertSticker(sticker) {
 function insertOther(other) {
     const parts = other.split(' | ');
 
-    let cur = otherData;
+    let cur = othersData;
 
     for (let i = 0; i < parts.length - 1; i++) {
         const part = parts[i];
@@ -383,7 +383,7 @@ async function generateBuffItemsSorted() {
         fs.writeFileSync('./src/assets/buff-ids.json', JSON.stringify(namePerBuffId, null, 2), 'utf8');
         fs.writeFileSync('./src/assets/buff-skins-sorted.json', JSON.stringify(toLower(skinsData), null, 2), 'utf8');
         fs.writeFileSync('./src/assets/buff-stickers-sorted.json', JSON.stringify(toLower(stickersData), null, 2), 'utf8');
-        fs.writeFileSync('./src/assets/buff-other-sorted.json', JSON.stringify(toLower(otherData), null, 2), 'utf8');
+        fs.writeFileSync('./src/assets/buff-others-sorted.json', JSON.stringify(toLower(othersData), null, 2), 'utf8');
     } else {
         throw Error(`Error ${res.status} - ${res.statusText} while fetching https://github.com/ModestSerhat/buff163-ids/blob/main/buffids.json`);
     }

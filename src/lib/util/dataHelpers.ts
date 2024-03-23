@@ -1,6 +1,6 @@
-import Decimal from 'decimal.js';
-import { ExtensionStorage, type IStorage, WINDOW_G } from './storage';
-import { PAYMENT_MAPPING } from './globals';
+import Decimal from "decimal.js";
+import { ExtensionStorage, WINDOW_G, type IStorage } from "./storage";
+import { PAYMENT_MAPPING } from "./globals";
 
 export function priceToHtml(price: number, symbol: string | null = null, space: boolean = false) {
     const priceParts = price.toFixed(2).split('.');

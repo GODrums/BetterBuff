@@ -21,7 +21,7 @@ export async function adjustItemDetails(apiData: BuffTypes.ItemDescDetail.Data) 
         if (strongElement && data.price) {
             const priceCUR = priceContainer.querySelector('strong')?.textContent;
 
-            strongElement.textContent = `¥ ${priceToHtml(parseFloat(data.price))}`;
+            strongElement.innerHTML = `¥ ${priceToHtml(parseFloat(data.price))}`;
             if (priceCUR) {
                 strongElement.insertAdjacentHTML('afterend', `<span>(${priceCUR})</span>`);
             }

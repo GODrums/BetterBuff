@@ -4,7 +4,7 @@ import { sentryVitePlugin } from "@sentry/vite-plugin";
 import { loadEnv } from 'vite';
 import type { Manifest } from 'wxt/browser';
 
-const releaseVersion = '0.7.5';
+const releaseVersion = '0.7.6';
 
 const getViteConfig: ((env: ConfigEnv) => WxtViteConfig | Promise<WxtViteConfig>) = (env) => {
   process.env = {...process.env, ...loadEnv(env.mode, process.cwd())};

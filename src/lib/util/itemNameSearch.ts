@@ -53,13 +53,21 @@ class TopNList {
 
 function rankObject(obj: any, objScore: number, keywords: string[], keywordsLeft: number, topNList: TopNList) {
     for (const [key, val] of Object.entries(obj)) {
-        const [keyScore, curKeywordsLeft] = score(key, keywords, keywordsLeft);
-        const curScore = keyScore + objScore;
+        const keyWords = key.split(' ');
 
-        if (typeof val === 'number' && curKeywordsLeft === 0) {
-            topNList.add({ element: val, score: curScore });
+        let s = objScore;
+        let kl = keywordsLeft;
+
+        for (const keyWord of keyWords) {
+            const [ws, wkl] = score(keyWord, keywords, keywordsLeft);
+            s += ws;
+            kl &= wkl;
+        }
+
+        if (typeof val === 'number' && kl === 0) {
+            topNList.add({ element: val, score: s });
         } else if (typeof val === 'object') {
-            rankObject(val, curScore, keywords, curKeywordsLeft, topNList);
+            rankObject(val, s, keywords, kl, topNList);
         }
     }
 }

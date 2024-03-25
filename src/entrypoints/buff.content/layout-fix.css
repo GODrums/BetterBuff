@@ -26,7 +26,7 @@
         }
 
         .focus-text {
-            margin-left: -565px !important;
+            margin-left: -485px !important;
             animation: rightInC .5s 0s ease-in-out 1 forwards !important;
             -webkit-animation: rightInC .5s 0s ease-in-out 1 forwards !important;
         }
@@ -110,6 +110,16 @@
             justify-content: center;
         }
 
+        /* Use 3 columns for shop grid */
+
+        div.shop .list_card.list_card_small2 ul {
+            grid-template-columns: auto auto auto !important;
+        }
+
+        .shop-list .list_card {
+            padding-left: unset !important;
+        }
+
         .list_card ul:not(#index-popular_goods-data-list-csgo) li {
             margin: 11px !important;
         }
@@ -157,7 +167,7 @@
         }
 
         .criteria.search_auto_grow .w-Search input.i_Text, .w-Search .i_Text {
-            width: 175px !important;
+            max-width: 175px !important;
         }
 
         .list_card li {
@@ -229,6 +239,16 @@
             padding: 0 35px !important;
         }
 
+        .user-setting {
+            .list_tb .i_Btn_small {
+                white-space: nowrap;
+            }
+
+            .i_Text {
+                max-width: 285px;
+            }
+        }
+
         .g-w940 {
             width: unset !important;
         }
@@ -264,6 +284,12 @@
 
         #bookmark_sell_order_list table.list_tb tr td:last-child > *:not(:last-child) {
             margin-bottom: 2px !important;
+        }
+
+        .user-fav.delete-bookmark {
+            display: inline-block;
+            margin-top: 3px !important;
+            margin-left: 0 !important;
         }
 
         .detail-header {
@@ -379,7 +405,7 @@
         }
 
         .focus-text {
-            margin-left: -580px !important;
+            margin-left: -500px !important;
         }
 
         .focus-pic {

@@ -20,9 +20,13 @@ export async function adjustItemDetails(apiData: BuffTypes.ItemDescDetail.Data) 
         const strongElement = priceContainer.querySelector('strong');
         if (strongElement && data.price) {
             const priceCUR = priceContainer.querySelector('strong')?.textContent;
+            const currency = WINDOW_G?.currency;
 
             strongElement.innerHTML = `¥ ${priceToHtml(parseFloat(data.price))}`;
-            if (priceCUR) {
+            if (priceCUR?.startsWith('¥') && currency?.symbol !== '¥') {
+                const priceConverted = new Decimal(parseFloat(data.price)).mul(currency?.rate_base_cny ?? 1).toDP(2).toNumber();
+                strongElement.insertAdjacentHTML('afterend', `<span>(${priceToHtml(priceConverted, currency?.symbol, true)})</span>`);
+            } else {
                 strongElement.insertAdjacentHTML('afterend', `<span>(${priceCUR})</span>`);
             }
         }
@@ -61,7 +65,7 @@ export async function adjustItemDetails(apiData: BuffTypes.ItemDescDetail.Data) 
 
     if (BUFF_CRX) {
         const ui = await createShadowRootUi(BUFF_CRX, {
-            name: 'demo-ui',
+            name: 'betterbuff-listing-options',
             css: '../components/style.css',
             position: 'inline',
             anchor: '#betterbuff-listing-anchor',

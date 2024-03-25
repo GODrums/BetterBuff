@@ -2,11 +2,11 @@ import Decimal from "decimal.js";
 import { ExtensionStorage, WINDOW_G, type IStorage } from "./storage";
 import { PAYMENT_MAPPING } from "./globals";
 
-export function priceToHtml(price: number, symbol: string | null = null) {
+export function priceToHtml(price: number, symbol: string | null = null, space: boolean = false) {
     const priceParts = price.toFixed(2).split('.');
     if (!priceParts) return '';
     const dps = (parseInt(priceParts[0]) < 1000 && priceParts[1] && parseInt(priceParts[1]) > 0) ? `<small>.${priceParts[1]}</small>` : '';
-    return `${symbol ?? ''}${priceParts[0]}${dps}`;
+    return `${symbol ?? ''}${space ? ' ' : ''}${priceParts[0]}${dps}`;
 }
 
 export function getListingDifference(price: number, steamPriceCNY: number, style: IStorage['listingDifferenceStyle'], steamTax: IStorage['platformTax'], profitThreshold?: IStorage['profitThreshold'], listingDenominator?: IStorage['listingDenominator']) {

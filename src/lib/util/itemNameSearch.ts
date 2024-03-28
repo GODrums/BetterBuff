@@ -1,3 +1,25 @@
+import commonWords from '@/assets/common-words.json';
+
+/*
+ * Contains algorithm and data structures used for Buff Item suggestions.
+ * See also: https://github.com/GODrums/BetterBuff/pull/8
+ *
+ * Algorithm Description:
+ *  Given a list of keywords, return the top-N Buff Items that match ALL the keywords.
+ *
+ *  - The matching is done case-insensitive
+ *  - The matching is done fuzzily via "Optimal string alignment distance" (https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance#Optimal_string_alignment_distance)
+ *  - For every keyword only the single best match within an item name is taken into consideration
+ *  - TODO: Optimize cache performance
+ */
+
+const DEBUG = true;
+let commonWordsScoreCache: any = {};
+let TOTAL_SCORE_TIME = 0;
+let TOTAL_CACHE_TIME = 0;
+let TOTAL_STR_INDEX_TIME = 0;
+let TOTAL_FUZZY_TIME = 0;
+
 class TopNElement {
     element: any;
     score: number;
@@ -51,35 +73,69 @@ class TopNList {
     }
 }
 
-function rankObject(obj: any, objScore: number, keywords: string[], keywordsLeft: number, topNList: TopNList) {
+function rankObject(obj: any, keywordScores: number[], keywords: string[], topNList: TopNList) {
     for (const [key, val] of Object.entries(obj)) {
-        const keyWords = key.split(' ');
+        const words = key.split(' ');
 
-        let s = objScore;
-        let kl = keywordsLeft;
+        let newKeywordScores = [...keywordScores];
 
-        for (const keyWord of keyWords) {
-            const [ws, wkl] = score(keyWord, keywords, keywordsLeft);
-            s += ws;
-            kl &= wkl;
+        for (const word of words) {
+            for (let i = 0; i < keywords.length; i++) {
+                const keyword = keywords[i];
+
+                const st = performance.now();
+                const s = calcScore(word, keyword);
+                TOTAL_SCORE_TIME += performance.now() - st;
+
+                if (s > newKeywordScores[i]) {
+                    // found better match for keyword
+                    newKeywordScores[i] = s;
+                }
+            }
         }
 
-        if (typeof val === 'number' && kl === 0) {
-            topNList.add({ element: val, score: s });
+        if (typeof val === 'number' && newKeywordScores.every(ks => ks > 0)) {
+            topNList.add({ element: val, score: Math.round(newKeywordScores.reduce((sum, ks) => sum + ks, 0)) });
         } else if (typeof val === 'object') {
-            rankObject(val, s, keywords, kl, topNList);
+            rankObject(val, newKeywordScores, keywords, topNList);
         }
     }
 }
 
 export function findBestMatches(N: number, keywords: string[], buffSkins: any, buffStickers: any, buffOthers: any): ReadonlyArray<TopNElement> {
+    const st = performance.now();
+    TOTAL_SCORE_TIME = 0;
+    TOTAL_CACHE_TIME = 0;
+    TOTAL_STR_INDEX_TIME = 0;
+    TOTAL_FUZZY_TIME = 0;
+
+    commonWordsScoreCache = {};
+    for (const word of commonWords) {
+        commonWordsScoreCache[word] = {};
+    }
+
     const topNList = new TopNList(N);
 
-    const allMissing = (1 << (keywords.length)) - 1;
+    const skt = performance.now();
+    rankObject(buffSkins, keywords.map(_ => 0), keywords, topNList);
+    const stt = performance.now();
+    rankObject(buffStickers, keywords.map(_ => 0), keywords, topNList);
+    const ot = performance.now();
+    rankObject(buffOthers, keywords.map(_ => 0), keywords, topNList);
 
-    rankObject(buffSkins, 0, keywords, allMissing, topNList);
-    rankObject(buffStickers, 0, keywords, allMissing, topNList);
-    rankObject(buffOthers, 0, keywords, allMissing, topNList);
+    const e = performance.now();
+
+    if (DEBUG) {
+        console.log(`Total match time: ${e - st} ms`);
+        console.log(`\tInit time: ${skt - st} ms`);
+        console.log(`\tSkins match time: ${stt - skt} ms`);
+        console.log(`\tStickers match time: ${ot - stt} ms`);
+        console.log(`\tOthers match time: ${e - ot} ms`);
+        console.log(`Total score time: ${TOTAL_SCORE_TIME} ms`);
+        console.log(`\tTotal cache time: ${TOTAL_CACHE_TIME} ms`);
+        console.log(`\tTotal string index time: ${TOTAL_STR_INDEX_TIME} ms`);
+        console.log(`\tTotal fuzzy time: ${TOTAL_FUZZY_TIME} ms`);
+    }
 
     return topNList.get();
 }
@@ -87,6 +143,7 @@ export function findBestMatches(N: number, keywords: string[], buffSkins: any, b
 /**
  * Given an item name and a list of lower-case keywords returns the item name where any occurrences of
  * the keywords (case-insensitive) is highlighted using <match> XML tags.
+ * TODO: Refactor directly into search
  * @param itemName - the item name.
  * @param keywords - the keywords.
  */
@@ -139,22 +196,108 @@ export function getMatchedItemName(itemName: string, keywords: string[]): string
     return matchedItemName;
 }
 
-function score(word: string, keywords: string[], keywordsLeft: number): [number, number] {
-    let s = 0;
-    let f = keywordsLeft;
+function calcScore(word: string, keyword: string): number {
+    const st1 = performance.now();
+    const isCommon = commonWordsScoreCache[word] !== undefined;
 
-    for (let i = 0; i < keywords.length; i++) {
-        const keyword = keywords[i];
-        if (word.startsWith(keyword)) {
-            s += 1.5;
-            f = unsetFlag(f, i);
-        } else if (word.includes(keyword)) {
-            s += 1;
-            f = unsetFlag(f, i);
+    if (isCommon && commonWordsScoreCache[word][keyword] !== undefined) {
+        TOTAL_CACHE_TIME += performance.now() - st1;
+        return commonWordsScoreCache[word][keyword];
+    }
+
+    TOTAL_CACHE_TIME += performance.now() - st1;
+
+    let s = 0;
+
+    const st2 = performance.now();
+    const si = word.indexOf(keyword);
+    TOTAL_STR_INDEX_TIME += performance.now() - st2;
+
+    if (si === 0) {
+        // the word starts with the keyword
+        s = 6;
+    } else if (si > 0) {
+        // the word includes the keyword
+        s = 4;
+    } else if (keyword.length > 2) {
+        // the word does not include the keyword directly
+        const st3 = performance.now();
+        const fuzzyDist = calcFuzzyMatchDistance(word, keyword, 2);
+        TOTAL_FUZZY_TIME += performance.now() - st3;
+
+        switch (fuzzyDist) {
+            case 1:
+                s = 2;
+                break;
+            case 2:
+                s = 1;
+                break;
         }
     }
 
-    return [s, f];
+    const st4 = performance.now();
+    if (isCommon) {
+        commonWordsScoreCache[word][keyword] = s;
+    }
+    TOTAL_CACHE_TIME += performance.now() - st4;
+
+    return s;
+}
+
+/**
+ * Computes the optimal string alignment distance.
+ * Optimizations:
+ * - Abort early if prefix distance is already larger than limit
+ * TODO: Return starting and end index of fuzzy matched substring in a
+ * @see https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance#Algorithm
+ */
+function calcFuzzyMatchDistance(a: string, b: string, limit: number) {
+    if (Math.abs(a.length - b.length) > limit) {
+        return limit + 1;
+    }
+
+    const d = new Array(a.length + 1);
+    for (let i = 0; i < d.length; i++) {
+        d[i] = new Array(b.length + 1);
+    }
+
+    for (let i = 0; i <= a.length; i++) {
+        d[i][0] = i;
+    }
+    for (let j = 0; j <= b.length; j++) {
+        d[0][j] = j;
+    }
+
+    for (let i = 1; i <= a.length; i++) {
+        let abort = true;
+
+        for (let j = 1; j <= b.length; j++) {
+            const aChar = a.charAt(i - 1);
+            const bChar = b.charAt(j - 1);
+
+            let cost = aChar === bChar ? 0 : 1;
+
+            d[i][j] = Math.min(
+                d[i - 1][j] + 1, // deletion
+                d[i][j - 1] + 1,        // insertion
+                d[i - 1][j - 1] + cost, // substitution
+            );
+
+            if (i > 1 && j > 1 && aChar === b.charAt(j - 2) && bChar === a.charAt(i - 2)) {
+                d[i][j] = Math.min(d[i][j],
+                    d[i - 2][j - 2] + 1); // transposition
+            }
+
+            abort = abort && d[i][j] > limit;
+        }
+
+        if (abort) {
+            d[a.length][b.length] = limit + 1;
+            break;
+        }
+    }
+
+    return d[a.length][b.length];
 }
 
 /**
@@ -175,20 +318,4 @@ function branchlessBinarySearch<T>(arr: T[], val: T, cmp: (a: T, B: T) => number
     }
 
     return Math.floor(i);
-}
-
-function checkFlag(f: number, i: number): boolean {
-    return !!(f >> i);
-}
-
-function setFlag(f: number, i: number) {
-    return f | (1 << i);
-}
-
-function unsetFlag(f: number, i: number) {
-    return f & ~(1 << i);
-}
-
-function clearFlag(f: number) {
-    return 0;
 }

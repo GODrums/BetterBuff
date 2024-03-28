@@ -18,22 +18,43 @@ export default defineBackground(() => {
             const state: BetterBuff.URLState = {
                 path: url.pathname,
                 search: url.search,
-                hash: url.hash
+                hash: url.hash,
             };
             console.log('[BetterBuff] URL changed to: ', state);
             browser.tabs.sendMessage(tabId, {
                 type: 'BetterBuff_URL_CHANGED',
-                state
+                state,
             });
         }
     });
 
     browser.omnibox.onInputStarted.addListener(() => {
         browser.omnibox.setDefaultSuggestion({ description: 'Type the name of any CS item on Buff' });
+
+        // TODO: Remove Benchmarks
+        let benchmark = (str: string) => {
+            console.warn(`BENCHMARK: "${str}"`);
+            const bestMatches = findBestMatches(10, str.split(' '), buffSkins, buffStickers, buffOthers);
+            console.log('Suggestions:', bestMatches.map(({ element, score }) => ({
+                item: buffItems[element as keyof typeof buffItems],
+                score,
+            })));
+            console.log('===========================================================================================================================');
+        };
+
+        benchmark('karambit');
+        benchmark('some item name that does not exist');
+        benchmark('ak neon ride');
+        benchmark('ak neon rider');
+        benchmark('ak neon rider fac');
+        benchmark('100thieves');
+        benchmark('chanticos');
+        benchmark('chanticos fire m4');
+        benchmark('stat trak awp neo noir field tested');
     });
 
     browser.omnibox.onInputChanged.addListener((text, suggest) => {
-        console.time('omnibox search');
+        console.warn(`BENCHMARK: "${text}"`);
 
         let keywords = text.toLowerCase()
             .split(' ')
@@ -41,19 +62,26 @@ export default defineBackground(() => {
             .filter(k => k.length > 0);
         const suggestions = [];
 
-        if (keywords.length > 64) {
-            console.warn('[omnibox search] only the first 64 keywords will be considered for suggestions');
-            keywords = keywords.splice(64, keywords.length - 64);
-        }
-
         const bestMatches = findBestMatches(10, keywords, buffSkins, buffStickers, buffOthers);
 
-        console.log('search results:', bestMatches.map(({ element, score }) => ({
+        console.log('Suggestions:', bestMatches.map(({ element, score }) => ({
             item: buffItems[element as keyof typeof buffItems],
             score,
         })));
 
+        if (bestMatches.length === 0) {
+            throw Error(`No suggestions matched for search term "${text}".`);
+        }
+
+        const bestMatchScore = bestMatches[0].score;
+
         for (const topNElement of bestMatches) {
+            if (topNElement.score < bestMatchScore / 2) {
+                // abort here to not show any hallucinated edit-distance suggestions
+                // maybe consider: https://stackoverflow.com/a/32337766/6920681
+                break;
+            }
+
             const buffId = topNElement.element;
             const itemName = buffItems[buffId as keyof typeof buffItems];
 
@@ -68,7 +96,7 @@ export default defineBackground(() => {
             });
         }
 
-        console.timeEnd('omnibox search');
+        console.log('===========================================================================================================================');
 
         suggest(suggestions);
     });

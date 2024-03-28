@@ -21,9 +21,14 @@ const buffIdPerName = {};
 const skinsData = {};
 const stickersData = { 'Sticker': {} };
 const othersData = {};
+const wordAppearances = {};
 
 function toLower(obj) {
-    if (typeof obj === 'object') {
+    if (typeof obj === 'string') {
+        return obj.toLowerCase();
+    } else if (Array.isArray(obj)) {
+        return obj.map(e => toLower(e));
+    } else if (typeof obj === 'object') {
         const lowerObj = {};
 
         for (const [key, val] of Object.entries(obj)) {
@@ -333,6 +338,40 @@ function insertOther(other) {
     cur[parts[parts.length - 1]] = buffIdPerName[other];
 }
 
+function countWordAppearances(obj) {
+    for (const [key, value] of Object.entries(obj)) {
+        const words = key.split(' | ').map(s => s.split(' ').map(ss => ss.trim())).flat();
+
+        for (const word of words) {
+            if (!wordAppearances[word]) {
+                wordAppearances[word] = 0;
+            }
+
+            wordAppearances[word]++;
+        }
+
+        if (typeof value === 'object') {
+            countWordAppearances(obj[key]);
+        }
+    }
+}
+
+function getCommonWords(countThreshold) {
+    countWordAppearances(skinsData);
+    countWordAppearances(stickersData);
+    countWordAppearances(othersData);
+
+    const commonWords = [];
+
+    for (const [key, value] of Object.entries(wordAppearances)) {
+        if (value >= countThreshold) {
+            commonWords.push(key);
+        }
+    }
+
+    return commonWords;
+}
+
 async function generateBuffItemsSorted() {
     const res = await fetch('https://raw.githubusercontent.com/ModestSerhat/buff163-ids/main/buffids.json');
 
@@ -348,7 +387,7 @@ async function generateBuffItemsSorted() {
                     throw Error(`Serhat dataset has item with double whitespace "${name}"`);
                 }
             } catch (e) {
-                console.error(name)
+                console.error(name);
                 throw Error(e);
             }
 
@@ -384,6 +423,7 @@ async function generateBuffItemsSorted() {
         fs.writeFileSync('./src/assets/buff-skins-sorted.json', JSON.stringify(toLower(skinsData), null, 2), 'utf8');
         fs.writeFileSync('./src/assets/buff-stickers-sorted.json', JSON.stringify(toLower(stickersData), null, 2), 'utf8');
         fs.writeFileSync('./src/assets/buff-others-sorted.json', JSON.stringify(toLower(othersData), null, 2), 'utf8');
+        fs.writeFileSync('./src/assets/common-words.json', JSON.stringify(toLower(getCommonWords(10)), null, 2), 'utf8');
     } else {
         throw Error(`Error ${res.status} - ${res.statusText} while fetching https://github.com/ModestSerhat/buff163-ids/blob/main/buffids.json`);
     }

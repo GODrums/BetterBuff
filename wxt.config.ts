@@ -54,6 +54,7 @@ const getManifest: ((env: ConfigEnv) => Partial<Manifest.WebExtensionManifest>) 
       resources: ["inject.js", "ch_patterns.json"],
       matches: ["*://*.buff.163.com/*"]
     }],
+    omnibox: { keyword : "buff" },
   };
   if (env.browser === 'firefox') {
     manifest.developer = {

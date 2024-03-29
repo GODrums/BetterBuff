@@ -102,7 +102,7 @@ function rankObject(obj: any, keywordScores: number[], keywords: string[], topNL
     }
 }
 
-export function findBestMatches(N: number, keywords: string[], buffSkins: any, buffStickers: any, buffOthers: any): ReadonlyArray<TopNElement> {
+export function findBestMatches(N: number, searchTerm: string, buffSkins: any, buffStickers: any, buffOthers: any): ReadonlyArray<TopNElement> {
     const st = performance.now();
     TOTAL_SCORE_TIME = 0;
     TOTAL_CACHE_TIME = 0;
@@ -113,6 +113,11 @@ export function findBestMatches(N: number, keywords: string[], buffSkins: any, b
     for (const word of commonWords) {
         commonWordsScoreCache[word] = {};
     }
+
+    const keywords = searchTerm.toLowerCase()
+        .split(' ')
+        .map(k => k.trim())
+        .filter(k => k.length > 0 && k !== '|'); /* TODO: better to also match "|" if explicitly asked */
 
     const topNList = new TopNList(N);
 
@@ -213,7 +218,10 @@ function calcScore(word: string, keyword: string): number {
     const si = word.indexOf(keyword);
     TOTAL_STR_INDEX_TIME += performance.now() - st2;
 
-    if (si === 0) {
+    if (si === 0 && word.length === keyword.length) {
+        // the word matches the keyword exactly
+        s = 10;
+    } else if (si === 0) {
         // the word starts with the keyword
         s = 6;
     } else if (si > 0) {

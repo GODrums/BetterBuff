@@ -5,7 +5,7 @@ import buffStickers from '@/assets/buff-stickers-sorted.json';
 import buffOthers from '@/assets/buff-others-sorted.json';
 import { browser } from 'wxt/browser';
 import { defineBackground } from 'wxt/sandbox';
-import { findBestMatches, getMatchedItemName } from '@/lib/util/itemNameSearch';
+import { findBestMatches, getMatchedItemName } from '@/lib/util/itemSuggestion';
 
 export default defineBackground(() => {
     browser.runtime.onInstalled.addListener(() => {
@@ -34,7 +34,7 @@ export default defineBackground(() => {
         // TODO: Remove Benchmarks
         let benchmark = (str: string) => {
             console.warn(`BENCHMARK: "${str}"`);
-            const bestMatches = findBestMatches(10, str.split(' '), buffSkins, buffStickers, buffOthers);
+            const bestMatches = findBestMatches(10, str, buffSkins, buffStickers, buffOthers);
             console.log('Suggestions:', bestMatches.map(({ element, score }) => ({
                 item: buffItems[element as keyof typeof buffItems],
                 score,
@@ -56,13 +56,9 @@ export default defineBackground(() => {
     browser.omnibox.onInputChanged.addListener((text, suggest) => {
         console.warn(`BENCHMARK: "${text}"`);
 
-        let keywords = text.toLowerCase()
-            .split(' ')
-            .map(k => k.trim())
-            .filter(k => k.length > 0);
         const suggestions = [];
 
-        const bestMatches = findBestMatches(10, keywords, buffSkins, buffStickers, buffOthers);
+        const bestMatches = findBestMatches(10, text, buffSkins, buffStickers, buffOthers);
 
         console.log('Suggestions:', bestMatches.map(({ element, score }) => ({
             item: buffItems[element as keyof typeof buffItems],
@@ -87,7 +83,7 @@ export default defineBackground(() => {
 
             const url = `https://buff.163.com/goods/${buffId}`;
             // TODO: construct the matching indices during ranking
-            const description = `${getMatchedItemName(itemName, keywords)} - <url>${url}</url>`;
+            const description = `${getMatchedItemName(itemName, text.toLowerCase().split(' ').map(k => k.trim()).filter(k => k.length > 0))} - <url>${url}</url>`;
 
             suggestions.push({
                 deletable: false,

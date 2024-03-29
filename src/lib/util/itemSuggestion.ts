@@ -15,10 +15,10 @@ import commonWords from '@/assets/common-words.json';
 
 let DEBUG = false;
 let commonWordsScoreCache: any = {};
-let TOTAL_SCORE_TIME = 0;
-let TOTAL_CACHE_TIME = 0;
-let TOTAL_STR_INDEX_TIME = 0;
-let TOTAL_FUZZY_TIME = 0;
+export let TOTAL_SCORE_TIME = 0;
+export let TOTAL_CACHE_TIME = 0;
+export let TOTAL_STR_INDEX_TIME = 0;
+export let TOTAL_FUZZY_TIME = 0;
 
 class TopNElement {
     element: any;
@@ -83,9 +83,9 @@ function rankObject(obj: any, keywordScores: number[], keywords: string[], topNL
             for (let i = 0; i < keywords.length; i++) {
                 const keyword = keywords[i];
 
-                const st = performance.now();
+                // const st = performance.now();
                 const s = calcScore(word, keyword);
-                TOTAL_SCORE_TIME += performance.now() - st;
+                // TOTAL_SCORE_TIME += performance.now() - st;
 
                 if (s > newKeywordScores[i]) {
                     // found better match for keyword
@@ -204,21 +204,21 @@ export function getMatchedItemName(itemName: string, keywords: string[]): string
 }
 
 function calcScore(word: string, keyword: string): number {
-    const st1 = performance.now();
+    // const st1 = performance.now();
     const isCommon = commonWordsScoreCache[word] !== undefined;
 
     if (isCommon && commonWordsScoreCache[word][keyword] !== undefined) {
-        TOTAL_CACHE_TIME += performance.now() - st1;
+        // TOTAL_CACHE_TIME += performance.now() - st1;
         return commonWordsScoreCache[word][keyword];
     }
 
-    TOTAL_CACHE_TIME += performance.now() - st1;
+    // TOTAL_CACHE_TIME += performance.now() - st1;
 
     let s = 0;
 
-    const st2 = performance.now();
+    // const st2 = performance.now();
     const si = word.indexOf(keyword);
-    TOTAL_STR_INDEX_TIME += performance.now() - st2;
+    // TOTAL_STR_INDEX_TIME += performance.now() - st2;
 
     if (si === 0 && word.length === keyword.length) {
         // the word matches the keyword exactly
@@ -231,9 +231,9 @@ function calcScore(word: string, keyword: string): number {
         s = 4;
     } else if (keyword.length > 2) {
         // the word does not include the keyword directly
-        const st3 = performance.now();
+        // const st3 = performance.now();
         const fuzzyDist = calcFuzzyMatchDistance(word, keyword, 2);
-        TOTAL_FUZZY_TIME += performance.now() - st3;
+        // TOTAL_FUZZY_TIME += performance.now() - st3;
 
         switch (fuzzyDist) {
             case 1:
@@ -245,11 +245,11 @@ function calcScore(word: string, keyword: string): number {
         }
     }
 
-    const st4 = performance.now();
+    // const st4 = performance.now();
     if (isCommon) {
         commonWordsScoreCache[word][keyword] = s;
     }
-    TOTAL_CACHE_TIME += performance.now() - st4;
+    // TOTAL_CACHE_TIME += performance.now() - st4;
 
     return s;
 }

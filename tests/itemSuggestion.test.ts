@@ -2,7 +2,13 @@ import buffItems from '@/assets/buff-ids.json';
 import buffSkins from '@/assets/buff-skins-sorted.json';
 import buffStickers from '@/assets/buff-stickers-sorted.json';
 import buffOthers from '@/assets/buff-others-sorted.json';
-import { findBestMatches } from '@/lib/util/itemSuggestion';
+import {
+    findBestMatches,
+    TOTAL_CACHE_TIME,
+    TOTAL_FUZZY_TIME,
+    TOTAL_SCORE_TIME,
+    TOTAL_STR_INDEX_TIME,
+} from '@/lib/util/itemSuggestion';
 
 function getMatches(searchTerm: string) {
     const ts = performance.now();
@@ -120,22 +126,28 @@ describe('testing item name search', () => {
 
 describe('benchmark item name search', () => {
     test('run benchmark', () => {
-        const searchTerms = [];
+        const searchTerms: string[] = [];
 
         for (const data of Object.values(testsData)) {
             searchTerms.push(...data.map(d => d.searchTerm));
         }
 
-        const avgTimes = searchTerms.map(_ => 0);
+        const avgTimes = searchTerms.map(_ => [0, 0, 0, 0, 0]);
 
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 50; i++) {
             for (let j = 0; j < searchTerms.length; j++) {
                 const { time } = getMatches(searchTerms[j]);
 
-                avgTimes[j] = (time + i * avgTimes[j]) / (i + 1);
+                avgTimes[j][0] = (time + i * avgTimes[j][0]) / (i + 1);
+                avgTimes[j][1] = (TOTAL_SCORE_TIME + i * avgTimes[j][1]) / (i + 1);
+                avgTimes[j][2] = (TOTAL_CACHE_TIME + i * avgTimes[j][2]) / (i + 1);
+                avgTimes[j][3] = (TOTAL_STR_INDEX_TIME + i * avgTimes[j][3]) / (i + 1);
+                avgTimes[j][4] = (TOTAL_FUZZY_TIME + i * avgTimes[j][4]) / (i + 1);
             }
         }
 
-        console.log(`Benchmark Results (avg.):\n${searchTerms.map((st, i) => `\t${st}: ${avgTimes[i].toFixed(2)} ms`).join('\n')}`);
+        let formatEntry = (i: number) => `\t${searchTerms[i]}: ${avgTimes[i][0].toFixed(2)} ms (SCORE: ${avgTimes[i][1].toFixed(2)}, CACHE: ${avgTimes[i][2].toFixed(2)}, STR: ${avgTimes[i][3].toFixed(2)}, FUZZY: ${avgTimes[i][4].toFixed(2)})`;
+
+        console.log(`Benchmark Results (avg.):\n${searchTerms.map((_, i) => formatEntry(i)).join('\n')}`);
     });
 });

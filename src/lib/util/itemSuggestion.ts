@@ -211,12 +211,12 @@ export function getMatchedItemName(itemName: string, keywords: string[]): string
 
 function scoreTerm(term: string, keyword: string): number {
     // const st1 = performance.now();
-    const isCommon = commonTermsCache[term] !== undefined;
-
-    if (isCommon && commonTermsCache[term][keyword] !== undefined) {
+    // const isCommon = commonTermsCache[term] !== undefined;
+    //
+    // if (isCommon && commonTermsCache[term][keyword] !== undefined) {
         // TOTAL_CACHE_TIME += performance.now() - st1;
-        return commonTermsCache[term][keyword];
-    }
+    //     return commonTermsCache[term][keyword];
+    // }
 
     // TOTAL_CACHE_TIME += performance.now() - st1;
 
@@ -281,9 +281,9 @@ function scoreTerm(term: string, keyword: string): number {
     } */
 
     // const st4 = performance.now();
-    if (isCommon) {
-        commonTermsCache[term][keyword] = score;
-    }
+    // if (isCommon) {
+    //     commonTermsCache[term][keyword] = score;
+    // }
     // TOTAL_CACHE_TIME += performance.now() - st4;
 
     return score;

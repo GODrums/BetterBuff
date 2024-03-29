@@ -13,7 +13,7 @@ import commonWords from '@/assets/common-words.json';
  *  - TODO: Optimize cache performance
  */
 
-const DEBUG = true;
+let DEBUG = false;
 let commonWordsScoreCache: any = {};
 let TOTAL_SCORE_TIME = 0;
 let TOTAL_CACHE_TIME = 0;
@@ -102,7 +102,9 @@ function rankObject(obj: any, keywordScores: number[], keywords: string[], topNL
     }
 }
 
-export function findBestMatches(N: number, searchTerm: string, buffSkins: any, buffStickers: any, buffOthers: any): ReadonlyArray<TopNElement> {
+export function findBestMatches(N: number, searchTerm: string, buffSkins: any, buffStickers: any, buffOthers: any, debug = false): ReadonlyArray<TopNElement> {
+    DEBUG = debug;
+
     const st = performance.now();
     TOTAL_SCORE_TIME = 0;
     TOTAL_CACHE_TIME = 0;

@@ -5,12 +5,19 @@ import commonWords from '@/assets/common-words.json';
  * See also: https://github.com/GODrums/BetterBuff/pull/8
  *
  * Algorithm Description:
- *  Given a list of keywords, return the top-N Buff Items that match ALL the keywords.
+ *  Given a search term, return the N Buff Items that match the search term best.
  *
+ *  The search term is divided into keywords by splitting it at every whitespace.
+ *
+ *  - Only items that match ALL keywords are considered
  *  - The matching is done case-insensitive
  *  - The matching is done fuzzily via "Optimal string alignment distance" (https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance#Optimal_string_alignment_distance)
- *  - For every keyword only the single best match within an item name is taken into consideration
- *  - TODO: Optimize cache performance
+ *  - For every keyword, only the single best match within each item name is taken into consideration
+ *  - Every keyword match is scored based on its "quality". The quality is in the order of:
+ *      keyword matches an entire word > keyword matches the start of a word >
+ *      keyword matches > keyword matches fuzzily (based on edit distance) >
+ *      keyword does not match fuzzily
+ *  - The final score for a given item name is the sum of all best-match scores per keyword
  */
 
 let DEBUG = false;
@@ -231,7 +238,7 @@ function calcScore(word: string, keyword: string): number {
     } else if (si > 0) {
         // the word includes the keyword
         s = 4;
-    } else if (keyword.length > 1) {
+    }/* else if (keyword.length > 1) {
         // the word does not include the keyword directly
         const st3 = performance.now();
         const fuzzyDist = calcFuzzyMatchDistance(word, keyword, 1);
@@ -243,7 +250,7 @@ function calcScore(word: string, keyword: string): number {
                 s = 2;
                 break;
         }
-    }
+    }*/
 
     // const st4 = performance.now();
     if (isCommon) {

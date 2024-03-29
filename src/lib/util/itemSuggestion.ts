@@ -19,6 +19,7 @@ export let TOTAL_SCORE_TIME = 0;
 export let TOTAL_CACHE_TIME = 0;
 export let TOTAL_STR_INDEX_TIME = 0;
 export let TOTAL_FUZZY_TIME = 0;
+export let TOTAL_FUZZY_SEARCHES = 0;
 
 class TopNElement {
     element: any;
@@ -83,9 +84,9 @@ function rankObject(obj: any, keywordScores: number[], keywords: string[], topNL
             for (let i = 0; i < keywords.length; i++) {
                 const keyword = keywords[i];
 
-                // const st = performance.now();
+                const st = performance.now();
                 const s = calcScore(word, keyword);
-                // TOTAL_SCORE_TIME += performance.now() - st;
+                TOTAL_SCORE_TIME += performance.now() - st;
 
                 if (s > newKeywordScores[i]) {
                     // found better match for keyword
@@ -110,6 +111,7 @@ export function findBestMatches(N: number, searchTerm: string, buffSkins: any, b
     TOTAL_CACHE_TIME = 0;
     TOTAL_STR_INDEX_TIME = 0;
     TOTAL_FUZZY_TIME = 0;
+    TOTAL_FUZZY_SEARCHES = 0;
 
     commonWordsScoreCache = {};
     for (const word of commonWords) {
@@ -229,18 +231,16 @@ function calcScore(word: string, keyword: string): number {
     } else if (si > 0) {
         // the word includes the keyword
         s = 4;
-    } else if (keyword.length > 2) {
+    } else if (keyword.length > 1) {
         // the word does not include the keyword directly
-        // const st3 = performance.now();
-        const fuzzyDist = calcFuzzyMatchDistance(word, keyword, 2);
-        // TOTAL_FUZZY_TIME += performance.now() - st3;
+        const st3 = performance.now();
+        const fuzzyDist = calcFuzzyMatchDistance(word, keyword, 1);
+        TOTAL_FUZZY_TIME += performance.now() - st3;
+        TOTAL_FUZZY_SEARCHES++;
 
         switch (fuzzyDist) {
             case 1:
                 s = 2;
-                break;
-            case 2:
-                s = 1;
                 break;
         }
     }

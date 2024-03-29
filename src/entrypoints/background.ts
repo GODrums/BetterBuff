@@ -76,7 +76,7 @@ export default defineBackground(() => {
             if (topNElement.score < bestMatchScore / 2) {
                 // abort here to not show any hallucinated edit-distance suggestions
                 // maybe consider: https://stackoverflow.com/a/32337766/6920681
-                break;
+                // break;
             }
 
             const buffId = topNElement.element;

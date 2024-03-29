@@ -21,7 +21,7 @@ const buffIdPerName = {};
 const skinsData = {};
 const stickersData = { 'Sticker': {} };
 const othersData = {};
-const wordAppearances = {};
+const termAppearances = {};
 
 function toLower(obj) {
     if (typeof obj === 'string') {
@@ -338,32 +338,30 @@ function insertOther(other) {
     cur[parts[parts.length - 1]] = buffIdPerName[other];
 }
 
-function countWordAppearances(obj) {
-    for (const [key, value] of Object.entries(obj)) {
-        const words = key.split(' | ').map(s => s.split(' ').map(ss => ss.trim())).flat();
+function countTermAppearances(obj) {
+    if (typeof obj !== 'object') {
+        return;
+    }
 
-        for (const word of words) {
-            if (!wordAppearances[word]) {
-                wordAppearances[word] = 0;
-            }
-
-            wordAppearances[word]++;
+    for (const key of Object.keys(obj)) {
+        if (!termAppearances[key]) {
+            termAppearances[key] = 0;
         }
 
-        if (typeof value === 'object') {
-            countWordAppearances(obj[key]);
-        }
+        termAppearances[key]++;
+
+        countTermAppearances(obj[key]);
     }
 }
 
-function getCommonWords(countThreshold) {
-    countWordAppearances(skinsData);
-    countWordAppearances(stickersData);
-    countWordAppearances(othersData);
+function getCommonTerms(countThreshold) {
+    countTermAppearances(skinsData);
+    countTermAppearances(stickersData);
+    countTermAppearances(othersData);
 
     const commonWords = [];
 
-    for (const [key, value] of Object.entries(wordAppearances)) {
+    for (const [key, value] of Object.entries(termAppearances)) {
         if (value >= countThreshold) {
             commonWords.push(key);
         }
@@ -423,7 +421,7 @@ async function generateBuffItemsSorted() {
         fs.writeFileSync('./src/assets/buff-skins-sorted.json', JSON.stringify(toLower(skinsData), null, 2), 'utf8');
         fs.writeFileSync('./src/assets/buff-stickers-sorted.json', JSON.stringify(toLower(stickersData), null, 2), 'utf8');
         fs.writeFileSync('./src/assets/buff-others-sorted.json', JSON.stringify(toLower(othersData), null, 2), 'utf8');
-        fs.writeFileSync('./src/assets/common-words.json', JSON.stringify(toLower(getCommonWords(10)), null, 2), 'utf8');
+        fs.writeFileSync('./src/assets/common-terms.json', JSON.stringify(toLower(getCommonTerms(10)), null, 2), 'utf8');
     } else {
         throw Error(`Error ${res.status} - ${res.statusText} while fetching https://github.com/ModestSerhat/buff163-ids/blob/main/buffids.json`);
     }

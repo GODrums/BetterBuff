@@ -1,4 +1,4 @@
-import commonWords from '@/assets/common-words.json';
+import commonTerms from '@/assets/common-terms.json';
 
 /*
  * Contains algorithm and data structures used for Buff Item suggestions.
@@ -21,7 +21,8 @@ import commonWords from '@/assets/common-words.json';
  */
 
 let DEBUG = false;
-let commonWordsScoreCache: any = {};
+const STRING_DISTANCE_LIMIT: number = 1;
+let commonTermsCache: any = {};
 export let TOTAL_SCORE_TIME = 0;
 export let TOTAL_CACHE_TIME = 0;
 export let TOTAL_STR_INDEX_TIME = 0;
@@ -83,22 +84,18 @@ class TopNList {
 
 function rankObject(obj: any, keywordScores: number[], keywords: string[], topNList: TopNList) {
     for (const [key, val] of Object.entries(obj)) {
-        const words = key.split(' ');
-
         let newKeywordScores = [...keywordScores];
 
-        for (const word of words) {
-            for (let i = 0; i < keywords.length; i++) {
-                const keyword = keywords[i];
+        for (let i = 0; i < keywords.length; i++) {
+            const keyword = keywords[i];
 
-                const st = performance.now();
-                const s = calcScore(word, keyword);
-                TOTAL_SCORE_TIME += performance.now() - st;
+            const st = performance.now();
+            const s = scoreTerm(key, keyword);
+            TOTAL_SCORE_TIME += performance.now() - st;
 
-                if (s > newKeywordScores[i]) {
-                    // found better match for keyword
-                    newKeywordScores[i] = s;
-                }
+            if (s > newKeywordScores[i]) {
+                // found better match for keyword
+                newKeywordScores[i] = s;
             }
         }
 
@@ -120,9 +117,9 @@ export function findBestMatches(N: number, searchTerm: string, buffSkins: any, b
     TOTAL_FUZZY_TIME = 0;
     TOTAL_FUZZY_SEARCHES = 0;
 
-    commonWordsScoreCache = {};
-    for (const word of commonWords) {
-        commonWordsScoreCache[word] = {};
+    commonTermsCache = {};
+    for (const word of commonTerms) {
+        commonTermsCache[word] = {};
     }
 
     const keywords = searchTerm.toLowerCase()
@@ -212,53 +209,84 @@ export function getMatchedItemName(itemName: string, keywords: string[]): string
     return matchedItemName;
 }
 
-function calcScore(word: string, keyword: string): number {
+function scoreTerm(term: string, keyword: string): number {
     // const st1 = performance.now();
-    const isCommon = commonWordsScoreCache[word] !== undefined;
+    const isCommon = commonTermsCache[term] !== undefined;
 
-    if (isCommon && commonWordsScoreCache[word][keyword] !== undefined) {
+    if (isCommon && commonTermsCache[term][keyword] !== undefined) {
         // TOTAL_CACHE_TIME += performance.now() - st1;
-        return commonWordsScoreCache[word][keyword];
+        return commonTermsCache[term][keyword];
     }
 
     // TOTAL_CACHE_TIME += performance.now() - st1;
 
-    let s = 0;
+    let score = 0;
 
     // const st2 = performance.now();
-    const si = word.indexOf(keyword);
+
+    // search the term for the best match of the keyword
+    // TODO: Maybe implement KMP for better performance?
+    let matches = false;
+    let startsWord = false;
+    let equalsWord = false;
+
+    let si = 0;
+    while (si < term.length && !equalsWord) {
+        si = term.indexOf(keyword, si);
+
+        if (si === -1) {
+            break;
+        }
+
+        const sie = si + keyword.length;
+
+        let startsCurWord = si === 0 || (term.charAt(si - 1) === ' ');
+        let endsCurWord = sie === term.length || term.charAt(sie) === ' ';
+
+        matches = true;
+        startsWord = startsWord || startsCurWord;
+        equalsWord = startsCurWord && endsCurWord;
+
+        si = sie;
+    }
+
     // TOTAL_STR_INDEX_TIME += performance.now() - st2;
 
-    if (si === 0 && word.length === keyword.length) {
-        // the word matches the keyword exactly
-        s = 10;
-    } else if (si === 0) {
-        // the word starts with the keyword
-        s = 6;
-    } else if (si > 0) {
-        // the word includes the keyword
-        s = 4;
-    }/* else if (keyword.length > 1) {
-        // the word does not include the keyword directly
+    if (equalsWord) {
+        score = 10;
+    } else if (startsWord) {
+        score = 6;
+    } else if (matches) {
+        score = 4;
+    } /* else if (keyword.length > STRING_DISTANCE_LIMIT) {
         const st3 = performance.now();
-        const fuzzyDist = calcFuzzyMatchDistance(word, keyword, 1);
-        TOTAL_FUZZY_TIME += performance.now() - st3;
-        TOTAL_FUZZY_SEARCHES++;
 
-        switch (fuzzyDist) {
+        let bestFuzzyDist = STRING_DISTANCE_LIMIT + 1;
+
+        for (const word of term.split(' ')) {
+            bestFuzzyDist = Math.min(bestFuzzyDist, calcFuzzyMatchDistance(word, keyword));
+            TOTAL_FUZZY_SEARCHES++;
+        }
+
+        TOTAL_FUZZY_TIME += performance.now() - st3;
+
+        switch (bestFuzzyDist) {
             case 1:
-                s = 2;
+                score = 2;
+                break;
+            case 2:
+                score = 1;
                 break;
         }
-    }*/
+    } */
 
     // const st4 = performance.now();
     if (isCommon) {
-        commonWordsScoreCache[word][keyword] = s;
+        commonTermsCache[term][keyword] = score;
     }
     // TOTAL_CACHE_TIME += performance.now() - st4;
 
-    return s;
+    return score;
 }
 
 /**
@@ -268,9 +296,9 @@ function calcScore(word: string, keyword: string): number {
  * TODO: Return starting and end index of fuzzy matched substring in a
  * @see https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance#Algorithm
  */
-function calcFuzzyMatchDistance(a: string, b: string, limit: number) {
-    if (Math.abs(a.length - b.length) > limit) {
-        return limit + 1;
+function calcFuzzyMatchDistance(a: string, b: string) {
+    if (Math.abs(a.length - b.length) > STRING_DISTANCE_LIMIT) {
+        return STRING_DISTANCE_LIMIT + 1;
     }
 
     const d = new Array(a.length + 1);
@@ -305,11 +333,11 @@ function calcFuzzyMatchDistance(a: string, b: string, limit: number) {
                     d[i - 2][j - 2] + 1); // transposition
             }
 
-            abort = abort && d[i][j] > limit;
+            abort = abort && d[i][j] > STRING_DISTANCE_LIMIT;
         }
 
         if (abort) {
-            d[a.length][b.length] = limit + 1;
+            d[a.length][b.length] = STRING_DISTANCE_LIMIT + 1;
             break;
         }
     }

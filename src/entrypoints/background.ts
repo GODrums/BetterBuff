@@ -42,15 +42,16 @@ export default defineBackground(() => {
             console.log('===========================================================================================================================');
         };
 
-        benchmark('karambit');
-        benchmark('some item name that does not exist');
-        benchmark('ak neon ride');
-        benchmark('ak neon rider');
-        benchmark('ak neon rider fac');
+        benchmark('Karambit');
+        benchmark('skeleton');
         benchmark('100thieves');
-        benchmark('chanticos');
+        benchmark('Neo Noir');
+        benchmark('m4 Neo Noir');
         benchmark('chanticos fire m4');
+        benchmark('ak neon rider fac');
         benchmark('stat trak awp neo noir field tested');
+        benchmark('StatTrak™ AWP | Neo-Noir (Field-Tested)');
+        benchmark('some item name that does not exist');
     });
 
     browser.omnibox.onInputChanged.addListener((text, suggest) => {

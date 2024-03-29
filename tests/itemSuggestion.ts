@@ -26,6 +26,7 @@ describe('testing item name search', () => {
     test('best suggestions should include', () => {
         const includeTests = [
             { searchTerm: 'Karambit', expectedMatches: ['★ Karambit | (Vanilla)', '★ Karambit', '★ Karambit'] },
+            { searchTerm: 'skeleton', expectedMatches: ['★ Skeleton Knife | (Vanilla)', '★ Skeleton Knife', '★ Skeleton Knife'] },
             // TODO: { searchTerm: '100thieves', expectedMatches: ['100 Thieves'] },
             {
                 searchTerm: 'Neo Noir',

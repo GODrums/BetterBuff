@@ -2,7 +2,7 @@ name: "Jest Tests"
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "buff-address-bar-search" ]
   pull_request:
     branches: [ "master" ]
 

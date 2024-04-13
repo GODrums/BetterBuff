@@ -1,4 +1,4 @@
-<p align="center"><img width="128" height="128" src="./src/public/icon/512.png"><img height="128" src="./media/basedOnBU.png"></p>
+<p align="center"><img width="128" height="128" src="./src/public/icon/512.png"><img height="128" src=".github/basedOnBU.png"></p>
 <h1 align="center">BetterBuff <font color="gray">- BETA</font></h1>
 
 ![GitHub manifest version (path)](https://img.shields.io/chrome-web-store/v/igacjekfbhgjnimlkmpdbgeekddolkaa?label=beta%20version)

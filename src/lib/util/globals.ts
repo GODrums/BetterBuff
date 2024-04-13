@@ -41617,3 +41617,6 @@ export const TIME_TO_TEXT = {
     '小时前': 'hours ago',
     '天前': 'days ago',
 };
+
+export const DISCORD_URL = 'https://discord.gg/VQWXp33nSW';
+export const GITHUB_URL = 'https://github.com/GODrums/BetterFloat';

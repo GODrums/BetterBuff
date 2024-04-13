@@ -3,8 +3,9 @@ import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import { loadEnv } from 'vite';
 import type { Manifest } from 'wxt/browser';
+import path from "path";
 
-const releaseVersion = '0.7.6';
+const releaseVersion = '0.8.0';
 
 const getViteConfig: ((env: ConfigEnv) => WxtViteConfig | Promise<WxtViteConfig>) = (env) => {
   process.env = {...process.env, ...loadEnv(env.mode, process.cwd())};
@@ -28,7 +29,12 @@ const getViteConfig: ((env: ConfigEnv) => WxtViteConfig | Promise<WxtViteConfig>
       ],
       build: {
         sourcemap: true
-      }
+      },
+      resolve: {
+        alias: {
+          $lib: path.resolve("./src/lib"),
+        },
+      },
     };
   } else {
     return {
@@ -37,8 +43,13 @@ const getViteConfig: ((env: ConfigEnv) => WxtViteConfig | Promise<WxtViteConfig>
           // Using a svelte.config.js file causes a segmentation fault when importing the file
           configFile: false,
           preprocess: [vitePreprocess()],
-        })
-      ]
+        }),
+      ],
+      resolve: {
+        alias: {
+          $lib: path.resolve("./src/lib"),
+        },
+      },
     };
   }
 };

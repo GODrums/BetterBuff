@@ -7,7 +7,7 @@
     const version = `v. ${browser.runtime.getManifest().version}`;
 </script>
 
-<header class="w-full flex align-middle justify-between px-4 py-1.5 bg-card text-card-foreground border-b border-muted shadow-sm">
+<header class="w-full flex align-middle justify-between px-4 py-1.5 bg-card/70 text-card-foreground border-b border-muted shadow-sm z-10">
     <div class="flex gap-2 align-middle items-center">
         <img class="h-[38px] border border-gray-700 rounded-lg" src={BBlogo} alt="BetterBuff" />
         <Badge class="border-muted uppercase">Beta</Badge>

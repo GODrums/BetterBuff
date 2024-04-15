@@ -1,7 +1,10 @@
 <script lang="ts">
-    import Tooltip from "./Tooltip.svelte";
     import { onMount } from "svelte";
     import { ExtensionStorage, type IStorage } from "../util/storage";
+    import * as Tooltip from '$lib/components/ui/tooltip';
+    import { Button } from "./ui/button";
+    import { MaterialSymbolsHelpRounded } from "./icons";
+    import { Label } from "./ui/label";
 
 	export let text: string;
     export let dataTip: string;
@@ -32,10 +35,17 @@
 	const notypecheck = (x:string)=>x as keyof IStorage["listingOptions"];
 </script>
 
-<div class="form-control w-full mx-4 border border-base-300 bg-[#09090b]/90 rounded-lg py-2 px-3">
-	<div class="inline-flex gap-2 mt-1 mx-1">
-		<span class="label-text text-primary">{text}</span>
-		<Tooltip {dataTip} tooltipClass="tooltip-primary" svgClass="text-info hover:text-base-100" />
+<div class="w-full mx-4 border border-base-300 bg-card/90 rounded-lg py-2 px-3">
+	<div class="flex items-center gap-2 mt-1 mx-1">
+		<Label class="text-sm font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70">{text}</Label>
+		<Tooltip.Root>
+			<Tooltip.Trigger>
+				<MaterialSymbolsHelpRounded class="size-4 text-neutral-300 hover:text-neutral-100" />
+			</Tooltip.Trigger>
+			<Tooltip.Content>
+				<p>{dataTip}</p>
+			</Tooltip.Content>
+		</Tooltip.Root>
 	</div>
 	<ul class="list-none mx-2">
 		{#each Object.entries(choices) as [choice, choiceText]}

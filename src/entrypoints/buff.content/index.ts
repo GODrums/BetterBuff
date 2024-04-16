@@ -1,8 +1,8 @@
-import { activateHandler } from "@/lib/util/eventListeners";
-import { activateURLHandler } from "@/lib/util/urlListener";
-import { ExtensionStorage, setBuffCrx } from "@/lib/util/storage";
-import { adjustTooltip } from "@/lib/util/Adjust_Tooltip";
-import { initSentry } from "@/lib/util/sentry";
+import { activateHandler } from "$lib/util/eventListeners";
+import { activateURLHandler } from "$lib/util/urlListener";
+import { ExtensionStorage, setBuffCrx } from "$lib/util/storage";
+import { adjustTooltip } from "$lib/util/Adjust_Tooltip";
+import { initSentry } from "$lib/util/sentry";
 
 export default defineContentScript({
     cssInjectionMode: "ui",

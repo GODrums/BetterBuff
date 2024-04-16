@@ -24,7 +24,7 @@
     <div class="absolute inset-0 pointer-events-none maskBG" style="mask-image: radial-gradient(100px at {m.x}px {m.y}px, black 0%, transparent 100%);" />
     <Header />
     <Tabs.Root value="settings" class="h-full">
-        <Tabs.Content value="settings" class="overflow-hidden">
+        <Tabs.Content value="settings">
             <ScrollArea class="h-[488px] rounded-md">
                 <SettingPaymentMethods />
                 <SettingCheckbox text="Show Big Previews" storage={ExtensionStorage.showBigPreviews} dataTip="Show large item screenshots on image hover." />
@@ -34,22 +34,27 @@
                     text="Data Protection"
                     storage={ExtensionStorage.dataProtection}
                     dataTip="Blur privacy-relevant data in your account settings page. Relevant if you are screen-sharing or streaming." />
-                <SettingListingOptions text="Listing Options" dataTip="Actions displayed under each listing on the corresponding item page. Requires a page reload." />
+                <SettingListingOptions dataTip="Actions displayed under each listing on the corresponding item page. Requires a page reload." />
+            </ScrollArea>
+        </Tabs.Content>
+        <Tabs.Content value="pricing">
+            <ScrollArea class="h-[488px] rounded-md">
                 <ListingDifference />
             </ScrollArea>
         </Tabs.Content>
-        <Tabs.Content value="pricing">Test2</Tabs.Content>
         <Tabs.Content value="about">
-            <div class="flex flex-col items-center">
-                <div class="flex items-center justify-center gap-2 pb-2">
-                    <p class="scroll-m-20 text-sm font-medium text-gray-600">based on</p>
-                    <Button variant="ghost" class="py-1 px-2 h-7" on:click={() => window.open('https://github.com/PenguiniVogel/BuffUtility')}>
-                        <img class="h-6" src={BUlogo} alt="BuffUtility" />
-                    </Button>
+            <ScrollArea class="h-[488px] rounded-md">
+                <div class="flex flex-col items-center">
+                    <div class="flex items-center justify-center gap-2 pb-2">
+                        <p class="scroll-m-20 text-sm font-medium text-gray-600">based on</p>
+                        <Button variant="ghost" class="py-1 px-2 h-7" on:click={() => window.open('https://github.com/PenguiniVogel/BuffUtility')}>
+                            <img class="h-6" src={BUlogo} alt="BuffUtility" />
+                        </Button>
+                    </div>
+                    <img class="w-24 h-24" src={BBlogo} alt="BetterBuff" />
+                    <h3 class="scroll-m-20 text-2xl font-bold tracking-tight">BetterBuff</h3>
                 </div>
-                <img class="w-24 h-24" src={BBlogo} alt="BetterBuff" />
-                <h3 class="scroll-m-20 text-2xl font-bold tracking-tight">BetterBuff</h3>
-            </div>
+            </ScrollArea>
         </Tabs.Content>
         <div class="relative z-10 bg-card/90">
             <Tabs.List class="grid w-full grid-cols-3 border-t border-muted">

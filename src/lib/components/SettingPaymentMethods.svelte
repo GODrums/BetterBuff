@@ -11,6 +11,7 @@
     import { cn } from '$lib/utils';
     import { MaterialSymbolsHelpRounded } from './icons';
     import { Label } from './ui/label';
+    import MaterialSymbolsPayments from './icons/MaterialSymbolsPayments.svelte';
 
     let text = 'Preferred Payment Methods';
 
@@ -39,12 +40,13 @@
 </script>
 
 <div class="w-full flex flex-col border border-base-300 bg-card/90 rounded-lg py-2 px-3 z-10">
-    <div class="inline-flex items-center gap-2 mt-1 mx-1">
-        <Label class="text-sm font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70">{text}</Label>
+    <div class="flex items-center gap-2 mt-1 mx-1">
+		<MaterialSymbolsPayments class="size-6 text-neutral-500" />
+        <Label class="text-sm font-medium">{text}</Label>
         <Dialog.Root>
-            <Dialog.Trigger>
-                <Button variant="ghost" class="size-4 p-0 m-0 text-neutral-300 hover:text-neutral-100" title="Click for a detailed explanation">
-                    <MaterialSymbolsHelpRounded class="size-4 text-neutral-300 hover:text-neutral-100" />
+            <Dialog.Trigger class="flex items-center">
+                <Button variant="ghost" class="size-4 p-0 m-0" title="Click for a detailed explanation">
+                    <MaterialSymbolsHelpRounded class="size-5 text-neutral-300 hover:text-neutral-100" />
                 </Button>
             </Dialog.Trigger>
             <Dialog.Content>

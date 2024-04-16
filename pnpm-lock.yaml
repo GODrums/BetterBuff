@@ -23,6 +23,9 @@ dependencies:
   decimal.js:
     specifier: ^10.4.3
     version: 10.4.3
+  svelte-radix:
+    specifier: ^1.1.0
+    version: 1.1.0(svelte@4.2.13)
   tailwind-merge:
     specifier: ^2.2.2
     version: 2.2.2
@@ -4388,6 +4391,14 @@ packages:
       svelte: 4.2.13
       typescript: 5.4.5
     dev: true
+
+  /svelte-radix@1.1.0(svelte@4.2.13):
+    resolution: {integrity: sha512-kyE9wZiJV937INGb+wiBkAjmGtQUUYRPkVL2Q+/gj+9Vog1Ewd2wNvNmpNMUd+c+euxoc5u5YZMuCUgky9EUPw==}
+    peerDependencies:
+      svelte: ^3.54.0 || ^4.0.0 || ^5.0.0
+    dependencies:
+      svelte: 4.2.13
+    dev: false
 
   /svelte@4.2.13:
     resolution: {integrity: sha512-jtVt2KXLbQnsWN93Zd7EVboNh8Tqexes4rZfXNP7nYRjd9+JjubTD8BXloUmU1OUYpc6pdd1aKBhCV+b2ZKoMg==}

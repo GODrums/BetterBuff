@@ -17,8 +17,6 @@ web-ext.config.ts
 .env.submit
 
 # Editor directories and files
-.vscode/*
-!.vscode/extensions.json
 .idea
 .DS_Store
 *.suo

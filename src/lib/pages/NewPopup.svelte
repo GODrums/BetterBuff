@@ -51,7 +51,9 @@
                             <img class="h-6" src={BUlogo} alt="BuffUtility" />
                         </Button>
                     </div>
-                    <img class="w-24 h-24" src={BBlogo} alt="BetterBuff" />
+                    <div class="relative">
+                        <img class="h-12" src={BBlogo} alt="BetterBuff" />
+                    </div>
                     <h3 class="scroll-m-20 text-2xl font-bold tracking-tight">BetterBuff</h3>
                 </div>
             </ScrollArea>

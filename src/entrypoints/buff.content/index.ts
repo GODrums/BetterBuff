@@ -2,17 +2,12 @@ import { activateHandler } from "$lib/util/eventListeners";
 import { activateURLHandler } from "$lib/util/urlListener";
 import { ExtensionStorage, setBuffCrx } from "$lib/util/storage";
 import { adjustTooltip } from "$lib/util/Adjust_Tooltip";
-import { initSentry } from "$lib/util/sentry";
 
 export default defineContentScript({
     cssInjectionMode: "ui",
     matches: ["*://*.buff.163.com/*"],
     runAt: 'document_end',
     async main(ctx) {
-        if (import.meta.env.CHROME) {
-            initSentry()
-        }
-
         initContentScript(await ExtensionStorage.enabled.getValue(), ctx);
 
         ExtensionStorage.enabled.watch((enabled) => {

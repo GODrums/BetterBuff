@@ -1,7 +1,10 @@
 <script lang="ts">
     import { onMount } from 'svelte';
+    import * as Tooltip from '$lib/components/ui/tooltip';
+    import { MaterialSymbolsHelpRounded } from '$lib/components/icons';
     import type { WxtStorageItem } from 'wxt/storage';
-    import Tooltip from './Tooltip.svelte';
+    import Label from '$lib/components/ui/label/label.svelte';
+    import Checkbox from './ui/checkbox/checkbox.svelte';
 
     export let text: string;
     export let storage: WxtStorageItem<boolean, {}>;
@@ -19,12 +22,19 @@
     });
 </script>
 
-<div class="form-control w-full mx-4 border border-base-300 bg-[#09090b]/90 rounded-lg py-1 px-3">
-    <label class="label items-center justify-between cursor-pointer">
-        <div class="inline-flex gap-2">
-            <span class="label-text text-primary">{text}</span>
-            <Tooltip {dataTip} tooltipClass="tooltip-primary" svgClass="text-info hover:text-base-100" />
+<div class="w-full border border-base-300 bg-card/90 rounded-lg p-4 z-10">
+    <div class="flex items-center justify-between gap-2 space-x-2">
+        <div class="flex items-center gap-2">
+            <Label class="text-sm font-medium">{text}</Label>
+            <Tooltip.Root>
+                <Tooltip.Trigger>
+                    <MaterialSymbolsHelpRounded class="size-5 text-neutral-300 hover:text-neutral-100" />
+                </Tooltip.Trigger>
+                <Tooltip.Content>
+                    <p>{dataTip}</p>
+                </Tooltip.Content>
+            </Tooltip.Root>
         </div>
-        <input type="checkbox" class="toggle toggle-info" {checked} on:click={storeValue} />
-    </label>
+        <Checkbox bind:checked on:click={storeValue} />
+    </div>
 </div>

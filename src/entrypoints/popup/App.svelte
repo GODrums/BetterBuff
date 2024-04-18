@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Layout from '@/lib/components/Layout.svelte';
-	import Main from '@/lib/pages/Main.svelte';
+    import PopupLayout from '$lib/components/PopupLayout.svelte';
+    import Popup from '$lib/components/Popup.svelte';
 </script>
 
-<Layout>
-  <Main />
-</Layout>
+<PopupLayout>
+    <Popup />
+</PopupLayout>

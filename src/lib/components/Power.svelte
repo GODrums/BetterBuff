@@ -3,6 +3,8 @@
     import { ExtensionStorage } from "../util/storage";
     import PowerOn from "../icons/power-on.svg";
     import PowerOff from "../icons/power-off.svg";
+    import Button from "./ui/button/button.svelte";
+    import Badge from "./ui/badge/badge.svelte";
 
     let enabled = true;
 
@@ -18,14 +20,9 @@
     };
 </script>
 
-<label class="swap btn btn-ghost py-8 my-4">
-    <input type="checkbox" checked={isOn} on:click={toggle} />
-    <div class="swap-on flex items-center">
-        <img src={PowerOn} class="h-12" alt="Power On" />
-        <div class="badge badge-info ml-2">ON</div>
-    </div>
-    <div class="swap-off flex items-center">
-        <img src={PowerOff} class="h-12" alt="Power Off" />
-        <div class="badge badge-warning ml-2">OFF</div>
-    </div>
-</label>
+<div class="flex items-center gap-2">
+    <Button variant="ghost" class="flex items-center h-14 w-28 gap-2" on:click={toggle}>
+        <img src={isOn ? PowerOn : PowerOff} class="h-12" alt="Power Icon" />
+        <Badge class={isOn ? 'bg-[#00b6ff]' : 'bg-[#ffbe00]'}>{isOn ? "ON" : "OFF"}</Badge>
+    </Button>
+</div>

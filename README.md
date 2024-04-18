@@ -1,4 +1,4 @@
-<p align="center"><img width="128" height="128" src="./src/public/icon/512.png"><img height="128" src="./media/basedOnBU.png"></p>
+<p align="center"><img width="128" height="128" src="./src/public/icon/512.png"><img height="128" src=".github/basedOnBU.png"></p>
 <h1 align="center">BetterBuff <font color="gray">- BETA</font></h1>
 
 ![GitHub manifest version (path)](https://img.shields.io/chrome-web-store/v/igacjekfbhgjnimlkmpdbgeekddolkaa?label=beta%20version)
@@ -44,6 +44,7 @@ We share the same discord server with my other extension <a href="https://github
 
 <p>
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/svelte/svelte-original.svg" title="Svelte" height="35" />
+  <img src=".github/shadcn-svelte-192.png" title="Shadcn-Svelte" height="35"/>
   <img src="https://api.iconify.design/logos:tailwindcss-icon.svg?color=%23888888" title="TailwindCSS" height="35"/>
   <img src="https://api.iconify.design/logos:daisyui.svg" title="DaisyUI" height="35"/>
   <img src="https://api.iconify.design/vscode-icons:file-type-vite.svg" title="Vite" height="35"/>

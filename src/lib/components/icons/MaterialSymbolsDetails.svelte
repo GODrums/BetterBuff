@@ -1,0 +1,1 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...$$props}><path fill="currentColor" d="M2 21L12 3l10 18zm3.4-2H11V8.925zm7.6 0h5.6L13 8.925z"/></svg>

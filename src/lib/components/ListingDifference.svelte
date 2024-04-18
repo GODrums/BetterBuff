@@ -1,28 +1,54 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import Tooltip from './Tooltip.svelte';
+    import * as Tooltip from '$lib/components/ui/tooltip';
+    import * as Select from '$lib/components/ui/select';
     import { ExtensionStorage, type IStorage } from '../util/storage';
+    import Label from './ui/label/label.svelte';
+    import MaterialSymbolsHelpRounded from './icons/MaterialSymbolsHelpRounded.svelte';
+    import { Input } from './ui/input';
 
     let differenceStorage = ExtensionStorage.listingDifferenceStyle;
     let taxStorage = ExtensionStorage.platformTax;
     let denominatorStorage = ExtensionStorage.listingDenominator;
     let thresholdStorage = ExtensionStorage.profitThreshold;
 
-    $: differenceValue = 1;
-    $: taxValue = 0;
-    $: denominator = 0;
+    const denominatorChoices = [
+        { value: 0, label: 'Steam' },
+        { value: 1, label: 'Buff Bid' },
+    ];
+    $: denominator = denominatorChoices[0];
+
+    const differenceChoices = [
+        { value: 0, label: 'None' },
+        { value: 1, label: '¥ Difference' },
+        { value: 2, label: 'Converted Difference' },
+        { value: 3, label: '% Difference' },
+        { value: 4, label: 'Combined' },
+    ];
+    $: differenceValue = differenceChoices[1];
+
+    const taxChoices = [
+        { value: 0, label: 'Off' },
+        { value: 1, label: 'On' },
+        { value: 2, label: 'Inverted' },
+    ];
+    $: taxValue = taxChoices[0];
+
     $: threshold = 0;
 
-    const storeValue = async () => {
-        await differenceStorage.setValue(differenceValue as IStorage['listingDifferenceStyle']);
+    const storeValue = async (selected: any) => {
+        differenceValue = selected;
+        await differenceStorage.setValue(differenceValue.value as IStorage['listingDifferenceStyle']);
     };
 
-    const storeSteamTax = async () => {
-        await taxStorage.setValue(taxValue as IStorage['platformTax']);
+    const storeSteamTax = async (selected: any) => {
+        taxValue = selected;
+        await taxStorage.setValue(taxValue.value as IStorage['platformTax']);
     };
 
-    const storeDenominator = async () => {
-        await denominatorStorage.setValue(denominator as IStorage['listingDenominator']);
+    const storeDenominator = async (selected: any) => {
+        denominator = selected;
+        await denominatorStorage.setValue(denominator.value as IStorage['listingDenominator']);
     };
 
     const storeThreshold = async () => {
@@ -30,66 +56,104 @@
     };
 
     onMount(async () => {
-        differenceValue = await differenceStorage.getValue();
-        taxValue = await taxStorage.getValue();
-        denominator = await denominatorStorage.getValue();
+        differenceValue = differenceChoices[await differenceStorage.getValue()];
+        taxValue = taxChoices[await taxStorage.getValue()];
+        denominator = denominatorChoices[await denominatorStorage.getValue()];
         threshold = await thresholdStorage.getValue();
     });
 </script>
 
-<div class="form-control w-full mx-4 border border-base-300 bg-[#09090b]/90 rounded-lg py-2 px-3">
-    <div class="inline-flex gap-2 mt-1">
-        <span class="label-text text-primary">Price Difference</span>
-        <Tooltip dataTip="Display listing price difference between the Buff listing prices and another platform." tooltipClass="tooltip-primary" svgClass="text-info hover:text-base-100" />
+<div class="w-full mx-4 border border-base-300 bg-card/90 rounded-lg py-2 px-3">
+    <div class="flex items-center gap-2 mt-1 mx-1">
+        <div class="flex items-center gap-2 mt-1 mx-1">
+            <Label class="text-sm font-medium">Price Difference</Label>
+            <Tooltip.Root>
+                <Tooltip.Trigger>
+                    <MaterialSymbolsHelpRounded class="size-5 text-neutral-300 hover:text-neutral-100" />
+                </Tooltip.Trigger>
+                <Tooltip.Content>
+                    <p>Display listing price difference between the Buff listing prices and another platform</p>
+                </Tooltip.Content>
+            </Tooltip.Root>
+        </div>
     </div>
-    <label class="label items-center justify-between cursor-pointer mx-2">
-        <div class="inline-flex gap-2">
-            <span class="label-text text-primary">Denominator</span>
-            <Tooltip
-                dataTip="Platform to use as denominator of the formula. Either the lowest listed on the steam market or Buff buy order"
-                tooltipClass="tooltip-primary"
-                svgClass="text-info hover:text-base-100" />
+    <ul class="mx-2 gap-2">
+        <div class="flex justify-between mx-2 my-2">
+            <div class="flex items-center gap-2">
+                <Label class="text-sm font-normal">Denominator</Label>
+                <Tooltip.Root>
+                    <Tooltip.Trigger>
+                        <MaterialSymbolsHelpRounded class="size-4 text-neutral-300 hover:text-neutral-100" />
+                    </Tooltip.Trigger>
+                    <Tooltip.Content>
+                        <p>Platform to use as denominator of the formula. Either the lowest listed on the steam market or Buff buy order</p>
+                    </Tooltip.Content>
+                </Tooltip.Root>
+            </div>
+            <Select.Root bind:selected={denominator} items={denominatorChoices} onSelectedChange={storeDenominator}>
+                <Select.Trigger class="w-fit">
+                    <Select.Value class="text-white mr-2" />
+                </Select.Trigger>
+                <Select.Content>
+                    {#each denominatorChoices as choice}
+                        <Select.Item value={choice.value}>{choice.label}</Select.Item>
+                    {/each}
+                </Select.Content>
+            </Select.Root>
         </div>
-        <select class="select select-sm w-2/5" bind:value={denominator} on:click={storeDenominator}>
-            <option value="0">Steam</option>
-            <option value="1">Buff Bid</option>
-        </select>
-    </label>
-    <label class="label items-center justify-between cursor-pointer mx-2">
-        <div class="inline-flex gap-2">
-            <span class="label-text text-primary">Format</span>
+        <div class="flex items-center justify-between mx-2 my-2">
+            <Label class="text-sm font-normal">Format</Label>
+            <Select.Root bind:selected={differenceValue} items={differenceChoices} onSelectedChange={storeValue}>
+                <Select.Trigger class="w-fit">
+                    <Select.Value class="text-white mr-2" />
+                </Select.Trigger>
+                <Select.Content>
+                    {#each differenceChoices as choice}
+                        <Select.Item value={choice.value}>{choice.label}</Select.Item>
+                    {/each}
+                </Select.Content>
+            </Select.Root>
         </div>
-        <select class="select select-sm w-1/2" bind:value={differenceValue} on:click={storeValue}>
-            <option value="0">None</option>
-            <option value="1" selected>¥ Difference</option>
-            <option value="2">Converted Difference</option>
-            <option value="3">% Difference</option>
-            <option value="4">Combined</option>
-        </select>
-    </label>
-    <label class="label items-center justify-between cursor-pointer mx-2">
-        <div class="inline-flex gap-2">
-            <span class="label-text text-primary">Apply Tax</span>
-            <Tooltip
-                dataTip="Apply platform tax before calculating the difference. The result is equivalent to the seller's income at the given price point."
-                tooltipClass="tooltip-primary"
-                svgClass="text-info hover:text-base-100" />
+        <div class="flex justify-between mx-2 my-2">
+            <div class="flex items-center gap-2">
+                <Label class="text-sm font-normal">Apply Tax</Label>
+                <Tooltip.Root>
+                    <Tooltip.Trigger>
+                        <MaterialSymbolsHelpRounded class="size-4 text-neutral-300 hover:text-neutral-100" />
+                    </Tooltip.Trigger>
+                    <Tooltip.Content>
+                        <p>Apply platform tax before calculating the difference. The result is equivalent to the seller's income at the given price point</p>
+                    </Tooltip.Content>
+                </Tooltip.Root>
+            </div>
+            <Select.Root bind:selected={taxValue} items={taxChoices} onSelectedChange={storeSteamTax}>
+                <Select.Trigger class="w-fit">
+                    <Select.Value class="text-white mr-2" />
+                </Select.Trigger>
+                <Select.Content>
+                    {#each taxChoices as choice}
+                        <Select.Item value={choice.value}>{choice.label}</Select.Item>
+                    {/each}
+                </Select.Content>
+            </Select.Root>
         </div>
-        <select class="select select-sm w-2/5" bind:value={taxValue} on:click={storeSteamTax}>
-            <option value="0">Off</option>
-            <option value="1">On</option>
-            <option value="2">Inverted</option>
-        </select>
-    </label>
-    <label class="label items-center justify-between cursor-pointer mx-2">
-        <div class="inline-flex gap-2">
-            <span class="label-text text-primary">Profit Threshold</span>
-            <Tooltip dataTip="Threshold value in percent to still be colored in green." tooltipClass="tooltip-primary" svgClass="text-info hover:text-base-100" />
+        <div class="flex justify-between mx-2 my-2">
+            <div class="flex items-center gap-2">
+                <Label class="text-sm font-normal">Profit Threshold</Label>
+                <Tooltip.Root>
+                    <Tooltip.Trigger>
+                        <MaterialSymbolsHelpRounded class="size-4 text-neutral-300 hover:text-neutral-100" />
+                    </Tooltip.Trigger>
+                    <Tooltip.Content>
+                        <p>Threshold value in percent to still be colored in green</p>
+                    </Tooltip.Content>
+                </Tooltip.Root>
+            </div>
+            <div class="input-euro">
+                <Input type="number" class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" min="0" max="99" step="1" bind:value={threshold} on:change={storeThreshold} />
+            </div>
         </div>
-        <span class="label-text input-euro">
-            <input type="number" class="input input-sm w-20 pr-4 focus:outline-none" min="0" max="99" step="1" bind:value={threshold} on:change={storeThreshold} />
-        </span>
-    </label>
+    </ul>
 </div>
 
 <style>
@@ -99,8 +163,8 @@
 
     .input-euro:before {
         position: absolute;
-        top: 5px;
+        top: 9px;
         content: '%';
-        right: 5px;
+        right: 10px;
     }
 </style>

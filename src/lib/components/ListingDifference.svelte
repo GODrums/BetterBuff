@@ -36,16 +36,19 @@
 
     $: threshold = 0;
 
-    const storeValue = async () => {
+    const storeValue = async (selected: any) => {
+        differenceValue = selected;
         await differenceStorage.setValue(differenceValue.value as IStorage['listingDifferenceStyle']);
     };
 
-    const storeSteamTax = async () => {
+    const storeSteamTax = async (selected: any) => {
+        taxValue = selected;
         await taxStorage.setValue(taxValue.value as IStorage['platformTax']);
     };
 
-    const storeDenominator = async (newValue: any) => {
-        await denominatorStorage.setValue(newValue.value as IStorage['listingDenominator']);
+    const storeDenominator = async (selected: any) => {
+        denominator = selected;
+        await denominatorStorage.setValue(denominator.value as IStorage['listingDenominator']);
     };
 
     const storeThreshold = async () => {

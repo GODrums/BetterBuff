@@ -2,10 +2,9 @@
     import { onMount } from 'svelte';
     import { ExtensionStorage, type IStorage } from '../util/storage';
     import * as Tooltip from '$lib/components/ui/tooltip';
-    import { MaterialSymbolsHelpRounded } from './icons';
-    import { Label } from './ui/label';
     import Checkbox from './ui/checkbox/checkbox.svelte';
-    import { MageBox3d, MaterialSymbolsFrameInspect, PhGlobe, RiFileCopy2Line, PhLinkSimple, MdiDatabaseSearchOutline, MaterialSymbolsSearch, MaterialSymbolsDetails } from './icons';
+    import Label from './ui/label/label.svelte';
+    import { MageBox3d, MaterialSymbolsHelpRounded, MaterialSymbolsFrameInspect, PhGlobe, RiFileCopy2Line, PhLinkSimple, MdiDatabaseSearchOutline, MaterialSymbolsSearch, MaterialSymbolsDetails } from './icons';
 
     export let dataTip: string;
     

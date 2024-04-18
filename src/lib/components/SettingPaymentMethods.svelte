@@ -7,11 +7,11 @@
     import bank from '../icons/payment-bank.png';
     import card from '../icons/payment-card.png';
     import wechat from '../icons/payment-wechat.png';
-    import { Button } from './ui/button';
     import { cn } from '$lib/utils';
     import { MaterialSymbolsHelpRounded } from './icons';
-    import { Label } from './ui/label';
     import MaterialSymbolsPayments from './icons/MaterialSymbolsPayments.svelte';
+    import Label from './ui/label/label.svelte';
+    import Button from './ui/button/button.svelte';
 
     let text = 'Preferred Payment Methods';
 

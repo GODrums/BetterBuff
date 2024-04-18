@@ -12,6 +12,12 @@ const getViteConfig: (env: ConfigEnv) => WxtViteConfig | Promise<WxtViteConfig> 
                 // Using a svelte.config.js file causes a segmentation fault when importing the file
                 configFile: false,
                 preprocess: [vitePreprocess()],
+                onwarn(warning, defaultHandler) {
+                    if (warning.code === 'a11y-click-events-have-key-events') return;
+
+                    // handle all other warnings normally
+                    defaultHandler?.(warning);
+                },
             }),
         ],
         build: {

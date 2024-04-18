@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { Badge } from '$lib/components/ui/badge';
-    import { Button } from '$lib/components/ui/button';
     import { DISCORD_URL, GITHUB_URL } from '$lib/util/globals';
+    import Badge from './ui/badge/badge.svelte';
+    import Button from './ui/button/button.svelte';
     import BBlogo from '/icon/512.png';
 
     const version = `v. ${browser.runtime.getManifest().version}`;

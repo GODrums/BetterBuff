@@ -3,8 +3,8 @@
     import * as Tooltip from '$lib/components/ui/tooltip';
     import { MaterialSymbolsHelpRounded } from '$lib/components/icons';
     import type { WxtStorageItem } from 'wxt/storage';
-    import { Checkbox } from '$lib/components/ui/checkbox';
     import Label from '$lib/components/ui/label/label.svelte';
+    import Checkbox from './ui/checkbox/checkbox.svelte';
 
     export let text: string;
     export let storage: WxtStorageItem<boolean, {}>;

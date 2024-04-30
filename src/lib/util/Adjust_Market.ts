@@ -113,9 +113,9 @@ export async function adjustSearchPage(apiData: BuffTypes.MarketGoods.Data) {
             if (listingDifferenceStyle > 0) {
                 const platformTax = await ExtensionStorage.platformTax.getValue();
                 const listingDenominator = await ExtensionStorage.listingDenominator.getValue();
-                const platformPrice = parseFloat(listingDenominator == 1 ? item.buy_max_price : item.goods_info.steam_price_cny);
+                const platformPrice = parseFloat(listingDenominator === 1 ? item.buy_max_price : item.goods_info.steam_price_cny);
                 const profitThreshold = await ExtensionStorage.profitThreshold.getValue();
-                differenceElement = getListingDifference(sellingPriceCNY, platformPrice, listingDifferenceStyle, platformTax, profitThreshold, listingDenominator);
+                differenceElement = getListingDifference(sellingPriceCNY, platformPrice, listingDifferenceStyle, platformTax, profitThreshold, listingDenominator, listingDenominator === 0);
             }
 
             

@@ -86,7 +86,7 @@
                         <MaterialSymbolsHelpRounded class="size-4 text-neutral-300 hover:text-neutral-100" />
                     </Tooltip.Trigger>
                     <Tooltip.Content>
-                        <p>Platform to use as denominator of the formula. Either the lowest listed on the steam market or Buff buy order</p>
+                        <p>Platform to use as denominator of the formula for the market page. Sell order pages always use Steam prices.</p>
                     </Tooltip.Content>
                 </Tooltip.Root>
             </div>

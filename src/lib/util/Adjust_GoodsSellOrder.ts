@@ -20,6 +20,8 @@ export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data | u
 
     const showBigPreviews = await ExtensionStorage.showBigPreviews.getValue();
     const listingOptions = await ExtensionStorage.listingOptions.getValue();
+    const profitThreshold = await ExtensionStorage.profitThreshold.getValue();
+    const listingDenominator = await ExtensionStorage.listingDenominator.getValue();
 
     for (let i = 0; i < rows.length; i++) {
         let row = <HTMLElement>rows[i];
@@ -58,7 +60,7 @@ export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data | u
             const steamTax = await ExtensionStorage.platformTax.getValue();
             let priceContainer = row.querySelector('p.hide-cny')?.parentElement;
             if (!priceContainer) return;
-            priceContainer.insertAdjacentHTML('beforeend', getListingDifference(parseFloat(item.price), parseFloat(goods_info.steam_price_cny), listingDifferenceStyle, steamTax));
+            priceContainer.insertAdjacentHTML('beforeend', getListingDifference(parseFloat(item.price), parseFloat(goods_info.steam_price_cny), listingDifferenceStyle, steamTax, profitThreshold, listingDenominator, true));
         }
 
         row.classList.add('betterbuff-done');

@@ -5,7 +5,7 @@
     import * as Tabs from '$lib/components/ui/tabs/index.js';
     import SettingPaymentMethods from '$lib/components/SettingPaymentMethods.svelte';
     import SettingCheckbox from '$lib/components/SettingCheckbox.svelte';
-    import ListingDifference from './ListingDifference.svelte';
+    import ListingDifference from './SettingListingDifference.svelte';
     import SettingListingOptions from './SettingListingOptions.svelte';
     import Badge from '$lib/components/ui/badge/badge.svelte';
     import Power from '$lib/components/Power.svelte';

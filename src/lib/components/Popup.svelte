@@ -17,6 +17,7 @@
     import BUlogo from '$lib/icons/bu-logo.png';
     import JoinDiscord from '/join_discord.png';
     import { ScrollArea } from '$lib/components/ui/scroll-area';
+    import BuyMeACoffee from './icons/BuyMeACoffee.svelte';
 
     const version = browser.runtime.getManifest().version;
 </script>
@@ -70,6 +71,15 @@
                     </Button>
                 </div>
                 <footer class="absolute bottom-2 w-full text-center text-xs font-semibold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 bg-opacity-50">
+                    <a
+                      href="https://www.buymeacoffee.com/rums"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="mx-auto mb-4 flex max-w-fit items-center justify-center space-x-1 rounded-lg border border-gray-900 bg-white/80 px-4 py-1.5 transition-all duration-75 hover:scale-105"
+                    >
+                      <BuyMeACoffee class="h-6 w-6" />
+                      <p class="font-medium text-gray-700">Buy me a coffee</p>
+                    </a>
                     <p>
                         Built with 🖤 in Munich by
                         <span class="cursor-pointer text-green-900" on:click={() => window.open('https://github.com/GODrums')} role="link" tabindex="-1">Rums</span>

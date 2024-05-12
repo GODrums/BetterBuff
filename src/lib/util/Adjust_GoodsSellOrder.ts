@@ -8,11 +8,12 @@ import ChExplorer from '../pages/CHExplorer.svelte';
 
 export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data | undefined) {
     if (!apiData?.goods_infos || !apiData?.items) return;
-    
-    const goods_info = Object.values(apiData.goods_infos)?.pop() as BuffTypes.SellOrder.GoodsInfo | undefined;
-    let rows = document.querySelectorAll('tr.selling');
 
-    if (!goods_info || goods_info.appid !== 730 || rows.length < 0) return;
+    const supportedApps = [730, 570];
+    const goods_info = Object.values(apiData.goods_infos)?.pop() as BuffTypes.SellOrder.GoodsInfo | undefined;
+    const rows = document.querySelectorAll('tr.selling');
+
+    if (!goods_info || rows.length < 0 || !supportedApps.includes(goods_info.appid)) return;
 
     const weaponSchema = SchemaHelpers.getWeaponSchema(goods_info.market_hash_name, goods_info?.tags?.exterior?.internal_name == 'wearcategoryna');
 

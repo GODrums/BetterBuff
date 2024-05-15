@@ -6,8 +6,8 @@ export default defineBackground(() => {
     });
 
     browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-        if (tab.url?.startsWith('https://buff.163.com') && changeInfo.status === 'complete') {
-            const url = new URL(tab.url);
+        const url = new URL(tab.url || '');
+        if (url.hostname === "buff.163.com" && changeInfo.status === 'complete') {
             const state: BetterBuff.URLState = {
                 path: url.pathname,
                 search: url.search,

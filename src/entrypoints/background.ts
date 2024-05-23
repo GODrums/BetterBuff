@@ -1,4 +1,4 @@
-import type { BetterBuff } from "@/lib/@types/BetterBuff";
+import type { BetterBuff } from "$lib/@types/BetterBuff";
 
 export default defineBackground(() => {
     browser.runtime.onInstalled.addListener(() => {

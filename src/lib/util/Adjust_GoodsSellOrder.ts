@@ -47,7 +47,7 @@ export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data | u
             await adjustListingOptions(weaponSchema, item, goods_info, row, listingOptions);
         }
 
-        if (!(await isPaymentMethodAvailable(item.supported_pay_methods))) {
+        if (item.supported_pay_methods.length > 0 && !(await isPaymentMethodAvailable(item.supported_pay_methods))) {
             markPurchaseUnavailable(row);
         }
 

@@ -46,6 +46,10 @@ html {
     color: var(--bb-color-2, #bfbfbf);
     border-color: var(--bb-color-2, #bfbfbf);
 }
+.bb-dark-mode tr[id]:hover,
+.bb-dark-mode .popup_flower .popup-cont li:hover {
+    background: var(--bb-color-1, #1f1f1f);
+}
 
 .bb-dark-mode .pinterest .pinterest-item,
 .bb-dark-mode .pinterest .pinterest-item .pinterest-user {
@@ -98,7 +102,8 @@ html {
 .bb-dark-mode .popup_bulkbuy .popup_bulkbuy_item,
 .bb-dark-mode .popup_bulkbuy .popup_bulkbuy_price,
 .bb-dark-mode .list_tb_csgo .tr_gallery td,
-.bb-dark-mode .list_tb_csgo .tr_gallery .bundle-items-list {
+.bb-dark-mode .list_tb_csgo .tr_gallery .bundle-items-list,
+.bb-dark-mode .custom-inspect {
     background: var(--bb-color-0, #121212);
 }
 
@@ -197,6 +202,70 @@ html {
     background: var(--bb-color-1, #1f1f1f) !important;
 }
 
+/* Custom Inspect */
+.bb-dark-mode .custom-inspect .custom-inspect-skin,
+.bb-dark-mode .custom-inspect .custom-inspect-form,
+.bb-dark-mode .custom-inspect .default_inspect,
+.bb-dark-mode .custom-inspect .custom-inspect-footer,
+.bb-dark-mode .custom-inspect .inspect-sticker,
+.bb-dark-mode .custom-inspect .inspect-sticker-img {
+    background: var(--bb-color-0, #121212) !important;
+    border-color: var(--bb-color-1, #1f1f1f) !important;
+}
+
+.bb-dark-mode .custom-inspect .inspect-sticker-search,
+.bb-dark-mode .custom-inspect .inspect-sticker-search-header,
+.bb-dark-mode .custom-inspect .inspect-sticker-search-cont,
+.bb-dark-mode .custom-inspect .inspect-sticker-search-header,
+.bb-dark-mode .custom-inspect .popup_flower-aside-top,
+.bb-dark-mode .custom-inspect .popup_flower-aside-con li,
+.bb-dark-mode .custom-inspect .spin_button,
+.bb-dark-mode .custom-inspect .spin_button .button_up,
+.bb-dark-mode .custom-inspect .spin_button .button_down {
+    background: var(--bb-color-0, #121212) !important;
+    border-color: var(--bb-color-1, #1f1f1f) !important;
+    color: var(--bb-color-2, #bfbfbf) !important;
+}
+.bb-dark-mode .custom-inspect .popup_flower-aside-con li:hover {
+    background: var(--bb-color-1, #1f1f1f);
+}
+
+.bb-dark-mode .custom-inspect .custom-inspect-footer .custom-inspect-footer-content {
+    border-bottom: none;
+}
+.bb-dark-mode .custom-inspect input {
+    border-color: #484B5F;
+    background: 0 0;
+}
+.bb-dark-mode .custom-inspect .w-Select,
+.bb-dark-mode .custom-inspect .sticker-pos-text,
+.bb-dark-mode .custom-inspect .w-Select ul {
+    background: #2d2f3e !important;
+    color: #c6cad0;
+    border: none;
+}
+.bb-dark-mode .custom-inspect .w-Select ul li {
+    background: #2d2f3e;
+    color: #c6cad0;
+    border-color: #373a4c;
+}
+.bb-dark-mode .custom-inspect .w-Select li:hover,
+.bb-dark-mode .custom-inspect .w-Select li.on {
+    background: #3a455a;
+    color: #fff;
+}
+
+.bb-dark-mode .custom-inspect .w-Select h3 {
+    color: #c6cad0 !important;
+}
+
+.bb-dark-mode .custom-inspect canvas.inspect_canvas {
+    background-size: 1280px 720px;
+    background-position: -46px 0;
+    background-repeat: no-repeat;
+    background-image: url(https://i.imgur.com/9MNkyJj.png);
+}
+
 /* settings */
 .bb-dark-mode,
 .bb-dark-mode .user-setting,
@@ -211,14 +280,14 @@ html {
 .bb-dark-mode .user-guestbook,
 .bb-dark-mode .user-guestbook .guestbook-tab,
 .bb-dark-mode .user-guestbook .guestbook-col2,
-.bb-dark-mode .user-guestbook .bargain_chat_sell_div ul
- {
+.bb-dark-mode .user-guestbook .bargain_chat_sell_div ul {
     background: var(--bb-color-0, #121212) !important;
     color: var(--bb-color-2, #bfbfbf);
 }
 
 .bb-dark-mode .user-guestbook .message,
-.bb-dark-mode .user-guestbook .card_box {
+.bb-dark-mode .user-guestbook .card_box,
+.bb-dark-mode .custom-inspect .i_Btn_hollow {
     background: var(--bb-color-1, #1f1f1f) !important;
     color: var(--bb-color-2, #bfbfbf) !important;
 }

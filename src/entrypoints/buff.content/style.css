@@ -125,7 +125,7 @@ html {
 
 .bb-dark-mode .detail-tab-cont .w-Select,
 .bb-dark-mode .detail-tab-cont .w-Select ul {
-    background: #2D2F3E;
+    background: #2d2f3e;
     color: #9a9b9e;
     border: none;
 }
@@ -169,7 +169,8 @@ html {
 
 .bb-dark-mode .list_tb td,
 .bb-dark-mode .card_csgo li h3 a,
-.bb-dark-mode .pager .next, .bb-dark-mode .pager .page-link,
+.bb-dark-mode .pager .next,
+.bb-dark-mode .pager .page-link,
 .bb-dark-mode .l_Layout .cont_main .user-record a,
 .bb-dark-mode .l_Layout .cont_main .user-record .delete-bookmark,
 .bb-dark-mode .list_tb_csgo .tr_gallery .bundle-items-list h5,
@@ -234,7 +235,7 @@ html {
     border-bottom: none;
 }
 .bb-dark-mode .custom-inspect input {
-    border-color: #484B5F;
+    border-color: #484b5f;
     background: 0 0;
 }
 .bb-dark-mode .custom-inspect .w-Select,
@@ -259,7 +260,7 @@ html {
     color: #c6cad0 !important;
 }
 
-.bb-dark-mode .custom-inspect canvas.inspect_canvas {
+.bb-dark-mode .custom-inspect .custom-inspect-content {
     background-size: 1280px 720px;
     background-position: -46px 0;
     background-repeat: no-repeat;
@@ -310,7 +311,7 @@ html {
 }
 
 td.img_td:hover .betterbuff-item-detail-img {
-  visibility: visible;
+    visibility: visible;
 }
 
 .bb-dark-mode .user-setting #mobile,
@@ -320,34 +321,34 @@ td.img_td:hover .betterbuff-item-detail-img {
 
 .bb-dark-mode .popup_bulkbuy .w-Select,
 .bb-dark-mode .popup_bulkbuy .w-Select-Multi {
-    background: #2D2F3E;
+    background: #2d2f3e;
     color: #9a9b9e;
     border: none;
 }
 
 .bb-dark-mode .popup_bulkbuy .w-Select-Multi:hover,
 .bb-dark-mode .popup_bulkbuy .w-Select:hover {
-    background: #3A455A;
-    color: #E4E8EE
+    background: #3a455a;
+    color: #e4e8ee;
 }
 
 .bb-dark-mode .popup_bulkbuy .w-Select h3 span.raw,
 .bb-dark-mode .popup_bulkbuy .w-Select-Multi h3 span.raw {
-    color: #9a9b9e
+    color: #9a9b9e;
 }
 
 .bb-dark-mode .popup_bulkbuy .w-Select ul,
 .bb-dark-mode .popup_bulkbuy .w-Select-Multi ul {
-    background: #2D2F3E;
+    background: #2d2f3e;
     top: 33px;
     border: none;
-    left: 0
+    left: 0;
 }
 
 .bb-dark-mode .popup_bulkbuy .w-Select ul li,
 .bb-dark-mode .popup_bulkbuy .w-Select-Multi ul li {
-    color: #E4E8EE;
-    border-color: #373A4C
+    color: #e4e8ee;
+    border-color: #373a4c;
 }
 
 .bb-dark-mode .popup_bulkbuy .w-Select ul li:hover,
@@ -356,16 +357,16 @@ td.img_td:hover .betterbuff-item-detail-img {
 .bb-dark-mode .popup_bulkbuy .w-Select-Multi ul li.on,
 .bb-dark-mode .popup_bulkbuy .w-Select-Multi ul li div p:hover,
 .bb-dark-mode .popup_bulkbuy .w-Select-Multi ul li div p.on {
-    background: #3A455A
+    background: #3a455a;
 }
 
 .bb-dark-mode .popup_bulkbuy .w-Select-Multi ul li div {
-    background: #2D2F3E;
+    background: #2d2f3e;
     border: none;
-    top: 1px
+    top: 1px;
 }
 
 .bb-dark-mode .popup_bulkbuy .w-Select-Multi ul li div p {
-    color: #E4E8EE;
-    border-color: #373A4C
+    color: #e4e8ee;
+    border-color: #373a4c;
 }

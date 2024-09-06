@@ -1,9 +1,9 @@
 <script lang="ts">
-    import type { BuffTypes } from '../@types/BuffTypes';
-    import InfoTooltip from '../components/InfoTooltip.svelte';
-    import '../components/style.css';
+import type { BuffTypes } from '../@types/BuffTypes';
+import InfoTooltip from '../components/InfoTooltip.svelte';
+import '../components/style.css';
 
-    let data: BuffTypes.PriceHistory.Data = JSON.parse(document.querySelector('#betterbuff-pricetrend-info')?.getAttribute('data-betterbuff') ?? '{}');
+const data: BuffTypes.PriceHistory.Data = JSON.parse(document.querySelector('#betterbuff-pricetrend-info')?.getAttribute('data-betterbuff') ?? '{}');
 </script>
 
 {#if data.price_history}

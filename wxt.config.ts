@@ -1,7 +1,7 @@
 import { defineConfig, type ConfigEnv, type WxtViteConfig } from 'wxt';
 import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import type { Manifest } from 'wxt/browser';
-import path from 'path';
+import path from 'node:path';
 
 const releaseVersion = '0.8.5';
 

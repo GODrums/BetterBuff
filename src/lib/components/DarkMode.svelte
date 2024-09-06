@@ -1,24 +1,24 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
-    import { ExtensionStorage } from '../util/storage';
-    import Button from './ui/button/button.svelte';
-    import { cn } from '$lib/utils';
-    import Badge from './ui/badge/badge.svelte';
-    import SunIcon from '../icons/sun.svg';
-    import MoonIcon from '../icons/moon.svg';
+import { cn } from '$lib/utils';
+import { onMount } from 'svelte';
+import MoonIcon from '../icons/moon.svg';
+import SunIcon from '../icons/sun.svg';
+import { ExtensionStorage } from '../util/storage';
+import Badge from './ui/badge/badge.svelte';
+import Button from './ui/button/button.svelte';
 
-    let darkMode = true;
+let darkMode = true;
 
-    $: isOn = darkMode;
+$: isOn = darkMode;
 
-    onMount(async () => {
-        darkMode = await ExtensionStorage.darkMode.getValue();
-    });
+onMount(async () => {
+	darkMode = await ExtensionStorage.darkMode.getValue();
+});
 
-    const toggle = async () => {
-        isOn = !isOn;
-        await ExtensionStorage.darkMode.setValue(isOn);
-    };
+const toggle = async () => {
+	isOn = !isOn;
+	await ExtensionStorage.darkMode.setValue(isOn);
+};
 </script>
 
 <div class="flex items-center gap-2">

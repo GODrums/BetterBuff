@@ -1,10 +1,10 @@
 <script lang="ts">
 import { cn } from '$lib/utils.js';
-import { Select as SelectPrimitive } from 'bits-ui';
+import type { Select as SelectPrimitive } from 'bits-ui';
 
 type $$Props = SelectPrimitive.SeparatorProps;
 
-let className: $$Props['class'] = undefined;
+const className: $$Props['class'] = undefined;
 export { className as class };
 </script>
 

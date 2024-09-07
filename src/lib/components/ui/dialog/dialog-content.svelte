@@ -1,14 +1,14 @@
 <script lang="ts">
 import { cn, flyAndScale } from '$lib/utils.js';
-import { Dialog as DialogPrimitive } from 'bits-ui';
+import type { Dialog as DialogPrimitive } from 'bits-ui';
 import Cross2 from 'svelte-radix/Cross2.svelte';
 import * as Dialog from './index.js';
 
 type $$Props = DialogPrimitive.ContentProps;
 
-let className: $$Props['class'] = undefined;
-export let transition: $$Props['transition'] = flyAndScale;
-export let transitionConfig: $$Props['transitionConfig'] = {
+const className: $$Props['class'] = undefined;
+export const transition: $$Props['transition'] = flyAndScale;
+export const transitionConfig: $$Props['transitionConfig'] = {
 	duration: 200,
 };
 export { className as class };

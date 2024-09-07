@@ -41736,6 +41736,8 @@ export const PAYMENT_MAPPING = {
     10: 'card',
     18: 'wechat-split',
     43: 'combined',
+    56: 'bank-supply',
+    57: 'alipay-supply',
 };
 
 export const TIME_TO_TEXT = {

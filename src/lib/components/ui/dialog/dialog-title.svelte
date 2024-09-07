@@ -1,10 +1,10 @@
 <script lang="ts">
 import { cn } from '$lib/utils.js';
-import { Dialog as DialogPrimitive } from 'bits-ui';
+import type { Dialog as DialogPrimitive } from 'bits-ui';
 
 type $$Props = DialogPrimitive.TitleProps;
 
-let className: $$Props['class'] = undefined;
+const className: $$Props['class'] = undefined;
 export { className as class };
 </script>
 

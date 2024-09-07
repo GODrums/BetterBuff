@@ -13,9 +13,9 @@ import MaterialSymbolsPayments from './icons/MaterialSymbolsPayments.svelte';
 import Button from './ui/button/button.svelte';
 import Label from './ui/label/label.svelte';
 
-let text = 'Preferred Payment Methods';
+const text = 'Preferred Payment Methods';
 
-let choices: { [K in keyof IStorage['preferredPayments']]: { text: string; icon: string } } = {
+const choices: { [K in keyof IStorage['preferredPayments']]: { text: string; icon: string } } = {
 	balance: { text: 'BUFF balance-Alipay', icon: balance },
 	bank: { text: 'BUFF Balance-Bank Card', icon: bank },
 	card: { text: 'Alipay - Credit card', icon: card },
@@ -23,7 +23,7 @@ let choices: { [K in keyof IStorage['preferredPayments']]: { text: string; icon:
 	'wechat-split': { text: 'WeChat Split', icon: wechat },
 };
 
-let storage = ExtensionStorage.preferredPayments;
+const storage = ExtensionStorage.preferredPayments;
 let values: Partial<IStorage['preferredPayments']> = {};
 
 onMount(async () => {

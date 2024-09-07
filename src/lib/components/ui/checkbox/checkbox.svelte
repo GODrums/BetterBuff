@@ -1,16 +1,16 @@
 <script lang="ts">
 import { cn } from '$lib/utils.js';
-import { Checkbox as CheckboxPrimitive } from 'bits-ui';
+import type { Checkbox as CheckboxPrimitive } from 'bits-ui';
 import Check from 'svelte-radix/Check.svelte';
 import Minus from 'svelte-radix/Minus.svelte';
-import { type CheckboxProps } from './index.js';
+import type { CheckboxProps } from './index.js';
 
 type $$Props = CheckboxProps;
 type $$Events = CheckboxPrimitive.Events;
 
-let className: $$Props['class'] = undefined;
-export let size: $$Props['size'] = 'default';
-export let checked: $$Props['checked'] = false;
+const className: $$Props['class'] = undefined;
+export const size: $$Props['size'] = 'default';
+export const checked: $$Props['checked'] = false;
 export { className as class };
 </script>
 

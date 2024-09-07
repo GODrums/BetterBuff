@@ -1,13 +1,13 @@
 <script lang="ts">
 import { cn } from '$lib/utils.js';
-import { ScrollArea as ScrollAreaPrimitive } from 'bits-ui';
+import type { ScrollArea as ScrollAreaPrimitive } from 'bits-ui';
 
 type $$Props = ScrollAreaPrimitive.ScrollbarProps & {
 	orientation?: 'vertical' | 'horizontal';
 };
 
-let className: $$Props['class'] = undefined;
-export let orientation: $$Props['orientation'] = 'vertical';
+const className: $$Props['class'] = undefined;
+export const orientation: $$Props['orientation'] = 'vertical';
 export { className as class };
 </script>
 

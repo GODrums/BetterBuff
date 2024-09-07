@@ -1,4 +1,5 @@
 <script lang="ts">
+import { cn } from '$lib/utils';
 import { onMount } from 'svelte';
 import MoonIcon from '../icons/moon.svg';
 import SunIcon from '../icons/sun.svg';

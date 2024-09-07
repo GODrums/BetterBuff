@@ -7,8 +7,8 @@ type $$Props = HTMLAttributes<HTMLHeadingElement> & {
 	tag?: HeadingLevel;
 };
 
-let className: $$Props['class'] = undefined;
-export let tag: $$Props['tag'] = 'h3';
+const className: $$Props['class'] = undefined;
+export const tag: $$Props['tag'] = 'h3';
 export { className as class };
 </script>
 

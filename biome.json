@@ -21,6 +21,7 @@
 				"noParameterAssign": "off",
 				"noArguments": "off"
 			}
+		},
 		"ignore": ["**/*.svelte"]
 	},
 	"javascript": {

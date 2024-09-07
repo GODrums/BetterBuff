@@ -103,7 +103,9 @@ html {
 .bb-dark-mode .popup_bulkbuy .popup_bulkbuy_price,
 .bb-dark-mode .list_tb_csgo .tr_gallery td,
 .bb-dark-mode .list_tb_csgo .tr_gallery .bundle-items-list,
-.bb-dark-mode .custom-inspect {
+.bb-dark-mode .custom-inspect,
+.bb-dark-mode .contribute-list,
+.bb-dark-mode .vip-cont {
 	background: var(--bb-color-0, #121212);
 }
 
@@ -152,7 +154,8 @@ html {
 .bb-dark-mode .shop .shop-recommend-cont,
 .bb-dark-mode .shop .shop-recommend-cont .slider-handle,
 .bb-dark-mode .shop .shop-recommend-list li,
-.bb-dark-mode .shop .card-pager {
+.bb-dark-mode .shop .card-pager,
+.bb-dark-mode .vip-qa h5 {
 	background: var(--bb-color-0, #121212) !important;
 }
 
@@ -183,7 +186,8 @@ html {
 .bb-dark-mode .popup_weaponbox .weapon-cate,
 .bb-dark-mode .detail-tab-cont h3,
 .bb-dark-mode .popup_bulkbuy .popup_bulkbuy_item h3,
-.bb-dark-mode .popup_flower .list_tb .name-cont .textOne {
+.bb-dark-mode .popup_flower .list_tb .name-cont .textOne,
+.bb-dark-mode .vip-cont h3 {
 	color: var(--bb-color-2, #bfbfbf) !important;
 }
 

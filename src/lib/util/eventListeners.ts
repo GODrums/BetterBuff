@@ -16,12 +16,12 @@ export interface EventData<T> {
 
 export function activateHandler() {
 	// important: https://stackoverflow.com/questions/9515704/access-variables-and-functions-defined-in-page-context-using-a-content-script/9517879#9517879
-	document.addEventListener('BetterBuff_INTERCEPTED_REQUEST', (e) => {
+	document.addEventListener("BetterBuff_INTERCEPTED_REQUEST", (e) => {
 		const eventData = (<CustomEvent>e).detail as EventData<unknown>;
 
-		if (eventData.url.startsWith('https://buff.163.com/api')) {
+		if (eventData.url.startsWith("https://buff.163.com/api")) {
 			processEvent(eventData);
-		} else if (eventData.url.startsWith('betterbuff')) {
+		} else if (eventData.url.startsWith("betterbuff")) {
 			// do something
 			console.debug(`[BetterBuff] Received Window G from event ${eventData.url}: `, eventData.data);
 			setWindowG((eventData as EventData<BuffTypes.G>).data);
@@ -37,7 +37,7 @@ function dataIsError(data: unknown): data is BuffTypes.CaptchaRequired.Response 
 }
 
 function processEvent(eventData: EventData<unknown>) {
-	if (eventData.url.includes('api/message/notification')) return;
+	if (eventData.url.includes("api/message/notification")) return;
 
 	console.debug(`[BetterBuff] Received data from url: ${eventData.url}, data:`, eventData.data);
 
@@ -46,34 +46,34 @@ function processEvent(eventData: EventData<unknown>) {
 		return;
 	}
 
-	if (eventData.url.includes('api/market/goods/sell_order')) {
+	if (eventData.url.includes("api/market/goods/sell_order")) {
 		adjustGoodsSellOrder((eventData as EventData<BuffTypes.SellOrder.Response>).data.data);
-	} else if (eventData.url.includes('api/market/goods/buy_order')) {
+	} else if (eventData.url.includes("api/market/goods/buy_order")) {
 		adjustGoodsBuyOrder((eventData as EventData<BuffTypes.BuyOrder.Response>).data.data);
-	} else if (eventData.url.includes('api/market/goods/bundle_inventory')) {
+	} else if (eventData.url.includes("api/market/goods/bundle_inventory")) {
 		adjustBundleInventory((eventData as EventData<BuffTypes.BundleInventory.Response>).data.data);
-	} else if (eventData.url.includes('api/market/bundle_overview/')) {
+	} else if (eventData.url.includes("api/market/bundle_overview/")) {
 		adjustBundleOverview((eventData as EventData<BuffTypes.BundleOverview.Response>).data.data);
-	} else if (eventData.url.includes('api/market/goods?')) {
+	} else if (eventData.url.includes("api/market/goods?")) {
 		adjustSearchPage((eventData as EventData<BuffTypes.MarketGoods.Response>).data.data);
-	} else if (eventData.url.includes('api/market/goods/buying?')) {
+	} else if (eventData.url.includes("api/market/goods/buying?")) {
 		adjustSearchPage((eventData as EventData<BuffTypes.MarketGoods.Response>).data.data);
-	} else if (eventData.url.includes('api/market/goods/bundle_inventory?')) {
+	} else if (eventData.url.includes("api/market/goods/bundle_inventory?")) {
 		// (eventData as EventData<BuffTypes.MarketGoods.Response>).data.data
-	} else if (eventData.url.includes('api/market/sell_order/top_bookmarked?')) {
+	} else if (eventData.url.includes("api/market/sell_order/top_bookmarked?")) {
 		adjustTopBookmarked((eventData as EventData<BuffTypes.TopPopular.Response>).data.data);
-	} else if (eventData.url.includes('api/market/shop/')) {
+	} else if (eventData.url.includes("api/market/shop/")) {
 		// parts of a shop page https://buff.163.com/shop/U1095862579?store_game=csgo
-		if (eventData.url.includes('/sell_order')) {
+		if (eventData.url.includes("/sell_order")) {
 			adjustShopSellOrder((eventData as EventData<BuffTypes.ShopSellOrder.Response>).data.data);
-		} else if (eventData.url.includes('/bill_order')) {
+		} else if (eventData.url.includes("/bill_order")) {
 			adjustShopBillOrder((eventData as EventData<BuffTypes.ShopBillOrder.Response>).data.data);
-		} else if (eventData.url.includes('/featured')) {
+		} else if (eventData.url.includes("/featured")) {
 			adjustShopFeatured((eventData as EventData<BuffTypes.ShopFeatured.Response>).data.data);
 		}
-	} else if (eventData.url.includes('api/market/item_desc_detail')) {
+	} else if (eventData.url.includes("api/market/item_desc_detail")) {
 		adjustItemDetails((eventData as EventData<BuffTypes.ItemDescDetail.Response>).data.data);
-	} else if (eventData.url.includes('api/market/goods/price_history') && !eventData.url.includes('/days')) {
+	} else if (eventData.url.includes("api/market/goods/price_history") && !eventData.url.includes("/days")) {
 		adjustPriceTrend((eventData as EventData<BuffTypes.PriceHistory.Response>).data.data);
 	}
 }

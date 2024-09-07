@@ -2,7 +2,7 @@
 import '../components/style.css';
 import floatLogo from '../icons/float-logo.png';
 
-const data = JSON.parse(document.querySelector('#betterbuff-listing-anchor')?.getAttribute('data-betterbuff') ?? '{}');
+let data = JSON.parse(document.querySelector('#betterbuff-listing-anchor')?.getAttribute('data-betterbuff') ?? '{}');
 const shareLink = data.share ?? location.href;
 
 function copyToClipboard(text: string) {

@@ -1,15 +1,15 @@
 <script lang="ts">
 import { cn } from '$lib/utils.js';
-import type { Select as SelectPrimitive } from 'bits-ui';
+import { Select as SelectPrimitive } from 'bits-ui';
 import Check from 'svelte-radix/Check.svelte';
 
 type $$Props = SelectPrimitive.ItemProps;
 type $$Events = Required<SelectPrimitive.ItemEvents>;
 
-const className: $$Props['class'] = undefined;
+let className: $$Props['class'] = undefined;
 export let value: $$Props['value'];
-export const label: $$Props['label'] = undefined;
-export const disabled: $$Props['disabled'] = undefined;
+export let label: $$Props['label'] = undefined;
+export let disabled: $$Props['disabled'] = undefined;
 export { className as class };
 </script>
 

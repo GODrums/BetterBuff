@@ -7,10 +7,10 @@ import MaterialSymbolsHelpRounded from './icons/MaterialSymbolsHelpRounded.svelt
 import { Input } from './ui/input';
 import Label from './ui/label/label.svelte';
 
-const differenceStorage = ExtensionStorage.listingDifferenceStyle;
-const taxStorage = ExtensionStorage.platformTax;
-const denominatorStorage = ExtensionStorage.listingDenominator;
-const thresholdStorage = ExtensionStorage.profitThreshold;
+let differenceStorage = ExtensionStorage.listingDifferenceStyle;
+let taxStorage = ExtensionStorage.platformTax;
+let denominatorStorage = ExtensionStorage.listingDenominator;
+let thresholdStorage = ExtensionStorage.profitThreshold;
 
 const denominatorChoices = [
 	{ value: 0, label: 'Steam' },

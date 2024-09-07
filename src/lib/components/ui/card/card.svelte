@@ -4,7 +4,7 @@ import type { HTMLAttributes } from 'svelte/elements';
 
 type $$Props = HTMLAttributes<HTMLDivElement>;
 
-const className: $$Props['class'] = undefined;
+let className: $$Props['class'] = undefined;
 export { className as class };
 </script>
 

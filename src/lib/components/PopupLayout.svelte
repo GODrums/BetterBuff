@@ -1,7 +1,7 @@
 <script lang="ts">
 import Header from './Header.svelte';
 
-const m = { x: 0, y: 0 };
+let m = { x: 0, y: 0 };
 
 function handleMousemove(event: any) {
 	m.x = event.clientX;

@@ -6,10 +6,10 @@ import { type Events, type Props, buttonVariants } from './index.js';
 type $$Props = Props;
 type $$Events = Events;
 
-const className: $$Props['class'] = undefined;
-export const variant: $$Props['variant'] = 'default';
-export const size: $$Props['size'] = 'default';
-export const builders: $$Props['builders'] = [];
+let className: $$Props['class'] = undefined;
+export let variant: $$Props['variant'] = 'default';
+export let size: $$Props['size'] = 'default';
+export let builders: $$Props['builders'] = [];
 export { className as class };
 </script>
 

@@ -6,13 +6,13 @@ import type { InputEvents } from './index.js';
 type $$Props = HTMLInputAttributes;
 type $$Events = InputEvents;
 
-const className: $$Props['class'] = undefined;
-export const value: $$Props['value'] = undefined;
+let className: $$Props['class'] = undefined;
+export let value: $$Props['value'] = undefined;
 export { className as class };
 
 // Workaround for https://github.com/sveltejs/svelte/issues/9305
 // Fixed in Svelte 5, but not backported to 4.x.
-export const readonly: $$Props['readonly'] = undefined;
+export let readonly: $$Props['readonly'] = undefined;
 </script>
 
 <input

@@ -1,18 +1,18 @@
 <script lang="ts">
-	import Decimal from "decimal.js";
-	import type { BuffTypes } from "../@types/BuffTypes";
+import Decimal from 'decimal.js';
+import type { BuffTypes } from '../@types/BuffTypes';
 
-	export let data: BuffTypes.PriceHistory.Data;
-	let isHovered = false;
-	let isClicked = false;
+export let data: BuffTypes.PriceHistory.Data;
+let isHovered = false,
+	isClicked = false;
 
-	const minPrice = data.price_history.reduce((a, b) => Math.min(a, b[1]), Number.POSITIVE_INFINITY);
-	const maxPrice = data.price_history.reduce((a, b) => Math.max(a, b[1]), Number.NEGATIVE_INFINITY);
-	const priceChange = new Decimal(data.price_history[data.price_history.length - 1][1]).minus(data.price_history[0][1]);
-	const priceChangePercentage = priceChange.div(data.price_history[0][1]).times(100);
+const minPrice = data.price_history.reduce((a, b) => Math.min(a, b[1]), Infinity);
+const maxPrice = data.price_history.reduce((a, b) => Math.max(a, b[1]), -Infinity);
+const priceChange = new Decimal(data.price_history[data.price_history.length - 1][1]).minus(data.price_history[0][1]);
+const priceChangePercentage = priceChange.div(data.price_history[0][1]).times(100);
 
-	const minElement = data.price_history.find((e) => e[1] === minPrice)!;
-	const maxElement = data.price_history.find((e) => e[1] === maxPrice)!;
+const minElement = data.price_history.find((e) => e[1] === minPrice)!;
+const maxElement = data.price_history.find((e) => e[1] === maxPrice)!;
 </script>
 
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->

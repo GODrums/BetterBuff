@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { DISCORD_URL, GITHUB_URL } from '$lib/util/globals';
-    import Badge from './ui/badge/badge.svelte';
-    import Button from './ui/button/button.svelte';
-    import BBlogo from '/icon/512.png';
+import { DISCORD_URL, GITHUB_URL } from '$lib/util/globals';
+import BBlogo from '/icon/512.png';
+import Badge from './ui/badge/badge.svelte';
+import Button from './ui/button/button.svelte';
 
-    const version = `v. ${browser.runtime.getManifest().version}`;
+const version = `v. ${browser.runtime.getManifest().version}`;
 </script>
 
 <header class="w-full flex align-middle justify-between px-4 py-1.5 bg-card/70 text-card-foreground border-b border-muted shadow-sm z-10">

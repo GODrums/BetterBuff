@@ -1,16 +1,16 @@
 <script lang="ts">
-    import '../components/style.css';
-    import floatLogo from '../icons/float-logo.png';
+import '../components/style.css';
+import floatLogo from '../icons/float-logo.png';
 
-    let data = JSON.parse(document.querySelector('#betterbuff-listing-anchor')?.getAttribute('data-betterbuff') ?? '{}');
-    const shareLink = data.share ?? location.href;
+let data = JSON.parse(document.querySelector('#betterbuff-listing-anchor')?.getAttribute('data-betterbuff') ?? '{}');
+const shareLink = data.share ?? location.href;
 
-    function copyToClipboard(text: string) {
-        navigator?.clipboard?.writeText(text).then(() => {
-            console.debug(`[BetterBuff] Copied to clipboard: ${text}`);
-        });
-        window.postMessage({ type: 'toast', text: 'Copied to clipboard', success: true });
-    }
+function copyToClipboard(text: string) {
+	navigator?.clipboard?.writeText(text).then(() => {
+		console.debug(`[BetterBuff] Copied to clipboard: ${text}`);
+	});
+	window.postMessage({ type: 'toast', text: 'Copied to clipboard', success: true });
+}
 </script>
 
 <div class="flex items-center gap-3 pb-4">

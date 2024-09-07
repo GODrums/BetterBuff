@@ -1,42 +1,42 @@
 <script lang="ts">
-    import * as Tooltip from '$lib/components/ui/tooltip';
-    import * as Dialog from '$lib/components/ui/dialog';
-    import { onMount } from 'svelte';
-    import { ExtensionStorage, type IStorage } from '../util/storage';
-    import balance from '../icons/payment-balance.png';
-    import bank from '../icons/payment-bank.png';
-    import card from '../icons/payment-card.png';
-    import wechat from '../icons/payment-wechat.png';
-    import { cn } from '$lib/utils';
-    import { MaterialSymbolsHelpRounded } from './icons';
-    import MaterialSymbolsPayments from './icons/MaterialSymbolsPayments.svelte';
-    import Label from './ui/label/label.svelte';
-    import Button from './ui/button/button.svelte';
+import * as Dialog from '$lib/components/ui/dialog';
+import * as Tooltip from '$lib/components/ui/tooltip';
+import { cn } from '$lib/utils';
+import { onMount } from 'svelte';
+import balance from '../icons/payment-balance.png';
+import bank from '../icons/payment-bank.png';
+import card from '../icons/payment-card.png';
+import wechat from '../icons/payment-wechat.png';
+import { ExtensionStorage, type IStorage } from '../util/storage';
+import { MaterialSymbolsHelpRounded } from './icons';
+import MaterialSymbolsPayments from './icons/MaterialSymbolsPayments.svelte';
+import Button from './ui/button/button.svelte';
+import Label from './ui/label/label.svelte';
 
-    let text = 'Preferred Payment Methods';
+const text = 'Preferred Payment Methods';
 
-    let choices: { [K in keyof IStorage['preferredPayments']]: { text: string; icon: string } } = {
-        balance: { text: 'BUFF balance-Alipay', icon: balance },
-        bank: { text: 'BUFF Balance-Bank Card', icon: bank },
-        card: { text: 'Alipay - Credit card', icon: card },
-        wechat: { text: 'WeChat Pay', icon: wechat },
-        'wechat-split': { text: 'WeChat Split', icon: wechat },
-    };
+const choices: { [K in keyof IStorage['preferredPayments']]: { text: string; icon: string } } = {
+	balance: { text: 'BUFF balance-Alipay', icon: balance },
+	bank: { text: 'BUFF Balance-Bank Card', icon: bank },
+	card: { text: 'Alipay - Credit card', icon: card },
+	wechat: { text: 'WeChat Pay', icon: wechat },
+	'wechat-split': { text: 'WeChat Split', icon: wechat },
+};
 
-    let storage = ExtensionStorage.preferredPayments;
-    let values: Partial<IStorage['preferredPayments']> = {};
+const storage = ExtensionStorage.preferredPayments;
+let values: Partial<IStorage['preferredPayments']> = {};
 
-    onMount(async () => {
-        values = await storage.getValue();
-    });
+onMount(async () => {
+	values = await storage.getValue();
+});
 
-    const storeValue = async (choice: keyof IStorage['preferredPayments']) => {
-        values[choice] = !values[choice];
+const storeValue = async (choice: keyof IStorage['preferredPayments']) => {
+	values[choice] = !values[choice];
 
-        await storage.setValue(values as IStorage['preferredPayments']);
-    };
+	await storage.setValue(values as IStorage['preferredPayments']);
+};
 
-    const notypecheck = (x: string) => x as keyof IStorage['preferredPayments'];
+const notypecheck = (x: string) => x as keyof IStorage['preferredPayments'];
 </script>
 
 <div class="w-full flex flex-col border border-base-300 bg-card/90 rounded-lg py-2 px-3 z-10">

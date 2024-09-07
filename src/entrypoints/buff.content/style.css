@@ -1,13 +1,13 @@
 ::root {
-    --bb-color-0: #121212;
-    --bb-color-1: #1f1f1f;
-    ---bb-color-2: #bfbfbf;
-    --bb-color-3: #696969;
+	--bb-color-0: #121212;
+	--bb-color-1: #1f1f1f;
+	--bb-color-2: #bfbfbf;
+	--bb-color-3: #696969;
 }
 
 /* remove grayscale from html, body */
 html {
-    filter: grayscale(0) !important;
+	filter: grayscale(0) !important;
 }
 
 .bb-dark-mode #j_list_card li,
@@ -15,25 +15,25 @@ html {
 .bb-dark-mode #j_list_card li a,
 .bb-dark-mode #j_list_card li p,
 .bb-dark-mode .shop .shop-recommend-list h3 a {
-    color: var(--bb-color-2, #bfbfbf);
+	color: var(--bb-color-2, #bfbfbf);
 }
 
 .bb-dark-mode .pager li.disabled * {
-    color: var(--bb-color-3, #696969) !important;
-    border-color: var(--bb-color-2, #bfbfbf) !important;
-    background: var(--bb-color-0, #121212) !important;
+	color: var(--bb-color-3, #696969) !important;
+	border-color: var(--bb-color-2, #bfbfbf) !important;
+	background: var(--bb-color-0, #121212) !important;
 }
 
 .bb-dark-mode div.stickers {
-    background: transparent;
+	background: transparent;
 }
 
 .bb-dark-mode .des_row,
 .bb-dark-mode .pager li.disabled span,
 .bb-dark-mode .list_tb th,
 .bb-dark-mode .list_tb #rank-title {
-    background: var(--bb-color-0, #121212) !important;
-    border-color: var(--bb-color-2, #bfbfbf) !important;
+	background: var(--bb-color-0, #121212) !important;
+	border-color: var(--bb-color-2, #bfbfbf) !important;
 }
 
 .bb-dark-mode tr[id],
@@ -43,25 +43,25 @@ html {
 .bb-dark-mode a.ctag,
 .bb-dark-mode .pager li .page-link,
 .bb-dark-mode .desc_content {
-    color: var(--bb-color-2, #bfbfbf);
-    border-color: var(--bb-color-2, #bfbfbf);
+	color: var(--bb-color-2, #bfbfbf);
+	border-color: var(--bb-color-2, #bfbfbf);
 }
 .bb-dark-mode tr[id]:hover,
 .bb-dark-mode .popup_flower .popup-cont li:hover {
-    background: var(--bb-color-1, #1f1f1f);
+	background: var(--bb-color-1, #1f1f1f);
 }
 
 .bb-dark-mode .pinterest .pinterest-item,
 .bb-dark-mode .pinterest .pinterest-item .pinterest-user {
-    color: var(--bb-color-2, #bfbfbf);
-    border-color: var(--bb-color-2, #bfbfbf);
-    background: var(--bb-color-0, #121212) !important;
+	color: var(--bb-color-2, #bfbfbf);
+	border-color: var(--bb-color-2, #bfbfbf);
+	background: var(--bb-color-0, #121212) !important;
 }
 
 .bb-dark-mode .popup_guide_sell textarea,
 .bb-dark-mode .popup_bulkbuy_input #batch-buy-num {
-    background: var(--bb-color-0, #121212);
-    color: var(--bb-color-2, #bfbfbf) !important;
+	background: var(--bb-color-0, #121212);
+	color: var(--bb-color-2, #bfbfbf) !important;
 }
 
 .bb-dark-mode .area1,
@@ -103,47 +103,49 @@ html {
 .bb-dark-mode .popup_bulkbuy .popup_bulkbuy_price,
 .bb-dark-mode .list_tb_csgo .tr_gallery td,
 .bb-dark-mode .list_tb_csgo .tr_gallery .bundle-items-list,
-.bb-dark-mode .custom-inspect {
-    background: var(--bb-color-0, #121212);
+.bb-dark-mode .custom-inspect,
+.bb-dark-mode .contribute-list,
+.bb-dark-mode .vip-cont {
+	background: var(--bb-color-0, #121212);
 }
 
 .bb-dark-mode .detail-tab-cont .count-chart,
 .bb-dark-mode .detail-tab-cont .count-item {
-    border: none;
+	border: none;
 }
 
 .bb-dark-mode a.ctag b {
-    background: transparent;
+	background: transparent;
 }
 .bb-dark-mode a.ctag b i {
-    filter: none !important;
+	filter: none !important;
 }
 
 .bb-dark-mode a.ctag:hover b {
-    background: var(--bb-color-1, #1f1f1f);
+	background: var(--bb-color-1, #1f1f1f);
 }
 
 .bb-dark-mode .detail-tab-cont .w-Select,
 .bb-dark-mode .detail-tab-cont .w-Select ul {
-    background: #2d2f3e;
-    color: #9a9b9e;
-    border: none;
+	background: #2d2f3e;
+	color: #9a9b9e;
+	border: none;
 }
 .bb-dark-mode .detail-tab-cont .w-Select ul li {
-    color: #9a9b9e;
-    border: none;
+	color: #9a9b9e;
+	border: none;
 }
 
 .bb-dark-mode .detail-tab-cont .w-Select ul .hover,
 .bb-dark-mode .detail-tab-cont .w-Select ul li:hover,
 .bb-dark-mode .detail-tab-cont .w-Select ul li.on:hover {
-    background: #505f7a;
-    color: #9a9b9e;
+	background: #505f7a;
+	color: #9a9b9e;
 }
 
 .bb-dark-mode .detail-tab-cont .w-Select ul .on {
-    background: #3a455a;
-    color: #9a9b9e;
+	background: #3a455a;
+	color: #9a9b9e;
 }
 
 /* shop pages */
@@ -152,19 +154,20 @@ html {
 .bb-dark-mode .shop .shop-recommend-cont,
 .bb-dark-mode .shop .shop-recommend-cont .slider-handle,
 .bb-dark-mode .shop .shop-recommend-list li,
-.bb-dark-mode .shop .card-pager {
-    background: var(--bb-color-0, #121212) !important;
+.bb-dark-mode .shop .card-pager,
+.bb-dark-mode .vip-qa h5 {
+	background: var(--bb-color-0, #121212) !important;
 }
 
 .bb-dark-mode .detail-tab-cont tr:hover {
-    background: var(--bb-color-1, #1f1f1f);
+	background: var(--bb-color-1, #1f1f1f);
 }
 
 .bb-dark-mode .popup_charge .popup-cont .list_tb_csgo tr:hover,
 .bb-dark-mode .popup_weaponbox .weapon-col1 li.on,
 .bb-dark-mode .popup_weaponbox li:hover,
 .bb-dark-mode .popup_flower .popup-cont tr:hover {
-    background: var(--bb-color-1, #1f1f1f) !important;
+	background: var(--bb-color-1, #1f1f1f) !important;
 }
 
 .bb-dark-mode .list_tb td,
@@ -183,16 +186,17 @@ html {
 .bb-dark-mode .popup_weaponbox .weapon-cate,
 .bb-dark-mode .detail-tab-cont h3,
 .bb-dark-mode .popup_bulkbuy .popup_bulkbuy_item h3,
-.bb-dark-mode .popup_flower .list_tb .name-cont .textOne {
-    color: var(--bb-color-2, #bfbfbf) !important;
+.bb-dark-mode .popup_flower .list_tb .name-cont .textOne,
+.bb-dark-mode .vip-cont h3 {
+	color: var(--bb-color-2, #bfbfbf) !important;
 }
 
 .bb-dark-mode .card_csgo li h3 a:hover {
-    color: #eea20e !important;
+	color: #eea20e !important;
 }
 
 .bb-dark-mode .list_tb_csgo .tr_gallery .bundle-items-list h5:hover {
-    color: var(--bb-color-3, #696969) !important;
+	color: var(--bb-color-3, #696969) !important;
 }
 
 .bb-dark-mode .user-setting .list_tb tr:hover,
@@ -200,7 +204,7 @@ html {
 .bb-dark-mode .user-record tr:hover,
 .bb-dark-mode .user-guestbook .guestbook-col1-item.on,
 .bb-dark-mode .user-guestbook .guestbook-col2-goods-top {
-    background: var(--bb-color-1, #1f1f1f) !important;
+	background: var(--bb-color-1, #1f1f1f) !important;
 }
 
 /* Custom Inspect */
@@ -210,8 +214,8 @@ html {
 .bb-dark-mode .custom-inspect .custom-inspect-footer,
 .bb-dark-mode .custom-inspect .inspect-sticker,
 .bb-dark-mode .custom-inspect .inspect-sticker-img {
-    background: var(--bb-color-0, #121212) !important;
-    border-color: var(--bb-color-1, #1f1f1f) !important;
+	background: var(--bb-color-0, #121212) !important;
+	border-color: var(--bb-color-1, #1f1f1f) !important;
 }
 
 .bb-dark-mode .custom-inspect .inspect-sticker-search,
@@ -223,48 +227,48 @@ html {
 .bb-dark-mode .custom-inspect .spin_button,
 .bb-dark-mode .custom-inspect .spin_button .button_up,
 .bb-dark-mode .custom-inspect .spin_button .button_down {
-    background: var(--bb-color-0, #121212) !important;
-    border-color: var(--bb-color-1, #1f1f1f) !important;
-    color: var(--bb-color-2, #bfbfbf) !important;
+	background: var(--bb-color-0, #121212) !important;
+	border-color: var(--bb-color-1, #1f1f1f) !important;
+	color: var(--bb-color-2, #bfbfbf) !important;
 }
 .bb-dark-mode .custom-inspect .popup_flower-aside-con li:hover {
-    background: var(--bb-color-1, #1f1f1f);
+	background: var(--bb-color-1, #1f1f1f);
 }
 
 .bb-dark-mode .custom-inspect .custom-inspect-footer .custom-inspect-footer-content {
-    border-bottom: none;
+	border-bottom: none;
 }
 .bb-dark-mode .custom-inspect input {
-    border-color: #484b5f;
-    background: 0 0;
+	border-color: #484b5f;
+	background: 0 0;
 }
 .bb-dark-mode .custom-inspect .w-Select,
 .bb-dark-mode .custom-inspect .sticker-pos-text,
 .bb-dark-mode .custom-inspect .w-Select ul {
-    background: #2d2f3e !important;
-    color: #c6cad0;
-    border: none;
+	background: #2d2f3e !important;
+	color: #c6cad0;
+	border: none;
 }
 .bb-dark-mode .custom-inspect .w-Select ul li {
-    background: #2d2f3e;
-    color: #c6cad0;
-    border-color: #373a4c;
+	background: #2d2f3e;
+	color: #c6cad0;
+	border-color: #373a4c;
 }
 .bb-dark-mode .custom-inspect .w-Select li:hover,
 .bb-dark-mode .custom-inspect .w-Select li.on {
-    background: #3a455a;
-    color: #fff;
+	background: #3a455a;
+	color: #fff;
 }
 
 .bb-dark-mode .custom-inspect .w-Select h3 {
-    color: #c6cad0 !important;
+	color: #c6cad0 !important;
 }
 
 .bb-dark-mode .custom-inspect .custom-inspect-content {
-    background-size: 1280px 720px;
-    background-position: -46px 0;
-    background-repeat: no-repeat;
-    background-image: url(https://i.imgur.com/9MNkyJj.png);
+	background-size: 1280px 720px;
+	background-position: -46px 0;
+	background-repeat: no-repeat;
+	background-image: url(https://i.imgur.com/9MNkyJj.png);
 }
 
 /* settings */
@@ -282,73 +286,73 @@ html {
 .bb-dark-mode .user-guestbook .guestbook-tab,
 .bb-dark-mode .user-guestbook .guestbook-col2,
 .bb-dark-mode .user-guestbook .bargain_chat_sell_div ul {
-    background: var(--bb-color-0, #121212) !important;
-    color: var(--bb-color-2, #bfbfbf);
+	background: var(--bb-color-0, #121212) !important;
+	color: var(--bb-color-2, #bfbfbf);
 }
 
 .bb-dark-mode .user-guestbook .message,
 .bb-dark-mode .user-guestbook .card_box,
 .bb-dark-mode .custom-inspect .i_Btn_hollow {
-    background: var(--bb-color-1, #1f1f1f) !important;
-    color: var(--bb-color-2, #bfbfbf) !important;
+	background: var(--bb-color-1, #1f1f1f) !important;
+	color: var(--bb-color-2, #bfbfbf) !important;
 }
 
 .bb-dark-mode .l_Layout .cont_main .user-record .i_Btn_hollow {
-    background-color: #959595;
-    color: #fff;
+	background-color: #959595;
+	color: #fff;
 }
 
 .bb-dark-mode .popup-cont #bargain-price,
 .bb-dark-mode .popup_bulkbuy_input #batch-buy-max-price {
-    background: var(--bb-color-0, #121212) url(https://buff.163.com/static/images/site/yuan-ico.png) no-repeat 12px center;
-    color: var(--bb-color-2, #bfbfbf);
+	background: var(--bb-color-0, #121212) url(https://buff.163.com/static/images/site/yuan-ico.png) no-repeat 12px center;
+	color: var(--bb-color-2, #bfbfbf);
 }
 
 .betterbuff-item-detail-img {
-    visibility: hidden;
-    position: absolute;
-    z-index: 999;
+	visibility: hidden;
+	position: absolute;
+	z-index: 999;
 }
 
 td.img_td:hover .betterbuff-item-detail-img {
-    visibility: visible;
+	visibility: visible;
 }
 
 .bb-dark-mode .user-setting #mobile,
 .bb-dark-mode .user-setting tr.steam_bind > .t_Left > a {
-    filter: blur(5px);
+	filter: blur(5px);
 }
 
 .bb-dark-mode .popup_bulkbuy .w-Select,
 .bb-dark-mode .popup_bulkbuy .w-Select-Multi {
-    background: #2d2f3e;
-    color: #9a9b9e;
-    border: none;
+	background: #2d2f3e;
+	color: #9a9b9e;
+	border: none;
 }
 
 .bb-dark-mode .popup_bulkbuy .w-Select-Multi:hover,
 .bb-dark-mode .popup_bulkbuy .w-Select:hover {
-    background: #3a455a;
-    color: #e4e8ee;
+	background: #3a455a;
+	color: #e4e8ee;
 }
 
 .bb-dark-mode .popup_bulkbuy .w-Select h3 span.raw,
 .bb-dark-mode .popup_bulkbuy .w-Select-Multi h3 span.raw {
-    color: #9a9b9e;
+	color: #9a9b9e;
 }
 
 .bb-dark-mode .popup_bulkbuy .w-Select ul,
 .bb-dark-mode .popup_bulkbuy .w-Select-Multi ul {
-    background: #2d2f3e;
-    top: 33px;
-    border: none;
-    left: 0;
+	background: #2d2f3e;
+	top: 33px;
+	border: none;
+	left: 0;
 }
 
 .bb-dark-mode .popup_bulkbuy .w-Select ul li,
 .bb-dark-mode .popup_bulkbuy .w-Select-Multi ul li {
-    color: #e4e8ee;
-    border-color: #373a4c;
+	color: #e4e8ee;
+	border-color: #373a4c;
 }
 
 .bb-dark-mode .popup_bulkbuy .w-Select ul li:hover,
@@ -357,16 +361,16 @@ td.img_td:hover .betterbuff-item-detail-img {
 .bb-dark-mode .popup_bulkbuy .w-Select-Multi ul li.on,
 .bb-dark-mode .popup_bulkbuy .w-Select-Multi ul li div p:hover,
 .bb-dark-mode .popup_bulkbuy .w-Select-Multi ul li div p.on {
-    background: #3a455a;
+	background: #3a455a;
 }
 
 .bb-dark-mode .popup_bulkbuy .w-Select-Multi ul li div {
-    background: #2d2f3e;
-    border: none;
-    top: 1px;
+	background: #2d2f3e;
+	border: none;
+	top: 1px;
 }
 
 .bb-dark-mode .popup_bulkbuy .w-Select-Multi ul li div p {
-    color: #e4e8ee;
-    border-color: #373a4c;
+	color: #e4e8ee;
+	border-color: #373a4c;
 }

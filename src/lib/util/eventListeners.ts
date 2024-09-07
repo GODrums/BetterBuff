@@ -1,12 +1,12 @@
-import type { BuffTypes } from "../@types/BuffTypes";
-import { adjustBundleInventory, adjustBundleOverview } from "./Adjust_Bundletrade";
-import { adjustGoodsBuyOrder } from "./Adjust_GoodsBuyOrder";
-import { adjustGoodsSellOrder } from "./Adjust_GoodsSellOrder";
-import { adjustItemDetails, adjustSearchPage, adjustTopBookmarked } from "./Adjust_Market";
-import { adjustPriceTrend } from "./Adjust_PriceTrend";
-import { adjustShopBillOrder, adjustShopFeatured, adjustShopSellOrder } from "./Adjust_Shop";
-import { adjustWindow } from "./Adjust_Window";
-import { setWindowG } from "./storage";
+import type { BuffTypes } from '../@types/BuffTypes';
+import { adjustBundleInventory, adjustBundleOverview } from './Adjust_Bundletrade';
+import { adjustGoodsBuyOrder } from './Adjust_GoodsBuyOrder';
+import { adjustGoodsSellOrder } from './Adjust_GoodsSellOrder';
+import { adjustItemDetails, adjustSearchPage, adjustTopBookmarked } from './Adjust_Market';
+import { adjustPriceTrend } from './Adjust_PriceTrend';
+import { adjustShopBillOrder, adjustShopFeatured, adjustShopSellOrder } from './Adjust_Shop';
+import { adjustWindow } from './Adjust_Window';
+import { setWindowG } from './storage';
 
 export interface EventData<T> {
 	status: string;

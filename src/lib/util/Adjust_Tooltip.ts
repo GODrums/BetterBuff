@@ -1,5 +1,5 @@
-import type { BuffTypes } from "../@types/BuffTypes";
-import { convertSP } from "./dataHelpers";
+import type { BuffTypes } from '../@types/BuffTypes';
+import { convertSP } from './dataHelpers';
 
 export function adjustTooltip(tooltip: HTMLElement) {
 	const itemData = (tooltip.querySelector("a.btn-buy-order") as HTMLElement)?.dataset;

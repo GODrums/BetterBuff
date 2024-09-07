@@ -1,5 +1,5 @@
-import Decimal from "decimal.js";
-import { WINDOW_G } from "./storage";
+import Decimal from 'decimal.js';
+import { WINDOW_G } from './storage';
 
 export function adjustWindow() {
 	adjustWallet();

@@ -1,5 +1,5 @@
-import type { BuffTypes } from "../@types/BuffTypes";
-import { genListingAge } from "./uiGeneration";
+import type { BuffTypes } from '../@types/BuffTypes';
+import { genListingAge } from './uiGeneration';
 
 export async function adjustBundleInventory(apiData: BuffTypes.BundleInventory.Data) {
 	const rows = document.querySelectorAll(".list_tb_csgo > tr:not(.tr_gallery)");

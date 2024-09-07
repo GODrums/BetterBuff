@@ -22,8 +22,8 @@ const toggle = async () => {
 </script>
 
 <div class="flex items-center gap-2">
-    <Button variant="ghost" class="flex items-center h-14 w-28 gap-2" on:click={toggle}>
-        <img src={isOn ? MoonIcon : SunIcon} class="h-12" alt="Dark Mode Icon" />
-        <Badge class={isOn ? 'bg-[#00b6ff]' : 'bg-[#ffbe00]'}>{isOn ? "ON" : "OFF"}</Badge>
-    </Button>
+	<Button variant="ghost" class="flex items-center h-14 w-28 gap-2" on:click={toggle}>
+		<img src={isOn ? MoonIcon : SunIcon} class="h-12" alt="Dark Mode Icon" />
+		<Badge class={isOn ? "bg-[#00b6ff]" : "bg-[#ffbe00]"}>{isOn ? "ON" : "OFF"}</Badge>
+	</Button>
 </div>

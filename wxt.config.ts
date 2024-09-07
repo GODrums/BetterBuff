@@ -3,7 +3,7 @@ import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import type { Manifest } from 'wxt/browser';
 import path from 'node:path';
 
-const releaseVersion = '0.8.5';
+const releaseVersion = '0.8.6';
 
 const getViteConfig: (env: ConfigEnv) => WxtViteConfig | Promise<WxtViteConfig> = () => {
     return {

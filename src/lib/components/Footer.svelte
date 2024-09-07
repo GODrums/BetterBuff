@@ -1,8 +1,8 @@
 <script lang="ts">
-	import NavLink from './NavLink.svelte';
-    import TwitterIcon from '../icons/twitter.svg';
-    import DiscordIcon from '../icons/discord.svg';
-    import SteamIcon from '../icons/steam.svg';
+import DiscordIcon from '../icons/discord.svg';
+import SteamIcon from '../icons/steam.svg';
+import TwitterIcon from '../icons/twitter.svg';
+import NavLink from './NavLink.svelte';
 </script>
 
 <footer class="footer footer-center bg-transparent text-base-content rounded mb-1 mt-4">

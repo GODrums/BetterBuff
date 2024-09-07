@@ -1,12 +1,12 @@
 <script lang="ts">
-    import Header from './Header.svelte';
+import Header from './Header.svelte';
 
-    let m = { x: 0, y: 0 };
+let m = { x: 0, y: 0 };
 
-    function handleMousemove(event: any) {
-        m.x = event.clientX;
-        m.y = event.clientY;
-    }
+function handleMousemove(event: any) {
+	m.x = event.clientX;
+	m.y = event.clientY;
+}
 </script>
 
 <div class="dark flex flex-col bg-card text-card-foreground justify-between h-[600px] w-[350px] overflow-hidden heroBG" on:mousemove={handleMousemove} role="document">

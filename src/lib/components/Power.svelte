@@ -1,23 +1,23 @@
 <script lang="ts">
-    import { onMount } from "svelte";
-    import { ExtensionStorage } from "../util/storage";
-    import PowerOn from "../icons/power-on.svg";
-    import PowerOff from "../icons/power-off.svg";
-    import Button from "./ui/button/button.svelte";
-    import Badge from "./ui/badge/badge.svelte";
+import { onMount } from 'svelte';
+import PowerOff from '../icons/power-off.svg';
+import PowerOn from '../icons/power-on.svg';
+import { ExtensionStorage } from '../util/storage';
+import Badge from './ui/badge/badge.svelte';
+import Button from './ui/button/button.svelte';
 
-    let enabled = true;
+let enabled = true;
 
-    $: isOn = enabled;
+$: isOn = enabled;
 
-    onMount(async () => {
-        enabled = await ExtensionStorage.enabled.getValue();
-    });
-    
-    const toggle = async () => {
-        isOn = !isOn;
-        await ExtensionStorage.enabled.setValue(isOn);
-    };
+onMount(async () => {
+	enabled = await ExtensionStorage.enabled.getValue();
+});
+
+const toggle = async () => {
+	isOn = !isOn;
+	await ExtensionStorage.enabled.setValue(isOn);
+};
 </script>
 
 <div class="flex items-center gap-2">

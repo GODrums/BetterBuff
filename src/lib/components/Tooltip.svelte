@@ -1,7 +1,7 @@
 <script lang="ts">
-    export let tooltipClass: string;
-    export let svgClass: string;
-    export let dataTip: string;
+export let tooltipClass: string;
+export let svgClass: string;
+export let dataTip: string;
 </script>
 
 <div class="tooltip inline-flex {tooltipClass} z-100" data-tip={dataTip}>

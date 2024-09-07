@@ -1,7 +1,7 @@
-import Root from "./checkbox.svelte";
-import { Checkbox as CheckboxPrimitive } from "bits-ui";
+import type { Checkbox as CheckboxPrimitive } from 'bits-ui';
+import Root from './checkbox.svelte';
 
-type Size = "default" | "sm" | undefined;
+type Size = 'default' | 'sm' | undefined;
 
 type Props = CheckboxPrimitive.Props & {
 	size?: Size;

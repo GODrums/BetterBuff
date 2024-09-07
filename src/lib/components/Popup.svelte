@@ -1,25 +1,25 @@
 <script lang="ts">
-    import { ExtensionStorage } from '../util/storage';
-    import { DISCORD_URL } from '$lib/util/globals';
+import { DISCORD_URL } from '$lib/util/globals';
+import { ExtensionStorage } from '../util/storage';
 
-    import * as Tabs from '$lib/components/ui/tabs/index.js';
-    import SettingPaymentMethods from '$lib/components/SettingPaymentMethods.svelte';
-    import SettingCheckbox from '$lib/components/SettingCheckbox.svelte';
-    import ListingDifference from './SettingListingDifference.svelte';
-    import SettingListingOptions from './SettingListingOptions.svelte';
-    import Badge from '$lib/components/ui/badge/badge.svelte';
-    import Power from '$lib/components/Power.svelte';
-    import DarkMode from '$lib/components/DarkMode.svelte';
-    import Button from '$lib/components/ui/button/button.svelte';
+import DarkMode from '$lib/components/DarkMode.svelte';
+import Power from '$lib/components/Power.svelte';
+import SettingCheckbox from '$lib/components/SettingCheckbox.svelte';
+import SettingPaymentMethods from '$lib/components/SettingPaymentMethods.svelte';
+import Badge from '$lib/components/ui/badge/badge.svelte';
+import Button from '$lib/components/ui/button/button.svelte';
+import * as Tabs from '$lib/components/ui/tabs/index.js';
+import ListingDifference from './SettingListingDifference.svelte';
+import SettingListingOptions from './SettingListingOptions.svelte';
 
-    import { ArcticonsPriceconverter, MaterialSymbolsInfoOutline, MaterialSymbolsSettings } from '$lib/components/icons';
-    import BBlogo from '/icon/512.png';
-    import BUlogo from '$lib/icons/bu-logo.png';
-    import JoinDiscord from '/join_discord.png';
-    import { ScrollArea } from '$lib/components/ui/scroll-area';
-    import BuyMeACoffee from './icons/BuyMeACoffee.svelte';
+import { ArcticonsPriceconverter, MaterialSymbolsInfoOutline, MaterialSymbolsSettings } from '$lib/components/icons';
+import { ScrollArea } from '$lib/components/ui/scroll-area';
+import BUlogo from '$lib/icons/bu-logo.png';
+import BBlogo from '/icon/512.png';
+import JoinDiscord from '/join_discord.png';
+import BuyMeACoffee from './icons/BuyMeACoffee.svelte';
 
-    const version = browser.runtime.getManifest().version;
+const version = browser.runtime.getManifest().version;
 </script>
 
 <Tabs.Root value="settings" class="h-full">

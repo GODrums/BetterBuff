@@ -1,10 +1,10 @@
 <script lang="ts">
-    import PatternPopup from '../components/PatternPopup.svelte';
-    import type { BetterBuff } from '../@types/BetterBuff';
+import type { BetterBuff } from '../@types/BetterBuff';
+import PatternPopup from '../components/PatternPopup.svelte';
 
-    const itemName = document.querySelector('h1')?.textContent!;
-    let weapon = itemName.split(' | ')[0].replace('★ ', '').replace('StatTrak™ ', '').replace('Souvenir ', '').trim().replace(' ', '_');
-    let patternPromise: Promise<BetterBuff.CHPatterns> = fetch(browser.runtime.getURL('/ch_patterns.json')).then((res) => res.json());
+const itemName = document.querySelector('h1')?.textContent!;
+let weapon = itemName.split(' | ')[0].replace('★ ', '').replace('StatTrak™ ', '').replace('Souvenir ', '').trim().replace(' ', '_');
+let patternPromise: Promise<BetterBuff.CHPatterns> = fetch(browser.runtime.getURL('/ch_patterns.json')).then((res) => res.json());
 </script>
 
 {#await patternPromise}

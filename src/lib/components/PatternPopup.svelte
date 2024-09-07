@@ -1,67 +1,67 @@
 <script lang="ts">
-    import type { BetterBuff } from '../@types/BetterBuff';
-    import BetterBuffLogo from '../../public/icon/512.png';
-    import { fade, slide } from 'svelte/transition';
+import { fade, slide } from 'svelte/transition';
+import BetterBuffLogo from '../../public/icon/512.png';
+import type { BetterBuff } from '../@types/BetterBuff';
 
-    type Filter = {
-        site: 'playside' | 'backside';
-        range: 'min' | 'max';
-        value: number;
-    };
+type Filter = {
+	site: 'playside' | 'backside';
+	range: 'min' | 'max';
+	value: number;
+};
 
-    export let weapon: string;
-    export let data: BetterBuff.CHPatterns['weapon'];
-    const patterns = [...Array(1000).keys()].map((i) => [i, `${data.playside[i]}/${data.backside[i]}`]);
-    let isClicked = false,
-        searchTerm = '',
-        extended = false,
-        filters: Filter[] = [],
-        newFilterSite: Filter['site'] = 'playside',
-        newFilterRange: Filter['range'] = 'min',
-        newFilterValue = 0,
-        filteredPatterns = patterns;
+export let weapon: string;
+export let data: BetterBuff.CHPatterns['weapon'];
+const patterns = [...Array(1000).keys()].map((i) => [i, `${data.playside[i]}/${data.backside[i]}`]);
+let isClicked = false,
+	searchTerm = '',
+	extended = false,
+	filters: Filter[] = [],
+	newFilterSite: Filter['site'] = 'playside',
+	newFilterRange: Filter['range'] = 'min',
+	newFilterValue = 0,
+	filteredPatterns = patterns;
 
-    $: filterItems = filters.length;
+$: filterItems = filters.length;
 
-    function filterPatterns() {
-        filteredPatterns = patterns.filter((pattern, index) => {
-            if (searchTerm.length > 0 && !pattern[0].toString().includes(searchTerm)) {
-                return false;
-            }
+function filterPatterns() {
+	filteredPatterns = patterns.filter((pattern, index) => {
+		if (searchTerm.length > 0 && !pattern[0].toString().includes(searchTerm)) {
+			return false;
+		}
 
-            for (const filter of filters) {
-                let blueValue = data[filter.site][pattern[0]];
-                if (filter.range === 'min' && blueValue < filter.value) {
-                    return false;
-                } else if (filter.range === 'max' && blueValue > filter.value) {
-                    return false;
-                }
-            }
+		for (const filter of filters) {
+			let blueValue = data[filter.site][pattern[0]];
+			if (filter.range === 'min' && blueValue < filter.value) {
+				return false;
+			} else if (filter.range === 'max' && blueValue > filter.value) {
+				return false;
+			}
+		}
 
-            return true;
-        });
-    }
+		return true;
+	});
+}
 
-    function addFilter() {
-        filters.push({
-            site: newFilterSite,
-            range: newFilterRange,
-            value: newFilterValue,
-        });
+function addFilter() {
+	filters.push({
+		site: newFilterSite,
+		range: newFilterRange,
+		value: newFilterValue,
+	});
 
-        newFilterSite = 'playside';
-        newFilterRange = 'min';
-        newFilterValue = 0;
+	newFilterSite = 'playside';
+	newFilterRange = 'min';
+	newFilterValue = 0;
 
-        filterItems += 1;
-        filterPatterns();
-    }
+	filterItems += 1;
+	filterPatterns();
+}
 
-    function removeFilter(index: number) {
-        filters.splice(index, 1);
-        filterItems -= 1;
-        filterPatterns();
-    }
+function removeFilter(index: number) {
+	filters.splice(index, 1);
+	filterItems -= 1;
+	filterPatterns();
+}
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->

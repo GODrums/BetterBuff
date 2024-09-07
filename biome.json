@@ -21,16 +21,14 @@
                 "noParameterAssign": "off",
                 "noArguments": "off"
             }
-        }
+        },
+        "ignore": ["**/*.svelte", "**/*.json"]
     },
     "javascript": {
         "formatter": {
-            "jsxQuoteStyle": "double",
-            "quoteProperties": "asNeeded",
+            "jsxQuoteStyle": "single",
             "trailingCommas": "es5",
             "semicolons": "always",
-            "arrowParentheses": "always",
-            "bracketSpacing": true,
             "bracketSameLine": false,
             "quoteStyle": "single",
             "attributePosition": "auto"

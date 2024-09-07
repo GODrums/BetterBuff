@@ -1,6 +1,6 @@
 <script lang="ts">
-    import PopupLayout from '$lib/components/PopupLayout.svelte';
-    import Popup from '$lib/components/Popup.svelte';
+import Popup from '$lib/components/Popup.svelte';
+import PopupLayout from '$lib/components/PopupLayout.svelte';
 </script>
 
 <PopupLayout>

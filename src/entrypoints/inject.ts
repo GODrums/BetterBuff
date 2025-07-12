@@ -46,7 +46,7 @@ function openIntercept() {
 		(<XMLHttpRequest>this).addEventListener('load', (e) => {
 			const target = <XMLHttpRequest>e.currentTarget;
 			if (!target.responseURL.includes(location.hostname)) {
-				console.debug('[BetterBuff] Ignoring HTTP request to: ' + target.responseURL);
+				console.debug(`[BetterBuff] Ignoring HTTP request to: ${target.responseURL}`);
 				return;
 			}
 
@@ -61,8 +61,8 @@ function openIntercept() {
 			}
 
 			// request finished loading
-			if (target.readyState == 4) {
-				if (loadNumber++ == 0) {
+			if (target.readyState === 4) {
+				if (loadNumber++ === 0) {
 					const globalG = window['g' as any];
 					document.dispatchEvent(
 						new CustomEvent('BetterBuff_INTERCEPTED_REQUEST', {

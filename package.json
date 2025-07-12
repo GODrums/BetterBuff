@@ -47,5 +47,10 @@
 		"svelte-radix": "^1.1.0",
 		"tailwind-merge": "^2.3.0",
 		"tailwind-variants": "^0.2.1"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"esbuild"
+		]
 	}
 }

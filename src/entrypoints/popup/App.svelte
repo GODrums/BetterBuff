@@ -4,5 +4,5 @@ import PopupLayout from '$lib/components/PopupLayout.svelte';
 </script>
 
 <PopupLayout>
-    <Popup />
+	<Popup />
 </PopupLayout>

@@ -1,6 +1,6 @@
 <script lang="ts">
-import { cn } from '$lib/utils.js';
 import { Tabs as TabsPrimitive } from 'bits-ui';
+import { cn } from '$lib/utils.js';
 
 type $$Props = TabsPrimitive.TriggerProps;
 type $$Events = TabsPrimitive.TriggerEvents;

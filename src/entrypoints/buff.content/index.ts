@@ -49,17 +49,21 @@ function addStorageListeners() {
 function addMutationObserver() {
 	const observer = new MutationObserver((mutations) => {
 		const url = new URL(location.href);
-		mutations.forEach((mutation) => {
+		for (const mutation of mutations) {
 			for (let i = 0; i < mutation.addedNodes.length; i++) {
 				const node = mutation.addedNodes[i];
 				if (node instanceof HTMLElement && node.className === 'tooltip-hover' && url.pathname === '/market/csgo') {
 					adjustTooltip(node);
 				}
 			}
-		});
+		}
 	});
 
-	observer.observe(document.body, { attributes: false, childList: true, subtree: false });
+	observer.observe(document.body, {
+		attributes: false,
+		childList: true,
+		subtree: false,
+	});
 }
 
 async function applyStaticAdjustments() {

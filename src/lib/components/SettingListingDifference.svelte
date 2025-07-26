@@ -1,7 +1,7 @@
 <script lang="ts">
+import { onMount } from 'svelte';
 import * as Select from '$lib/components/ui/select';
 import * as Tooltip from '$lib/components/ui/tooltip';
-import { onMount } from 'svelte';
 import { ExtensionStorage, type IStorage } from '../util/storage';
 import MaterialSymbolsHelpRounded from './icons/MaterialSymbolsHelpRounded.svelte';
 import { Input } from './ui/input';

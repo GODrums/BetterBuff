@@ -1,24 +1,24 @@
-import Decimal from "decimal.js";
-import { PAYMENT_MAPPING } from "./globals";
-import { ExtensionStorage, type IStorage, WINDOW_G } from "./storage";
+import Decimal from 'decimal.js';
+import { PAYMENT_MAPPING } from './globals';
+import { ExtensionStorage, type IStorage, WINDOW_G } from './storage';
 
 export function priceToHtml(price: number, symbol: string | null = null, space = false) {
-	const priceParts = price.toFixed(2).split(".");
-	if (!priceParts) return "";
-	const dps = Number.parseInt(priceParts[0]) < 1000 && priceParts[1] && Number.parseInt(priceParts[1]) > 0 ? `<small>.${priceParts[1]}</small>` : "";
-	return `${symbol ?? ""}${space ? " " : ""}${priceParts[0]}${dps}`;
+	const priceParts = price.toFixed(2).split('.');
+	if (!priceParts) return '';
+	const dps = Number.parseInt(priceParts[0]) < 1000 && priceParts[1] && Number.parseInt(priceParts[1]) > 0 ? `<small>.${priceParts[1]}</small>` : '';
+	return `${symbol ?? ''}${space ? ' ' : ''}${priceParts[0]}${dps}`;
 }
 
 export function getListingDifference(
 	price: number,
 	referencePriceCNY: number,
-	style: IStorage["listingDifferenceStyle"],
-	steamTax: IStorage["platformTax"],
-	profitThreshold?: IStorage["profitThreshold"],
-	listingDenominator?: IStorage["listingDenominator"],
+	style: IStorage['listingDifferenceStyle'],
+	steamTax: IStorage['platformTax'],
+	profitThreshold?: IStorage['profitThreshold'],
+	listingDenominator?: IStorage['listingDenominator'],
 	isSteamReference?: boolean
 ) {
-	if (!(style > 0)) return "";
+	if (!(style > 0)) return '';
 
 	if (steamTax > 0) {
 		if (listingDenominator === 1) {
@@ -33,40 +33,40 @@ export function getListingDifference(
 	}
 
 	const priceDiff = new Decimal(price).minus(referencePriceCNY);
-	let priceDiffEx = `${isSteamReference ? "Steam" : "Buff buy order"} price: ¥ ${referencePriceCNY} | Buff price: ¥ ${price}&#10;${price} - ${referencePriceCNY} = ${priceDiff.toFixed(2)}&#10;`;
+	let priceDiffEx = `${isSteamReference ? 'Steam' : 'Buff buy order'} price: ¥ ${referencePriceCNY} | Buff price: ¥ ${price}&#10;${price} - ${referencePriceCNY} = ${priceDiff.toFixed(2)}&#10;`;
 
-	let priceDiffStr = "";
+	let priceDiffStr = '';
 	if (style === 1) {
-		const sign = priceDiff.isZero() ? "" : priceDiff.isNegative() ? "-" : "+";
+		const sign = priceDiff.isZero() ? '' : priceDiff.isNegative() ? '-' : '+';
 		priceDiffStr = `${sign}¥ ${priceToHtml(priceDiff.absoluteValue().toNumber())}`;
-		priceDiffEx += `=> This item is ¥ ${priceDiff.absoluteValue().toFixed(2)} ${priceDiff.isNegative() ? "cheaper" : "more expensive"} than on Steam.`;
+		priceDiffEx += `=> This item is ¥ ${priceDiff.absoluteValue().toFixed(2)} ${priceDiff.isNegative() ? 'cheaper' : 'more expensive'} than on Steam.`;
 	} else if (style === 2) {
 		const convertedDiff = priceDiff.mul(WINDOW_G?.currency?.rate_base_cny ?? 1).toDP(2);
-		const sign = convertedDiff.isZero() ? "" : convertedDiff.isNegative() ? "-" : "+";
-		const currencySymbol = WINDOW_G?.currency?.symbol ?? "¥";
+		const sign = convertedDiff.isZero() ? '' : convertedDiff.isNegative() ? '-' : '+';
+		const currencySymbol = WINDOW_G?.currency?.symbol ?? '¥';
 		priceDiffStr = `${sign}${currencySymbol} ${Math.abs(convertedDiff.toNumber())}`;
 		priceDiffEx += `=> ${currencySymbol} ${convertedDiff}&#10;`;
-		priceDiffEx += `=> This item is ${currencySymbol} ${Math.abs(convertedDiff.toNumber()).toFixed(2)} ${priceDiff.isNegative() ? "cheaper" : "more expensive"} than on Steam.`;
+		priceDiffEx += `=> This item is ${currencySymbol} ${Math.abs(convertedDiff.toNumber()).toFixed(2)} ${priceDiff.isNegative() ? 'cheaper' : 'more expensive'} than on Steam.`;
 	} else if (style === 3) {
 		const priceRel = priceDiff.div(referencePriceCNY).mul(100).toDP(2);
-		const sign = priceRel.isZero() ? "" : priceRel.isNegative() ? "-" : "+";
+		const sign = priceRel.isZero() ? '' : priceRel.isNegative() ? '-' : '+';
 		priceDiffStr = `${sign}${priceToHtml(priceRel.absoluteValue().toNumber())}%`;
 		priceDiffEx += `=> ${priceDiff.toFixed(2)} / ${referencePriceCNY} * 100&#10;`;
-		priceDiffEx += `=> This item is ${priceRel.absoluteValue().toNumber()}% ${priceDiff.isNegative() ? "cheaper" : "more expensive"} than on Steam.`;
+		priceDiffEx += `=> This item is ${priceRel.absoluteValue().toNumber()}% ${priceDiff.isNegative() ? 'cheaper' : 'more expensive'} than on Steam.`;
 	} else if (style === 4) {
 		const priceRel = priceDiff.div(referencePriceCNY).mul(100).toDP(2);
-		const sign = priceRel.isZero() ? "" : priceRel.isNegative() ? "-" : "+";
+		const sign = priceRel.isZero() ? '' : priceRel.isNegative() ? '-' : '+';
 		priceDiffStr = `${sign}¥ ${priceToHtml(priceDiff.absoluteValue().toNumber())}`;
 		const priceDiffStr2 = `${sign}${priceToHtml(priceRel.absoluteValue().toNumber())}%`;
-		const coloring = (steamTax === 2 && priceRel.greaterThan(profitThreshold ?? 0)) || (steamTax < 2 && priceRel.lessThan(profitThreshold ?? 0)) ? "#009800" : "#c90000";
+		const coloring = (steamTax === 2 && priceRel.greaterThan(profitThreshold ?? 0)) || (steamTax < 2 && priceRel.lessThan(profitThreshold ?? 0)) ? '#009800' : '#c90000';
 		return `<div class="f_12px" style="color: ${coloring}; font-weight: 700;" title="${priceDiffEx}">${priceDiffStr}<br>${priceDiffStr2}</div>`;
 	}
 
-	return `<div class="f_12px" style="color: ${priceDiff.lessThan(profitThreshold ?? 0) ? "#009800" : "#c90000"}; font-weight: 700;" title="${priceDiffEx}">${priceDiffStr}</div>`;
+	return `<div class="f_12px" style="color: ${priceDiff.lessThan(profitThreshold ?? 0) ? '#009800' : '#c90000'}; font-weight: 700;" title="${priceDiffEx}">${priceDiffStr}</div>`;
 }
 
 export function convertSP(sticker_premium: number) {
-	let stickerText = "% SP";
+	let stickerText = '% SP';
 	const stickerPercentage = new Decimal(sticker_premium).mul(100);
 	if (stickerPercentage.gte(100)) {
 		stickerText = `>100${stickerText}`;

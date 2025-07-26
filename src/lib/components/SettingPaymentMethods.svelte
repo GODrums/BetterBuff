@@ -1,8 +1,8 @@
 <script lang="ts">
+import { onMount } from 'svelte';
 import * as Dialog from '$lib/components/ui/dialog';
 import * as Tooltip from '$lib/components/ui/tooltip';
 import { cn } from '$lib/utils';
-import { onMount } from 'svelte';
 import balance from '../icons/payment-balance.png';
 import bank from '../icons/payment-bank.png';
 import card from '../icons/payment-card.png';

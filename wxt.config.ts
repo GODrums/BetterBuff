@@ -1,25 +1,10 @@
-import { defineConfig, type ConfigEnv, type WxtViteConfig } from 'wxt';
-import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte';
-import type { Manifest } from 'wxt/browser';
+import { defineConfig, type ConfigEnv, type UserManifest, type UserManifestFn, type WxtViteConfig } from 'wxt';
 import path from 'node:path';
 
 const releaseVersion = '0.8.6';
 
 const getViteConfig: (env: ConfigEnv) => WxtViteConfig | Promise<WxtViteConfig> = () => {
     return {
-        plugins: [
-            svelte({
-                // Using a svelte.config.js file causes a segmentation fault when importing the file
-                configFile: false,
-                preprocess: [vitePreprocess()],
-                onwarn(warning, defaultHandler) {
-                    if (warning.code === 'a11y-click-events-have-key-events') return;
-
-                    // handle all other warnings normally
-                    defaultHandler?.(warning);
-                },
-            }),
-        ],
         build: {
             sourcemap: true,
         },
@@ -31,8 +16,8 @@ const getViteConfig: (env: ConfigEnv) => WxtViteConfig | Promise<WxtViteConfig> 
     };
 };
 
-const getManifest: (env: ConfigEnv) => Partial<Manifest.WebExtensionManifest> = (env) => {
-    const manifest: Partial<Manifest.WebExtensionManifest> = {
+const getManifest: UserManifestFn = (env) => {
+    const manifest: UserManifest = {
         name: 'BetterBuff',
         description: 'Enhance your website experience on Buff163',
         version: releaseVersion,
@@ -63,9 +48,24 @@ const getManifest: (env: ConfigEnv) => Partial<Manifest.WebExtensionManifest> = 
 // See https://wxt.dev/api/config.html
 export default defineConfig({
     srcDir: 'src',
+	publicDir: 'src/public', 
+	modulesDir: 'src/modules',
     manifest: getManifest,
     vite: getViteConfig,
-    runner: {
+	modules: ['@wxt-dev/module-svelte', '@wxt-dev/webextension-polyfill'],
+    svelte: {
+        vite: {
+            configFile: false,
+            onwarn(warning, defaultHandler) {
+                if (warning.code === "a11y-click-events-have-key-events") return;
+                if (warning.code === "a11y_consider_explicit_label") return;
+        
+                // handle all other warnings normally
+                defaultHandler?.(warning);
+            },
+        },
+    },
+    webExt: {
         disabled: true,
     },
 });

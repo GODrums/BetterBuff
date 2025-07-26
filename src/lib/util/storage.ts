@@ -1,4 +1,4 @@
-import { storage } from 'wxt/storage';
+import { storage } from '#imports';
 import type { BuffTypes } from '../@types/BuffTypes';
 
 export let WINDOW_G: BuffTypes.G | null = null;

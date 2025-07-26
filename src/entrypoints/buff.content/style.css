@@ -1,4 +1,4 @@
-::root {
+:root {
 	--bb-color-0: #121212;
 	--bb-color-1: #1f1f1f;
 	--bb-color-2: #bfbfbf;
@@ -373,4 +373,10 @@ td.img_td:hover .betterbuff-item-detail-img {
 .bb-dark-mode .popup_bulkbuy .w-Select-Multi ul li div p {
 	color: #e4e8ee;
 	border-color: #373a4c;
+}
+
+/* custom inspect */
+.bb-dark-mode .custom-inspect-form .custom-inspect-item {
+	background: var(--bb-color-0, #121212);
+	color: var(--bb-color-2, #bfbfbf) !important;
 }

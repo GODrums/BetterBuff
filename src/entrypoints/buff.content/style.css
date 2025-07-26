@@ -114,6 +114,15 @@ html {
 	border: none;
 }
 
+.bb-dark-mode .detail-tab-cont .legend-item {
+	background: var(--bb-color-0, #121212) !important;
+	color: var(--bb-color-2, #bfbfbf) !important;
+}
+
+.bb-dark-mode .detail-tab-cont .legend-item:hover {
+	background: var(--bb-color-1, #1f1f1f) !important;
+}
+
 .bb-dark-mode a.ctag b {
 	background: transparent;
 }

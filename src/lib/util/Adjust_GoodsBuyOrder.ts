@@ -15,7 +15,7 @@ export async function adjustGoodsBuyOrder(apiData: BuffTypes.BuyOrder.Data) {
 			continue;
 		}
 
-		if (item.pay_method !== 43 && !(await isPaymentMethodAvailable([item.pay_method]))) {
+		if (item.pay_method !== 43 && item.pay_method !== 60 && !(await isPaymentMethodAvailable([item.pay_method]))) {
 			markPurchaseUnavailable(row);
 		}
 

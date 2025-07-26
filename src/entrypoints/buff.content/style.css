@@ -376,7 +376,9 @@ td.img_td:hover .betterbuff-item-detail-img {
 }
 
 /* custom inspect */
-.bb-dark-mode .custom-inspect-form .custom-inspect-item {
-	background: var(--bb-color-0, #121212);
+.bb-dark-mode .custom-inspect-form .custom-inspect-item,
+.bb-dark-mode .custom-inspect-form .i_Text.math_input,
+.bb-dark-mode .custom-inspect-form #j_wear_input {
+	background: var(--bb-color-0, #121212) !important;
 	color: var(--bb-color-2, #bfbfbf) !important;
 }

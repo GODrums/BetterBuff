@@ -1,19 +1,20 @@
 {
-  "extends": ["./.wxt/tsconfig.json", "@tsconfig/svelte/tsconfig.json"],
-  "compilerOptions": {
-    "useDefineForClassFields": true,
-    "baseUrl": ".",
-    "paths": {
-      "$lib": ["./src/lib"],
-      "$lib/*": ["./src/lib/*"],
-      "@": ["../src"],
-      "@/*": ["../src/*"],
-      "~": ["../src"],
-      "~/*": ["../src/*"],
-      "@@": [".."],
-      "@@/*": ["../*"],
-      "~~": [".."],
-      "~~/*": ["../*"]
-    }
-  }
+	"extends": ["./.wxt/tsconfig.json", "@tsconfig/svelte/tsconfig.json"],
+	"compilerOptions": {
+		"useDefineForClassFields": true,
+		"jsx": "preserve",
+		"baseUrl": ".",
+		"paths": {
+			"$lib": ["./src/lib"],
+			"$lib/*": ["./src/lib/*"],
+			"@": ["../src"],
+			"@/*": ["../src/*"],
+			"~": ["../src"],
+			"~/*": ["../src/*"],
+			"@@": [".."],
+			"@@/*": ["../*"],
+			"~~": [".."],
+			"~~/*": ["../*"]
+		}
+	}
 }

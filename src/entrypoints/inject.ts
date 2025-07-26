@@ -43,8 +43,8 @@ function openIntercept() {
 	console.log('[BetterBuff] Activating HttpRequest Intercept...');
 
 	window.XMLHttpRequest.prototype.open = function () {
-		(<XMLHttpRequest>this).addEventListener('load', (e) => {
-			const target = <XMLHttpRequest>e.currentTarget;
+		(this as XMLHttpRequest).addEventListener('load', (e) => {
+			const target = e.currentTarget as XMLHttpRequest;
 			if (!target.responseURL.includes(location.hostname)) {
 				console.debug(`[BetterBuff] Ignoring HTTP request to: ${target.responseURL}`);
 				return;
@@ -86,6 +86,6 @@ function openIntercept() {
 			}
 		});
 
-		return open.apply(this, <any>arguments);
+		return open.apply(this, arguments as any);
 	};
 }

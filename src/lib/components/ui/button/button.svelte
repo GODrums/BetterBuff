@@ -13,13 +13,6 @@ export let builders: $$Props['builders'] = [];
 export { className as class };
 </script>
 
-<ButtonPrimitive.Root
-	{builders}
-	class={cn(buttonVariants({ variant, size, className }))}
-	type="button"
-	{...$$restProps}
-	on:click
-	on:keydown
->
+<ButtonPrimitive.Root {builders} class={cn(buttonVariants({ variant, size }), className)} type="button" {...$$restProps} on:click on:keydown>
 	<slot />
 </ButtonPrimitive.Root>

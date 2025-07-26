@@ -14,7 +14,7 @@ function injectScript() {
 	const script = document.createElement('script');
 	script.src = browser.runtime.getURL('/inject.js');
 	script.onload = function () {
-		(<HTMLScriptElement>this).remove();
+		(this as HTMLScriptElement).remove();
 	};
 	(document.head || document.documentElement).appendChild(script);
 }

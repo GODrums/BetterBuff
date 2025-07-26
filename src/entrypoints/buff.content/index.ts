@@ -59,7 +59,11 @@ function addMutationObserver() {
 		}
 	});
 
-	observer.observe(document.body, { attributes: false, childList: true, subtree: false });
+	observer.observe(document.body, {
+		attributes: false,
+		childList: true,
+		subtree: false,
+	});
 }
 
 async function applyStaticAdjustments() {

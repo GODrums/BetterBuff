@@ -54,6 +54,18 @@ export default defineConfig({
     manifest: getManifest,
     vite: getViteConfig,
 	modules: ['@wxt-dev/module-svelte', '@wxt-dev/webextension-polyfill'],
+    svelte: {
+        vite: {
+            configFile: false,
+            onwarn(warning, defaultHandler) {
+                if (warning.code === "a11y-click-events-have-key-events") return;
+                if (warning.code === "a11y_consider_explicit_label") return;
+        
+                // handle all other warnings normally
+                defaultHandler?.(warning);
+            },
+        },
+    },
     webExt: {
         disabled: true,
     },

@@ -1,6 +1,5 @@
-import { defineConfig, type ConfigEnv, type WxtViteConfig } from 'wxt';
+import { defineConfig, type ConfigEnv, type UserManifest, type UserManifestFn, type WxtViteConfig } from 'wxt';
 import path from 'node:path';
-import type { ManifestContentScript } from 'node_modules/wxt/dist/core/utils/types';
 
 const releaseVersion = '0.8.6';
 
@@ -17,8 +16,8 @@ const getViteConfig: (env: ConfigEnv) => WxtViteConfig | Promise<WxtViteConfig> 
     };
 };
 
-const getManifest: (env: ConfigEnv) => ManifestContentScript = (env) => {
-    const manifest: any = {
+const getManifest: UserManifestFn = (env) => {
+    const manifest: UserManifest = {
         name: 'BetterBuff',
         description: 'Enhance your website experience on Buff163',
         version: releaseVersion,

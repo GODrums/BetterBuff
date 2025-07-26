@@ -27,15 +27,15 @@
 
 		.focus-text {
 			margin-left: -565px !important;
-			animation: rightInC .5s 0s ease-in-out 1 forwards !important;
-			-webkit-animation: rightInC .5s 0s ease-in-out 1 forwards !important;
+			animation: rightInC 0.5s 0s ease-in-out 1 forwards !important;
+			-webkit-animation: rightInC 0.5s 0s ease-in-out 1 forwards !important;
 		}
 
 		.focus-pic {
 			z-index: -500;
 			margin-left: -150px !important;
-			animation: leftInC .5s 0s ease-in-out 1 forwards !important;
-			-webkit-animation: leftInC .5s 0s ease-in-out 1 forwards !important;
+			animation: leftInC 0.5s 0s ease-in-out 1 forwards !important;
+			-webkit-animation: leftInC 0.5s 0s ease-in-out 1 forwards !important;
 		}
 
 		@keyframes leftInC {

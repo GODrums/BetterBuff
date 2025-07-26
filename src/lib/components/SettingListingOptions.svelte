@@ -1,6 +1,6 @@
 <script lang="ts">
-import * as Tooltip from '$lib/components/ui/tooltip';
 import { onMount } from 'svelte';
+import * as Tooltip from '$lib/components/ui/tooltip';
 import { ExtensionStorage, type IStorage } from '../util/storage';
 import {
 	MageBox3d,

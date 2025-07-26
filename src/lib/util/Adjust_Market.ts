@@ -121,8 +121,8 @@ export async function adjustSearchPage(apiData: BuffTypes.MarketGoods.Data) {
 				differenceElement = getListingDifference(sellingPriceCNY, platformPrice, listingDifferenceStyle, platformTax, profitThreshold, listingDenominator, listingDenominator === 0);
 			}
 
-			let sellingPriceCUR = undefined;
-			let buyingPriceCUR = undefined;
+			let sellingPriceCUR: number | undefined;
+			let buyingPriceCUR: number | undefined;
 			const genPriceElement = (priceCNY: number, color: string, text: 'sell' | 'buy', amount: number, priceCUR?: number) => {
 				return `
                 <div class="f_12px" style="grid-column: 1; text-wrap: nowrap;"><span style="color: ${color};font-weight: 700;">${priceToHtml(priceCNY, '¥')}${

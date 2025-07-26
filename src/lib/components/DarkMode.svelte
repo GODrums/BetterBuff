@@ -1,6 +1,6 @@
 <script lang="ts">
-import { cn } from '$lib/utils';
 import { onMount } from 'svelte';
+import { cn } from '$lib/utils';
 import MoonIcon from '../icons/moon.svg';
 import SunIcon from '../icons/sun.svg';
 import { ExtensionStorage } from '../util/storage';

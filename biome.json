@@ -1,5 +1,5 @@
 {
-    "$schema": "https://biomejs.dev/schemas/1.7.3/schema.json",
+    "$schema": "https://biomejs.dev/schemas/2.1.2/schema.json",
     "formatter": {
         "enabled": true,
         "formatWithErrors": false,
@@ -9,7 +9,16 @@
         "lineWidth": 200,
         "attributePosition": "auto"
     },
-    "organizeImports": { "enabled": true },
+    "files": {
+        "maxSize": 2097152
+    },
+    "assist": {
+        "actions": {
+            "source": {
+                "organizeImports": "on"
+            }
+        }
+    },
     "linter": {
         "enabled": true,
         "rules": {
@@ -19,10 +28,16 @@
             },
             "style": {
                 "noParameterAssign": "off",
+                "noDescendingSpecificity": "off"
+            },
+            "complexity": {
                 "noArguments": "off"
             }
         },
-        "ignore": ["**/*.svelte"]
+        "includes": [
+            "**",
+            "!**/*.svelte"
+        ]
     },
     "javascript": {
         "formatter": {

@@ -1,9 +1,9 @@
 <script lang="ts">
+import { onMount } from 'svelte';
+import type { WxtStorageItem } from '#imports';
 import { MaterialSymbolsHelpRounded } from '$lib/components/icons';
 import Label from '$lib/components/ui/label/label.svelte';
 import * as Tooltip from '$lib/components/ui/tooltip';
-import { onMount } from 'svelte';
-import type { WxtStorageItem } from '#imports';
 import Checkbox from './ui/checkbox/checkbox.svelte';
 
 export let text: string;

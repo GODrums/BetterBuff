@@ -4,7 +4,7 @@ import './buff.content/layout-fix.css';
 export default defineContentScript({
 	matches: ['*://*.buff.163.com/*'],
 	runAt: 'document_start',
-	main(ctx) {
+	main(_ctx) {
 		injectScript();
 	},
 });

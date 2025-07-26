@@ -5,7 +5,7 @@ export function adjustTooltip(tooltip: HTMLElement) {
 	const itemData = (tooltip.querySelector('a.btn-buy-order') as HTMLElement)?.dataset;
 	if (!itemData || !itemData.assetInfo) return;
 
-	const assetInfo = JSON.parse(itemData.assetInfo);
+	// const assetInfo = JSON.parse(itemData.assetInfo);
 	const card = document.querySelector(`#sell_order_${itemData.orderid}`) as HTMLElement | null;
 
 	if (!card) return;

@@ -22,7 +22,7 @@
 		"format": "biome format --write src/ && biome check --write src/"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^1.8.3",
+		"@biomejs/biome": "^2.1.2",
 		"@tailwindcss/typography": "^0.5.13",
 		"@tsconfig/svelte": "^5.0.4",
 		"@wxt-dev/module-svelte": "^2.0.3",

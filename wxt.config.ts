@@ -1,7 +1,7 @@
 import { defineConfig, type ConfigEnv, type UserManifest, type UserManifestFn, type WxtViteConfig } from 'wxt';
 import path from 'node:path';
 
-const releaseVersion = '0.8.6';
+const releaseVersion = '0.9.0';
 
 const getViteConfig: (env: ConfigEnv) => WxtViteConfig | Promise<WxtViteConfig> = () => {
     return {

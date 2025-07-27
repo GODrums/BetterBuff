@@ -58,12 +58,10 @@ jobs:
                   echo "EOF" >> $GITHUB_OUTPUT
 
             - name: Create Release
-              uses: actions/create-release@v1
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              uses: softprops/action-gh-release@v1
               with:
                   tag_name: ${{ github.ref_name }}
-                  release_name: Release ${{ github.ref_name }}
+                  name: Release ${{ github.ref_name }}
                   body: |
                       ## Changes in ${{ github.ref_name }}
 
@@ -77,14 +75,5 @@ jobs:
                       ## What's Changed
                       See the commit history for detailed changes.
                   draft: false
-                  prerelease: ${{ contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') || contains(github.ref_name, 'rc') }}
-
-            - name: Upload Release Asset
-              uses: actions/upload-release-asset@v1
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              with:
-                  upload_url: ${{ steps.create_release.outputs.upload_url }}
-                  asset_path: ./BetterBuff-${{ github.ref_name }}.zip
-                  asset_name: BetterBuff-${{ github.ref_name }}.zip
-                  asset_content_type: application/zip
+                  files: |
+                      BetterBuff-${{ github.ref_name }}.zip

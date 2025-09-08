@@ -101,6 +101,7 @@ html {
 .bb-dark-mode .popup_flower .popup-cont li,
 .bb-dark-mode .popup_bulkbuy .popup_bulkbuy_item,
 .bb-dark-mode .popup_bulkbuy .popup_bulkbuy_price,
+.bb-dark-mode .popup_flower-filters,
 .bb-dark-mode .list_tb_csgo .tr_gallery td,
 .bb-dark-mode .list_tb_csgo .tr_gallery .bundle-items-list,
 .bb-dark-mode .custom-inspect,
@@ -135,7 +136,8 @@ html {
 }
 
 .bb-dark-mode .detail-tab-cont .w-Select,
-.bb-dark-mode .detail-tab-cont .w-Select ul {
+.bb-dark-mode .detail-tab-cont .w-Select ul,
+.bb-dark-mode .popup_flower-filters .w-Select {
 	background: #2d2f3e;
 	color: #9a9b9e;
 	border: none;
@@ -282,21 +284,39 @@ html {
 
 /* settings */
 .bb-dark-mode,
+.bb-dark-mode #pending_divide,
+.bb-dark-mode #pending_divide_amount_brief,
+.bb-dark-mode #withdraw_logs,
+.bb-dark-mode #security_deposit_recharge_history_logs,
 .bb-dark-mode .user-setting,
 .bb-dark-mode .user-setting h3,
 .bb-dark-mode .user-setting label[for],
 .bb-dark-mode .user-setting select,
 .bb-dark-mode .user-setting input[type],
 .bb-dark-mode .user-wallet,
+.bb-dark-mode .user-wallet input[type],
 .bb-dark-mode .user-wallet .user-pay-desc,
 .bb-dark-mode .user-rights,
 .bb-dark-mode .user-feedback,
 .bb-dark-mode .user-guestbook,
 .bb-dark-mode .user-guestbook .guestbook-tab,
 .bb-dark-mode .user-guestbook .guestbook-col2,
-.bb-dark-mode .user-guestbook .bargain_chat_sell_div ul {
+.bb-dark-mode .user-guestbook .bargain_chat_sell_div ul,
+.bb-dark-mode .epay-check {
 	background: var(--bb-color-0, #121212) !important;
 	color: var(--bb-color-2, #bfbfbf);
+}
+
+.bb-dark-mode li.pay-item:hover,
+.bb-dark-mode .epay-check li:hover {
+	background: var(--bb-color-1, #1f1f1f) !important;
+}
+
+.bb-dark-mode .user-wallet .withdraw-num,
+.bb-dark-mode .user-wallet .w-Select-pay {
+	background: var(--bb-color-0, #121212) !important;
+	color: var(--bb-color-2, #bfbfbf);
+	border-color: var(--bb-color-1, #1f1f1f);
 }
 
 .bb-dark-mode .user-guestbook .message,
@@ -304,6 +324,12 @@ html {
 .bb-dark-mode .custom-inspect .i_Btn_hollow {
 	background: var(--bb-color-1, #1f1f1f) !important;
 	color: var(--bb-color-2, #bfbfbf) !important;
+}
+
+.bb-dark-mode .nodata .i_Btn_hollow,
+.bb-dark-mode .detail-tab-cont .change-price-btn {
+	background: var(--bb-color-1, #1f1f1f);
+	color: var(--bb-color-2, #bfbfbf);
 }
 
 .bb-dark-mode .l_Layout .cont_main .user-record .i_Btn_hollow {
@@ -390,4 +416,25 @@ td.img_td:hover .betterbuff-item-detail-img {
 .bb-dark-mode .custom-inspect-form #j_wear_input {
 	background: var(--bb-color-0, #121212) !important;
 	color: var(--bb-color-2, #bfbfbf) !important;
+}
+
+.bb-dark-mode .i_Text {
+	background: var(--bb-color-0, #121212) !important;
+	color: var(--bb-color-2, #bfbfbf) !important;
+}
+
+.bb-dark-mode .api,
+.bb-dark-mode .api .api-faq-question,
+.bb-dark-mode .api .api-report,
+.bb-dark-mode .api .banner-card {
+	background: var(--bb-color-0, #121212) !important;
+	color: var(--bb-color-2, #bfbfbf);
+}
+
+.bb-dark-mode .api .banner-card .banner-header {
+	filter: invert(1);
+}
+
+.bb-dark-mode .api .api-mask::after {
+	display: none;
 }

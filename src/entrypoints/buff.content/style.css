@@ -313,7 +313,10 @@ html {
 }
 
 .bb-dark-mode .user-wallet .withdraw-num,
-.bb-dark-mode .user-wallet .w-Select-pay {
+.bb-dark-mode .user-wallet .w-Select-pay,
+.bb-dark-mode .popup-guestbook-liuyan .liuyan_item,
+.bb-dark-mode .popup-guestbook-biaoqing .biaoqing_box,
+.bb-dark-mode .popup-guestbook-biaoqing .tab_box {
 	background: var(--bb-color-0, #121212) !important;
 	color: var(--bb-color-2, #bfbfbf);
 	border-color: var(--bb-color-1, #1f1f1f);

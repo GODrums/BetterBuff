@@ -1,6 +1,6 @@
 <script lang="ts">
-import { fade, slide } from 'svelte/transition';
 import type { Snippet } from 'svelte';
+import { fade, slide } from 'svelte/transition';
 import BetterBuffLogo from '../../public/icon/512.png';
 import type { BetterBuff } from '../@types/BetterBuff';
 

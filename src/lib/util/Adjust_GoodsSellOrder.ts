@@ -100,10 +100,11 @@ async function chPatternExplorer(container: Element) {
 			name: 'app-pattern-explorer',
 			css: '../components/style.css',
 			position: 'inline',
-			anchor: '#betterbuff-patternexplorer-ch',
-			onMount: (container) => mount(ChExplorer, {
-				target: container,
-			}),
+			anchor: patternExplorer,
+			onMount: (container) =>
+				mount(ChExplorer, {
+					target: container,
+				}),
 			onRemove: (app) => unmount(app as Record<string, any>),
 		});
 		ui.mount();

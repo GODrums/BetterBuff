@@ -23,7 +23,7 @@ const storage = ExtensionStorage.preferredPayments;
 let values = $state<Partial<IStorage['preferredPayments']>>({});
 
 $effect(() => {
-	storage.getValue().then(v => values = v);
+	storage.getValue().then((v) => (values = v));
 });
 
 const storeValue = async (choice: keyof IStorage['preferredPayments']) => {

@@ -17,9 +17,10 @@ export async function adjustPriceTrend(apiData: BuffTypes.PriceHistory.Data) {
 			css: '../components/style.css',
 			position: 'inline',
 			anchor: infoDiv,
-			onMount: (container) => mount(PriceHistoryInfo, {
-				target: container,
-			}),
+			onMount: (container) =>
+				mount(PriceHistoryInfo, {
+					target: container,
+				}),
 			onRemove: (app) => unmount(app as Record<string, any>),
 		});
 		ui.mount();

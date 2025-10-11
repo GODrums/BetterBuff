@@ -73,9 +73,10 @@ export async function adjustItemDetails(apiData: BuffTypes.ItemDescDetail.Data) 
 			css: '../components/style.css',
 			position: 'inline',
 			anchor: '#betterbuff-listing-anchor',
-			onMount: (container) => mount(ListingOptions, {
-				target: container,
-			}),
+			onMount: (container) =>
+				mount(ListingOptions, {
+					target: container,
+				}),
 			onRemove: (app) => unmount(app as Record<string, any>),
 		});
 		ui.mount();

@@ -32,7 +32,7 @@ const storage = ExtensionStorage.listingOptions;
 let values = $state<Partial<IStorage['listingOptions']>>({});
 
 $effect(() => {
-	storage.getValue().then(v => values = v);
+	storage.getValue().then((v) => (values = v));
 });
 
 const storeValue = async (choice: keyof IStorage['listingOptions']) => {

@@ -10,7 +10,7 @@ let { text, storage, dataTip }: { text: string; storage: WxtStorageItem<boolean,
 let checked = $state(false);
 
 $effect(() => {
-	storage.getValue().then(v => checked = v);
+	storage.getValue().then((v) => (checked = v));
 });
 
 const storeValue = async () => {

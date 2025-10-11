@@ -36,10 +36,10 @@ let taxValue = $state(taxChoices[0]);
 let threshold = $state(0);
 
 $effect(() => {
-	differenceStorage.getValue().then(v => differenceValue = differenceChoices[v]);
-	taxStorage.getValue().then(v => taxValue = taxChoices[v]);
-	denominatorStorage.getValue().then(v => denominator = denominatorChoices[v]);
-	thresholdStorage.getValue().then(v => threshold = v);
+	differenceStorage.getValue().then((v) => (differenceValue = differenceChoices[v]));
+	taxStorage.getValue().then((v) => (taxValue = taxChoices[v]));
+	denominatorStorage.getValue().then((v) => (denominator = denominatorChoices[v]));
+	thresholdStorage.getValue().then((v) => (threshold = v));
 });
 
 const storeValue = async (selected: any) => {

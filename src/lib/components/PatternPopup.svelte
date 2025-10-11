@@ -71,11 +71,11 @@ function removeFilter(index: number) {
 </div>
 
 {#if isClicked}
-	<div class="absolute rounded-lg bg-[#191e24] p-4 pt-2 mt-2 z-50" transition:fade={{ delay: 0, duration: 200 }}>
+	<div class="absolute rounded-lg bg-[#191e24] p-4 pt-2 mt-2 z-50 text-white" transition:fade={{ delay: 0, duration: 200 }}>
 		<div class="flex justify-between items-center gap-2 pb-1.5">
 			<img src={BetterBuffLogo} class="w-8 h-8" alt="BetterBuff Logo" />
 			<h2 class="text-xl font-bold">Pattern Explorer</h2>
-			<button class="btn btn-circle btn-ghost btn-sm text-black" onclick={() => (isClicked = !isClicked)} aria-label="Close">
+			<button class="btn btn-circle btn-ghost btn-sm" onclick={() => (isClicked = !isClicked)} aria-label="Close">
 				<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
 					><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg
 				>

@@ -8,7 +8,7 @@ let patternPromise: Promise<BetterBuff.CHPatterns> = fetch(browser.runtime.getUR
 </script>
 
 {#await patternPromise}
-	<button class="btn btn-square btn-sm ml-4">
+	<button class="btn btn-square btn-sm ml-4" aria-label="Loading patterns...">
 		<span class="loading loading-spinner text-purple-700"></span>
 	</button>
 {:then patterns}

@@ -1,6 +1,7 @@
 import { mount, unmount } from 'svelte';
 import type { BuffTypes } from '../@types/BuffTypes';
 import ChExplorer from '../pages/CHExplorer.svelte';
+import ItemQuicklinks from '../pages/ItemQuicklinks.svelte';
 import { getListingDifference, isPaymentMethodAvailable } from './dataHelpers';
 import { BUFF_FLOAT_RANGES } from './globals';
 import { SchemaHelpers } from './schemaHelpers';
@@ -86,6 +87,28 @@ export function staticAdjustGoodsSellOrder() {
 	const itemName = document.querySelector('h1')?.textContent;
 	if (itemName?.includes('Case Hardened')) {
 		chPatternExplorer(container);
+	}
+
+	addQuicklinks();
+}
+
+async function addQuicklinks() {
+	const iconList = document.querySelector('.detail-pic .icon-list');
+	if (!iconList) return;
+
+	const quicklinks = document.createElement('div');
+	quicklinks.id = 'betterbuff-quicklinks';
+	iconList.appendChild(quicklinks);
+
+	if (BUFF_CRX) {
+		const ui = await createShadowRootUi(BUFF_CRX, {
+			name: 'app-quicklinks',
+			css: '../components/style.css',
+			position: 'inline',
+			anchor: quicklinks,
+			onMount: (container) => mount(ItemQuicklinks, { target: container }),
+		});
+		ui.mount();
 	}
 }
 

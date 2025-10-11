@@ -12,3 +12,4 @@ export { default as MdiDatabaseSearchOutline } from './MdiDatabaseSearchOutline.
 export { default as PhGlobe } from './PhGlobe.svelte';
 export { default as PhLinkSimple } from './PhLinkSimple.svelte';
 export { default as RiFileCopy2Line } from './RiFileCopy2Line.svelte';
+export { default as FaSolidLink } from './FaSolidLink.svelte';

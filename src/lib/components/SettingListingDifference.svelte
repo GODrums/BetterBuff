@@ -1,22 +1,20 @@
 <script lang="ts">
-import { onMount } from 'svelte';
 import * as Select from '$lib/components/ui/select';
 import * as Tooltip from '$lib/components/ui/tooltip';
 import { ExtensionStorage, type IStorage } from '../util/storage';
-import MaterialSymbolsHelpRounded from './icons/MaterialSymbolsHelpRounded.svelte';
+import { MaterialSymbolsHelpRounded } from './icons';
 import { Input } from './ui/input';
 import Label from './ui/label/label.svelte';
 
-let differenceStorage = ExtensionStorage.listingDifferenceStyle;
-let taxStorage = ExtensionStorage.platformTax;
-let denominatorStorage = ExtensionStorage.listingDenominator;
-let thresholdStorage = ExtensionStorage.profitThreshold;
+const differenceStorage = ExtensionStorage.listingDifferenceStyle;
+const taxStorage = ExtensionStorage.platformTax;
+const denominatorStorage = ExtensionStorage.listingDenominator;
+const thresholdStorage = ExtensionStorage.profitThreshold;
 
 const denominatorChoices = [
 	{ value: 0, label: 'Steam' },
 	{ value: 1, label: 'Buff Bid' },
 ];
-$: denominator = denominatorChoices[0];
 
 const differenceChoices = [
 	{ value: 0, label: 'None' },
@@ -25,16 +23,24 @@ const differenceChoices = [
 	{ value: 3, label: '% Difference' },
 	{ value: 4, label: 'Combined' },
 ];
-$: differenceValue = differenceChoices[1];
 
 const taxChoices = [
 	{ value: 0, label: 'Off' },
 	{ value: 1, label: 'On' },
 	{ value: 2, label: 'Inverted' },
 ];
-$: taxValue = taxChoices[0];
 
-$: threshold = 0;
+let denominator = $state(denominatorChoices[0]);
+let differenceValue = $state(differenceChoices[1]);
+let taxValue = $state(taxChoices[0]);
+let threshold = $state(0);
+
+$effect(() => {
+	differenceStorage.getValue().then((v) => (differenceValue = differenceChoices[v]));
+	taxStorage.getValue().then((v) => (taxValue = taxChoices[v]));
+	denominatorStorage.getValue().then((v) => (denominator = denominatorChoices[v]));
+	thresholdStorage.getValue().then((v) => (threshold = v));
+});
 
 const storeValue = async (selected: any) => {
 	differenceValue = selected;
@@ -54,13 +60,6 @@ const storeDenominator = async (selected: any) => {
 const storeThreshold = async () => {
 	await thresholdStorage.setValue(threshold as IStorage['profitThreshold']);
 };
-
-onMount(async () => {
-	differenceValue = differenceChoices[await differenceStorage.getValue()];
-	taxValue = taxChoices[await taxStorage.getValue()];
-	denominator = denominatorChoices[await denominatorStorage.getValue()];
-	threshold = await thresholdStorage.getValue();
-});
 </script>
 
 <div class="w-full mx-4 border border-base-300 bg-card/90 rounded-lg py-2 px-3">

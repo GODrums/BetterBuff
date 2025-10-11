@@ -3,11 +3,11 @@ import type { BuffTypes } from '../@types/BuffTypes';
 import InfoTooltip from '../components/InfoTooltip.svelte';
 import '../components/style.css';
 
-let data: BuffTypes.PriceHistory.Data = JSON.parse(document.querySelector('#betterbuff-pricetrend-info')?.getAttribute('data-betterbuff') ?? '{}');
+let data = $state<BuffTypes.PriceHistory.Data>(JSON.parse(document.querySelector('#betterbuff-pricetrend-info')?.getAttribute('data-betterbuff') ?? '{}'));
 </script>
 
-{#if data.price_history}
-    <InfoTooltip {data}>
+{#if data?.lines}
+    <InfoTooltip data={data}>
         <div class="text-[#4773C8] hover:text-[#2E3135]">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
                 ><path

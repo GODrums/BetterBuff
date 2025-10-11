@@ -14,7 +14,7 @@ const version = `v. ${browser.runtime.getManifest().version}`;
 		<Badge variant="outline" class="border-muted text-muted-foreground">{version}</Badge>
 	</div>
 	<div class="flex gap-1">
-		<Button variant="ghost" size="icon" on:click={() => window.open(DISCORD_URL)} title={DISCORD_URL}>
+		<Button variant="ghost" size="icon" onclick={() => window.open(DISCORD_URL)} title={DISCORD_URL}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256" {...$$props}>
 				<g fill="none">
 					<rect width="256" height="256" fill="#5865f2" rx="60" />
@@ -32,7 +32,7 @@ const version = `v. ${browser.runtime.getManifest().version}`;
 				</g>
 			</svg>
 		</Button>
-		<Button variant="ghost" size="icon" on:click={() => window.open(GITHUB_URL)} title={GITHUB_URL}>
+		<Button variant="ghost" size="icon" onclick={() => window.open(GITHUB_URL)} title={GITHUB_URL}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"
 				><path
 					fill="white"

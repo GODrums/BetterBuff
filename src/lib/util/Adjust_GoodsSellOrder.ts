@@ -1,3 +1,4 @@
+import { mount, unmount } from 'svelte';
 import type { BuffTypes } from '../@types/BuffTypes';
 import ChExplorer from '../pages/CHExplorer.svelte';
 import { getListingDifference, isPaymentMethodAvailable } from './dataHelpers';
@@ -17,7 +18,7 @@ export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data | u
 
 	const weaponSchema = SchemaHelpers.getWeaponSchema(goods_info.market_hash_name, goods_info?.tags?.exterior?.internal_name === 'wearcategoryna');
 
-	console.log('API Data: ', apiData);
+	// console.log('API Data: ', apiData);
 
 	const showBigPreviews = await ExtensionStorage.showBigPreviews.getValue();
 	const listingOptions = await ExtensionStorage.listingOptions.getValue();
@@ -99,18 +100,12 @@ async function chPatternExplorer(container: Element) {
 			name: 'app-pattern-explorer',
 			css: '../components/style.css',
 			position: 'inline',
-			anchor: '#betterbuff-patternexplorer-ch',
-			onMount: (container) => {
-				// Create the Svelte app inside the UI container
-				const app = new ChExplorer({
+			anchor: patternExplorer,
+			onMount: (container) =>
+				mount(ChExplorer, {
 					target: container,
-				});
-				return app;
-			},
-			onRemove: (app) => {
-				// Destroy the app when the UI is removed
-				app?.$destroy();
-			},
+				}),
+			onRemove: (app) => unmount(app as Record<string, any>),
 		});
 		ui.mount();
 	}

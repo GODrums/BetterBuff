@@ -1053,9 +1053,18 @@ export namespace BuffTypes {
 			currency: string;
 			currency_symbol: string;
 			days: 7 | 30 | 180;
-			price_history: [number, number][];
+			lines: {
+				allow: boolean;
+				chart_type: 'price' | 'number';
+				color: string;
+				disabled_confirm: any | null;
+				key: string;
+				name: string;
+				points: [number, number][];
+				show: boolean;
+			}[];
 			price_type: 'Steam price' | 'BUFF price';
-			steam_price_currency: string;
+			steam_price_currency?: string;
 		}
 
 		export interface Response {

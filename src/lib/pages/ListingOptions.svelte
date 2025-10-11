@@ -2,8 +2,8 @@
 import '../components/style.css';
 import floatLogo from '../icons/float-logo.png';
 
-let data = JSON.parse(document.querySelector('#betterbuff-listing-anchor')?.getAttribute('data-betterbuff') ?? '{}');
-const shareLink = data.share ?? location.href;
+let data = $state(JSON.parse(document.querySelector('#betterbuff-listing-anchor')?.getAttribute('data-betterbuff') ?? '{}'));
+let shareLink = $derived(data.share ?? location.href);
 
 function copyToClipboard(text: string) {
 	navigator?.clipboard?.writeText(text).then(() => {
@@ -15,7 +15,7 @@ function copyToClipboard(text: string) {
 
 <div class="flex items-center gap-3 pb-4">
 	<div class="tooltip tooltip-right" data-tip={data.gen}>
-		<button class="btn btn-ghost bg-[#2E3135]" on:click={() => copyToClipboard(data.gen)}>
+		<button class="btn btn-ghost bg-[#2E3135]" onclick={() => copyToClipboard(data.gen)}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
 				><path fill="#888888" d="M9 18q-.825 0-1.412-.587T7 16V4q0-.825.588-1.412T9 2h9q.825 0 1.413.588T20 4v12q0 .825-.587 1.413T18 18zm-4 4q-.825 0-1.412-.587T3 20V6h2v14h11v2z" /></svg
 			>
@@ -27,7 +27,7 @@ function copyToClipboard(text: string) {
 		Match FloatDB
 	</a>
 	<div class="tooltip" data-tip={shareLink}>
-		<button class="btn btn-ghost bg-[#2E3135]" on:click={() => copyToClipboard(shareLink)}>
+		<button class="btn btn-ghost bg-[#2E3135]" onclick={() => copyToClipboard(shareLink)}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
 				><path
 					fill="#888888"

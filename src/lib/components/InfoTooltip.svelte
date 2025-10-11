@@ -1,23 +1,25 @@
 <script lang="ts">
 import Decimal from 'decimal.js';
+import type { Snippet } from 'svelte';
 import type { BuffTypes } from '../@types/BuffTypes';
 
-export let data: BuffTypes.PriceHistory.Data;
-let isHovered = false,
-	isClicked = false;
+let { data, children }: { data: BuffTypes.PriceHistory.Data; children: Snippet } = $props();
+let isHovered = $state(false),
+	isClicked = $state(false);
 
-const minPrice = data.price_history.reduce((a, b) => Math.min(a, b[1]), Infinity);
-const maxPrice = data.price_history.reduce((a, b) => Math.max(a, b[1]), -Infinity);
-const priceChange = new Decimal(data.price_history[data.price_history.length - 1][1]).minus(data.price_history[0][1]);
-const priceChangePercentage = priceChange.div(data.price_history[0][1]).times(100);
+let listingLine = $derived(data.lines.find((line) => line.key === 'sell_min_price_history')?.points);
+let minPrice = $derived(listingLine?.reduce((a, b) => Math.min(a, b[1]), Infinity));
+let maxPrice = $derived(listingLine?.reduce((a, b) => Math.max(a, b[1]), -Infinity));
+let priceChange = $derived(new Decimal(listingLine?.[listingLine.length - 1][1] ?? 0).minus(listingLine?.[0][1] ?? 0));
+let priceChangePercentage = $derived(priceChange.div(listingLine?.[0][1] ?? 0).times(100));
 
-const minElement = data.price_history.find((e) => e[1] === minPrice)!;
-const maxElement = data.price_history.find((e) => e[1] === maxPrice)!;
+let minElement = $derived(listingLine?.find((e) => e[1] === minPrice)!);
+let maxElement = $derived(listingLine?.find((e) => e[1] === maxPrice)!);
 </script>
 
-<!-- svelte-ignore a11y-mouse-events-have-key-events -->
-<div on:mouseover={() => (isHovered = true)} on:mouseleave={() => (isHovered = false)} on:click={() => (isClicked = !isClicked)} role="none">
-	<slot />
+<div onmouseover={() => (isHovered = true)} onmouseleave={() => (isHovered = false)} onclick={() => (isClicked = !isClicked)} onfocus={() => (isHovered = true)} onblur={() => (isHovered = false)} role="none">
+	<!-- <slot /> -->
+	 {@render children()}
 </div>
 
 {#if isHovered || isClicked}
@@ -39,7 +41,7 @@ const maxElement = data.price_history.find((e) => e[1] === maxPrice)!;
 					{priceChange.isNegative() ? "-" : "+"}{data.currency_symbol}{priceChange.absoluteValue().toSD(3)}
 					<span class="font-medium text-base">({priceChangePercentage.isNaN() ? "0" : priceChangePercentage.toSD(3)}%)</span>
 				</div>
-				<div class="stat-desc">{new Date(data.price_history[0][0]).toLocaleDateString()} - {new Date(data.price_history[data.price_history.length - 1][0]).toLocaleDateString()}</div>
+				<div class="stat-desc">{new Date(listingLine?.[0][0] ?? Date.now()).toLocaleDateString()} - {new Date(listingLine?.[listingLine.length - 1][0] ?? 0).toLocaleDateString()}</div>
 			</div>
 		</div>
 	</div>

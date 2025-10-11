@@ -1,3 +1,4 @@
+import { mount, unmount } from 'svelte';
 import type { BuffTypes } from '../@types/BuffTypes';
 import PriceHistoryInfo from '../pages/PriceHistoryInfo.svelte';
 import { BUFF_CRX } from './storage';
@@ -15,18 +16,12 @@ export async function adjustPriceTrend(apiData: BuffTypes.PriceHistory.Data) {
 			name: 'app-price-trend',
 			css: '../components/style.css',
 			position: 'inline',
-			anchor: '#betterbuff-pricetrend-info',
-			onMount: (container) => {
-				// Create the Svelte app inside the UI container
-				const app = new PriceHistoryInfo({
+			anchor: infoDiv,
+			onMount: (container) =>
+				mount(PriceHistoryInfo, {
 					target: container,
-				});
-				return app;
-			},
-			onRemove: (app) => {
-				// Destroy the app when the UI is removed
-				app?.$destroy();
-			},
+				}),
+			onRemove: (app) => unmount(app as Record<string, any>),
 		});
 		ui.mount();
 	}

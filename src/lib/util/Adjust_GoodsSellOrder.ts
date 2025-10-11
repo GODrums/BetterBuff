@@ -17,7 +17,7 @@ export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data | u
 
 	const weaponSchema = SchemaHelpers.getWeaponSchema(goods_info.market_hash_name, goods_info?.tags?.exterior?.internal_name === 'wearcategoryna');
 
-	console.log('API Data: ', apiData);
+	// console.log('API Data: ', apiData);
 
 	const showBigPreviews = await ExtensionStorage.showBigPreviews.getValue();
 	const listingOptions = await ExtensionStorage.listingOptions.getValue();

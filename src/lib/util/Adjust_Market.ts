@@ -1,4 +1,5 @@
 import Decimal from 'decimal.js';
+import { mount, unmount } from 'svelte';
 import type { BuffTypes } from '../@types/BuffTypes';
 import ListingOptions from '../pages/ListingOptions.svelte';
 import { getListingDifference, priceToHtml } from './dataHelpers';
@@ -73,19 +74,14 @@ export async function adjustItemDetails(apiData: BuffTypes.ItemDescDetail.Data) 
 			position: 'inline',
 			anchor: '#betterbuff-listing-anchor',
 			onMount: (container) => {
-				// Create the Svelte app inside the UI container
-				const app = new ListingOptions({
+				return mount(ListingOptions, {
 					target: container,
 				});
-				return app;
 			},
 			onRemove: (app) => {
-				// Destroy the app when the UI is removed
-				app?.$destroy();
+				unmount(app as Record<string, any>);
 			},
 		});
-
-		// 4. Mount the UI
 		ui.mount();
 	}
 }

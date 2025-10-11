@@ -75,7 +75,7 @@ function removeFilter(index: number) {
 		<div class="flex justify-between items-center gap-2 pb-1.5">
 			<img src={BetterBuffLogo} class="w-8 h-8" alt="BetterBuff Logo" />
 			<h2 class="text-xl font-bold">Pattern Explorer</h2>
-			<button class="btn btn-circle btn-ghost btn-sm text-black" on:click={() => (isClicked = !isClicked)}>
+			<button class="btn btn-circle btn-ghost btn-sm text-black" on:click={() => (isClicked = !isClicked)} aria-label="Close">
 				<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
 					><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg
 				>
@@ -86,7 +86,7 @@ function removeFilter(index: number) {
 				<label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
 				<div class="relative">
 					<span class="absolute inset-y-0 left-0 flex items-center pl-1">
-						<button type="submit" class="btn btn-ghost h-8 min-h-8 p-1 focus:outline-none focus:shadow-outline">
+						<button type="submit" class="btn btn-ghost h-8 min-h-8 p-1 focus:outline-none focus:shadow-outline" aria-label="Search">
 							<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-5 h-5"
 								><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg
 							>
@@ -115,7 +115,7 @@ function removeFilter(index: number) {
 					<div class="flex items-center flex-wrap pt-2 max-w-64 gap-2">
 						{#each filters as { site, range, value }, index}
 							<div class="badge badge-info whitespace-nowrap pl-0 pr-1" transition:fade={{ delay: 100, duration: 200 }}>
-								<button class="btn btn-circle btn-ghost btn-xs" on:click={() => removeFilter(index)}>
+								<button class="btn btn-circle btn-ghost btn-xs" on:click={() => removeFilter(index)} aria-label="Remove filter">
 									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 stroke-current"
 										><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg
 									>
@@ -137,7 +137,7 @@ function removeFilter(index: number) {
 						<option value="max">Max</option>
 					</select>
 					<input type="number" min="0" max="99" step="1" bind:value={newFilterValue} class="input input-sm w-10 pr-0 focus:outline-none" />
-					<button class="btn btn-square btn-outline btn-sm p-1 ml-2" on:click={addFilter}>
+					<button class="btn btn-square btn-outline btn-sm p-1 ml-2" on:click={addFilter} aria-label="Add filter">
 						<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24"><path fill="#888888" d="M11 13H5v-2h6V5h2v6h6v2h-6v6h-2z" /></svg>
 					</button>
 				</div>
@@ -159,7 +159,7 @@ function removeFilter(index: number) {
 							<td class="py-1">{pattern[0]}</td>
 							<td class="py-1">{pattern[1]}</td>
 							<th class="py-1">
-								<a class="btn btn-square btn-ghost btn-xs" href="https://raw.githubusercontent.com/dnsmits/csbluegem_images/main/{weapon}/{weapon}_{pattern[0]}.png" target="_blank">
+								<a class="btn btn-square btn-ghost btn-xs" href="https://raw.githubusercontent.com/dnsmits/csbluegem_images/main/{weapon}/{weapon}_{pattern[0]}.png" target="_blank" aria-label="View pattern">
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
 										><path
 											fill="#888888"

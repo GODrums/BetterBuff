@@ -8,8 +8,7 @@ import bank from '../icons/payment-bank.png';
 import card from '../icons/payment-card.png';
 import wechat from '../icons/payment-wechat.png';
 import { ExtensionStorage, type IStorage } from '../util/storage';
-import { MaterialSymbolsHelpRounded } from './icons';
-import MaterialSymbolsPayments from './icons/MaterialSymbolsPayments.svelte';
+import { MaterialSymbolsHelpRounded, MaterialSymbolsPayments } from './icons';
 import Button from './ui/button/button.svelte';
 import Label from './ui/label/label.svelte';
 

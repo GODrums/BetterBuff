@@ -3,7 +3,7 @@ import { onMount } from 'svelte';
 import * as Select from '$lib/components/ui/select';
 import * as Tooltip from '$lib/components/ui/tooltip';
 import { ExtensionStorage, type IStorage } from '../util/storage';
-import MaterialSymbolsHelpRounded from './icons/MaterialSymbolsHelpRounded.svelte';
+import { MaterialSymbolsHelpRounded } from './icons';
 import { Input } from './ui/input';
 import Label from './ui/label/label.svelte';
 

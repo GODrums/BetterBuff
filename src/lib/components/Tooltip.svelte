@@ -1,11 +1,9 @@
 <script lang="ts">
-export let tooltipClass: string;
-export let svgClass: string;
-export let dataTip: string;
+let { tooltipClass, svgClass, dataTip }: { tooltipClass: string; svgClass: string; dataTip: string } = $props();
 </script>
 
 <div class="tooltip inline-flex {tooltipClass} z-100" data-tip={dataTip}>
-    <button data-popover-target="popover-description" data-popover-placement="bottom-end" type="button">
+    <button data-popover-target="popover-description" data-popover-placement="bottom-end" type="button" aria-label={dataTip}>
         <svg class="w-4 h-4 {svgClass}" aria-hidden="true" fill="currentColor" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg"
             ><path
                 fill="currentColor"

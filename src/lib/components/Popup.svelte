@@ -13,7 +13,7 @@ import { DISCORD_URL } from '$lib/util/globals';
 import BBlogo from '/icon/512.png';
 import JoinDiscord from '/join_discord.png';
 import { ExtensionStorage } from '../util/storage';
-import BuyMeACoffee from './icons/BuyMeACoffee.svelte';
+import { BuyMeACoffee } from './icons';
 import ListingDifference from './SettingListingDifference.svelte';
 import SettingListingOptions from './SettingListingOptions.svelte';
 

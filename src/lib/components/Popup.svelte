@@ -64,7 +64,7 @@ const version = browser.runtime.getManifest().version;
 							<img class="h-6" src={BUlogo} alt="BuffUtility" />
 						</Button>
 					</div>
-					<Badge variant="secondary" class="border-muted text-base">BETA - Version {version}</Badge>
+					<Badge variant="secondary" class="border-muted text-base">Version {version}</Badge>
 					<Button variant="ghost" class="p-0 py-4" onclick={() => window.open(DISCORD_URL)}>
 						<img class="h-10" src={JoinDiscord} alt="Join us on Discord" />
 					</Button>

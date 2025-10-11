@@ -15,7 +15,7 @@ const markets = [
 	{ name: 'Steam', url: `https://steamcommunity.com/market/listings/730/${encodedItemName}`, icon: 'https://pricempire.com/assets/providers/steam_icon.webp' },
 	{ name: 'YouPin', url: `https://youpin898.com/market?gameId=730&search=${encodedItemName}`, icon: 'https://pricempire.com/assets/providers/youpin_icon.webp' },
 	{ name: 'CSFloat', url: `https://csfloat.com/search?market_hash_name=${encodedItemName}&sort_by=lowest_price&type=buy_now`, icon: '	https://csfloat.com/assets/icons/logo.png' },
-	{ name: 'Pricempire', url: `https://pricempire.com/item/${encodedItemName}`, icon: 'https://pbs.twimg.com/profile_images/1903548441952706560/kj4j4k8Z_400x400.jpg' }
+	{ name: 'Pricempire', url: `https://pricempire.com/item/${encodedItemName}`, icon: 'https://pbs.twimg.com/profile_images/1903548441952706560/kj4j4k8Z_400x400.jpg' },
 ];
 </script>
 

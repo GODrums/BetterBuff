@@ -1,7 +1,7 @@
-import { defineConfig, type ConfigEnv, type UserManifest, type UserManifestFn, type WxtViteConfig } from "wxt";
-import path from "node:path";
+import { defineConfig, type ConfigEnv, type UserManifest, type UserManifestFn, type WxtViteConfig } from 'wxt';
+import path from 'node:path';
 
-const releaseVersion = "0.9.1";
+const releaseVersion = '1.0.0';
 
 const getViteConfig: (env: ConfigEnv) => WxtViteConfig | Promise<WxtViteConfig> = () => {
 	return {
@@ -10,35 +10,38 @@ const getViteConfig: (env: ConfigEnv) => WxtViteConfig | Promise<WxtViteConfig> 
 		},
 		resolve: {
 			alias: {
-				$lib: path.resolve("./src/lib"),
+				$lib: path.resolve('./src/lib'),
 			},
+		},
+		optimizeDeps: {
+			exclude: ['svelte', 'bits-ui'],
 		},
 	};
 };
 
 const getManifest: UserManifestFn = (env) => {
 	const manifest: UserManifest = {
-		name: "BetterBuff",
-		description: "Enhance your website experience on Buff163",
+		name: 'BetterBuff',
+		description: 'Enhance your website experience on Buff163',
 		version: releaseVersion,
-		host_permissions: ["*://*.buff.163.com/*"],
-		permissions: ["storage"],
+		host_permissions: ['*://*.buff.163.com/*'],
+		permissions: ['storage'],
 		web_accessible_resources: [
 			{
-				resources: ["inject.js", "ch_patterns.json"],
-				matches: ["*://*.buff.163.com/*"],
+				resources: ['inject.js', 'ch_patterns.json'],
+				matches: ['*://*.buff.163.com/*'],
 			},
 		],
 	};
-	if (env.browser === "firefox") {
+	if (env.browser === 'firefox') {
 		manifest.developer = {
-			name: "Rums",
-			url: "https://github.com/GODrums",
+			name: 'Rums',
+			url: 'https://github.com/GODrums',
 		};
 		manifest.browser_specific_settings = {
 			gecko: {
-				id: "betterbuff@rums.dev",
-				strict_min_version: "109.0",
+				id: 'betterbuff@rums.dev',
+				strict_min_version: '109.0',
 			},
 		};
 	}
@@ -47,18 +50,18 @@ const getManifest: UserManifestFn = (env) => {
 
 // See https://wxt.dev/api/config.html
 export default defineConfig({
-	srcDir: "src",
-	publicDir: "src/public",
-	modulesDir: "src/modules",
+	srcDir: 'src',
+	publicDir: 'src/public',
+	modulesDir: 'src/modules',
 	manifest: getManifest,
 	vite: getViteConfig,
-	modules: ["@wxt-dev/module-svelte", "@wxt-dev/webextension-polyfill"],
+	modules: ['@wxt-dev/module-svelte', '@wxt-dev/webextension-polyfill'],
 	svelte: {
 		vite: {
 			configFile: false,
 			onwarn(warning, defaultHandler) {
-				if (warning.code === "a11y-click-events-have-key-events") return;
-				if (warning.code === "a11y_consider_explicit_label") return;
+				if (warning.code === 'a11y-click-events-have-key-events') return;
+				if (warning.code === 'a11y_consider_explicit_label') return;
 
 				// handle all other warnings normally
 				defaultHandler?.(warning);

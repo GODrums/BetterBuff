@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { FaSolidLink } from '../components/icons';
-	import QuicklinksPopup from '../components/QuicklinksPopup.svelte';
+import { FaSolidLink } from '../components/icons';
+import QuicklinksPopup from '../components/QuicklinksPopup.svelte';
 </script>
 
 <QuicklinksPopup>

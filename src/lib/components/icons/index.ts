@@ -1,5 +1,6 @@
 export { default as ArcticonsPriceconverter } from './ArcticonsPriceconverter.svelte';
 export { default as BuyMeACoffee } from './BuyMeACoffee.svelte';
+export { default as FaSolidLink } from './FaSolidLink.svelte';
 export { default as MageBox3d } from './MageBox3d.svelte';
 export { default as MaterialSymbolsDetails } from './MaterialSymbolsDetails.svelte';
 export { default as MaterialSymbolsFrameInspect } from './MaterialSymbolsFrameInspect.svelte';
@@ -12,4 +13,3 @@ export { default as MdiDatabaseSearchOutline } from './MdiDatabaseSearchOutline.
 export { default as PhGlobe } from './PhGlobe.svelte';
 export { default as PhLinkSimple } from './PhLinkSimple.svelte';
 export { default as RiFileCopy2Line } from './RiFileCopy2Line.svelte';
-export { default as FaSolidLink } from './FaSolidLink.svelte';

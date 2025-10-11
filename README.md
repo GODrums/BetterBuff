@@ -1,7 +1,7 @@
 <p align="center"><img width="128" height="128" src="./src/public/icon/512.png"><img height="128" src=".github/basedOnBU.png"></p>
-<h1 align="center">BetterBuff <font color="gray">- BETA</font></h1>
+<h1 align="center">BetterBuff</h1>
 
-![GitHub manifest version (path)](https://img.shields.io/chrome-web-store/v/igacjekfbhgjnimlkmpdbgeekddolkaa?label=beta%20version)
+![GitHub manifest version (path)](https://img.shields.io/chrome-web-store/v/igacjekfbhgjnimlkmpdbgeekddolkaa?label=version)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/GODrums/betterbuff)
 ![GitHub repo size](https://img.shields.io/github/repo-size/GODrums/betterbuff)
 ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/GODrums/betterbuff)

@@ -1,3 +1,4 @@
+import { mount, unmount } from 'svelte';
 import type { BuffTypes } from '../@types/BuffTypes';
 import ChExplorer from '../pages/CHExplorer.svelte';
 import { getListingDifference, isPaymentMethodAvailable } from './dataHelpers';
@@ -100,17 +101,10 @@ async function chPatternExplorer(container: Element) {
 			css: '../components/style.css',
 			position: 'inline',
 			anchor: '#betterbuff-patternexplorer-ch',
-			onMount: (container) => {
-				// Create the Svelte app inside the UI container
-				const app = new ChExplorer({
-					target: container,
-				});
-				return app;
-			},
-			onRemove: (app) => {
-				// Destroy the app when the UI is removed
-				app?.$destroy();
-			},
+			onMount: (container) => mount(ChExplorer, {
+				target: container,
+			}),
+			onRemove: (app) => unmount(app as Record<string, any>),
 		});
 		ui.mount();
 	}

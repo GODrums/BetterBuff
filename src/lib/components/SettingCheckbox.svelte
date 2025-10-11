@@ -1,25 +1,22 @@
 <script lang="ts">
-import { onMount } from 'svelte';
 import type { WxtStorageItem } from '#imports';
 import { MaterialSymbolsHelpRounded } from '$lib/components/icons';
 import Label from '$lib/components/ui/label/label.svelte';
 import * as Tooltip from '$lib/components/ui/tooltip';
 import Checkbox from './ui/checkbox/checkbox.svelte';
 
-export let text: string;
-export let storage: WxtStorageItem<boolean, {}>;
-export let dataTip: string;
+let { text, storage, dataTip }: { text: string; storage: WxtStorageItem<boolean, {}>; dataTip: string } = $props();
 
-$: checked = false;
+let checked = $state(false);
+
+$effect(() => {
+	storage.getValue().then(v => checked = v);
+});
 
 const storeValue = async () => {
 	checked = !checked;
 	await storage.setValue(checked);
 };
-
-onMount(async () => {
-	checked = await storage.getValue();
-});
 </script>
 
 <div class="w-full border border-base-300 bg-card/90 rounded-lg p-4 z-10">

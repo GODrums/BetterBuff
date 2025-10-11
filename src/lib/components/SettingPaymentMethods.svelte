@@ -1,5 +1,4 @@
 <script lang="ts">
-import { onMount } from 'svelte';
 import * as Dialog from '$lib/components/ui/dialog';
 import * as Tooltip from '$lib/components/ui/tooltip';
 import { cn } from '$lib/utils';
@@ -12,9 +11,7 @@ import { MaterialSymbolsHelpRounded, MaterialSymbolsPayments } from './icons';
 import Button from './ui/button/button.svelte';
 import Label from './ui/label/label.svelte';
 
-let text = 'Preferred Payment Methods';
-
-let choices: { [K in keyof IStorage['preferredPayments']]: { text: string; icon: string } } = {
+const choices: { [K in keyof IStorage['preferredPayments']]: { text: string; icon: string } } = {
 	balance: { text: 'BUFF balance-Alipay', icon: balance },
 	bank: { text: 'BUFF Balance-Bank Card', icon: bank },
 	card: { text: 'Alipay - Credit card', icon: card },
@@ -22,11 +19,11 @@ let choices: { [K in keyof IStorage['preferredPayments']]: { text: string; icon:
 	'wechat-split': { text: 'WeChat Split', icon: wechat },
 };
 
-let storage = ExtensionStorage.preferredPayments;
-let values: Partial<IStorage['preferredPayments']> = {};
+const storage = ExtensionStorage.preferredPayments;
+let values = $state<Partial<IStorage['preferredPayments']>>({});
 
-onMount(async () => {
-	values = await storage.getValue();
+$effect(() => {
+	storage.getValue().then(v => values = v);
 });
 
 const storeValue = async (choice: keyof IStorage['preferredPayments']) => {
@@ -34,14 +31,12 @@ const storeValue = async (choice: keyof IStorage['preferredPayments']) => {
 
 	await storage.setValue(values as IStorage['preferredPayments']);
 };
-
-const notypecheck = (x: string) => x as keyof IStorage['preferredPayments'];
 </script>
 
 <div class="w-full flex flex-col border border-base-300 bg-card/90 rounded-lg py-2 px-3 z-10">
     <div class="flex items-center gap-2 mt-1 mx-1">
 		<MaterialSymbolsPayments class="size-6 text-neutral-500" />
-        <Label class="text-sm font-medium">{text}</Label>
+        <Label class="text-sm font-medium">Preferred Payment Methods</Label>
         <Dialog.Root>
             <Dialog.Trigger class="flex items-center">
                 <Button variant="ghost" class="size-4 p-0 m-0" title="Click for a detailed explanation">
@@ -63,7 +58,7 @@ const notypecheck = (x: string) => x as keyof IStorage['preferredPayments'];
         {#each Object.entries(choices) as [choice, attr]}
             <Tooltip.Root>
                 <Tooltip.Trigger>
-                    <Button variant="ghost" size="icon" class={cn(values[notypecheck(choice)] && 'bg-[#00b3f0]/50 hover:bg-[#00b3f0]/70')} on:click={() => storeValue(notypecheck(choice))}>
+                    <Button variant="ghost" size="icon" class={cn(values[choice as keyof IStorage['preferredPayments']] && 'bg-[#00b3f0]/50 hover:bg-[#00b3f0]/70')} on:click={() => storeValue(choice as keyof IStorage['preferredPayments'])}>
                         <img src={attr.icon} alt={attr.text} class="w-6 h-6" />
                     </Button>
                 </Tooltip.Trigger>

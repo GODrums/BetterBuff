@@ -43,7 +43,7 @@ const version = browser.runtime.getManifest().version;
 		<ScrollArea class="h-[488px] rounded-md">
 			<div class="w-full mx-4 border border-base-300 bg-card/90 rounded-lg p-5">
 				<p class="text-sm text-center">Currency conversion is already integrated into Buff itself. You can change your display currency in your Buff account settings:</p>
-				<Button variant="outline" class="w-full mt-2" on:click={() => window.open("https://buff.163.com/user-center/profile")} title="Open Buff Account Settings">
+				<Button variant="outline" class="w-full mt-2" onclick={() => window.open("https://buff.163.com/user-center/profile")} title="Open Buff Account Settings">
 					Open Buff Account Settings
 				</Button>
 			</div>
@@ -60,12 +60,12 @@ const version = browser.runtime.getManifest().version;
 				<div class="flex flex-col items-center justify-center gap-4 py-2">
 					<div class="flex items-center gap-2">
 						<p class="scroll-m-20 text-sm font-medium text-gray-600">based on</p>
-						<Button variant="ghost" class="py-1 px-2 h-7" on:click={() => window.open("https://github.com/PenguiniVogel/BuffUtility")}>
+						<Button variant="ghost" class="py-1 px-2 h-7" onclick={() => window.open("https://github.com/PenguiniVogel/BuffUtility")}>
 							<img class="h-6" src={BUlogo} alt="BuffUtility" />
 						</Button>
 					</div>
 					<Badge variant="secondary" class="border-muted text-base">BETA - Version {version}</Badge>
-					<Button variant="ghost" class="p-0 py-4" on:click={() => window.open(DISCORD_URL)}>
+					<Button variant="ghost" class="p-0 py-4" onclick={() => window.open(DISCORD_URL)}>
 						<img class="h-10" src={JoinDiscord} alt="Join us on Discord" />
 					</Button>
 				</div>
@@ -82,7 +82,7 @@ const version = browser.runtime.getManifest().version;
 					<p>
 						Built with 🖤 in Munich by
 						<!-- svelte-ignore a11y_click_events_have_key_events -->
-						<span class="cursor-pointer text-green-900" on:click={() => window.open("https://github.com/GODrums")} role="link" tabindex="-1">Rums</span>
+						<span class="cursor-pointer text-green-900" onclick={() => window.open("https://github.com/GODrums")} role="link" tabindex="-1">Rums</span>
 					</p>
 				</footer>
 			</div>

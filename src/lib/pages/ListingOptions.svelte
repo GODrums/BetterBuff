@@ -13,7 +13,7 @@ function copyToClipboard(text: string) {
 }
 </script>
 
-<div class="flex items-center gap-3 pb-4">
+<div class="flex items-center gap-3 pb-4 text-[#888]">
 	<div class="tooltip tooltip-right" data-tip={data.gen}>
 		<button class="btn btn-ghost bg-[#2E3135]" onclick={() => copyToClipboard(data.gen)}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"

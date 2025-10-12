@@ -5,6 +5,10 @@
 	--bb-color-3: #696969;
 }
 
+.market-list .detail-pic .icon-list {
+	z-index: 155!important;
+}
+
 /* remove grayscale from html, body */
 html {
 	filter: grayscale(0) !important;

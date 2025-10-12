@@ -6,7 +6,7 @@
 }
 
 .market-list .detail-pic .icon-list {
-	z-index: 155!important;
+	z-index: 155 !important;
 }
 
 /* remove grayscale from html, body */

@@ -185,6 +185,8 @@ export namespace BuffTypes {
 			sticker_premium?: number; // SP
 			supported_pay_methods: number[];
 			tradable_cooldown?: any | null;
+			tradeofferid: any | null;
+			transact_time: number;
 			updated_at: number;
 			user_id: string;
 		}

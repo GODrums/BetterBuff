@@ -13,7 +13,6 @@ import { DISCORD_URL } from '$lib/util/globals';
 import BBlogo from '/icon/512.png';
 import JoinDiscord from '/join_discord.png';
 import { ExtensionStorage } from '../util/storage';
-import { BuyMeACoffee } from './icons';
 import ListingDifference from './SettingListingDifference.svelte';
 import SettingListingOptions from './SettingListingOptions.svelte';
 
@@ -70,15 +69,6 @@ const version = browser.runtime.getManifest().version;
 					</Button>
 				</div>
 				<footer class="absolute bottom-2 w-full text-center text-xs font-semibold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 bg-opacity-50">
-					<a
-						href="https://www.buymeacoffee.com/rums"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="mx-auto mb-4 flex max-w-fit items-center justify-center space-x-1 rounded-lg border border-gray-900 bg-white/80 px-4 py-1.5 transition-all duration-75 hover:scale-105"
-					>
-						<BuyMeACoffee class="h-6 w-6" />
-						<p class="font-medium text-gray-700">Buy me a coffee</p>
-					</a>
 					<p>
 						Built with 🖤 in Munich by
 						<!-- svelte-ignore a11y_click_events_have_key_events -->

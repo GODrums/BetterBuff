@@ -106,6 +106,9 @@ html {
 .bb-dark-mode .popup_bulkbuy .popup_bulkbuy_item,
 .bb-dark-mode .popup_bulkbuy .popup_bulkbuy_price,
 .bb-dark-mode .popup_flower-filters,
+.bb-dark-mode .popup-bargain .popup-good-summary,
+.bb-dark-mode .popup-bargain-col .popup-bargain-recommend,
+.bb-dark-mode .popup-bargain-list,
 .bb-dark-mode .list_tb_csgo .tr_gallery td,
 .bb-dark-mode .list_tb_csgo .tr_gallery .bundle-items-list,
 .bb-dark-mode .custom-inspect,
@@ -124,7 +127,8 @@ html {
 	color: var(--bb-color-2, #bfbfbf) !important;
 }
 
-.bb-dark-mode .detail-tab-cont .legend-item:hover {
+.bb-dark-mode .detail-tab-cont .legend-item:hover,
+.bb-dark-mode .popup-bargain-col .popup-bargain-recommend:hover {
 	background: var(--bb-color-1, #1f1f1f) !important;
 }
 

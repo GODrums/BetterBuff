@@ -7,7 +7,7 @@ import {
 } from "wxt";
 import path from "node:path";
 
-const releaseVersion = "1.0.2";
+const releaseVersion = "1.0.3";
 
 const getViteConfig: (
   env: ConfigEnv

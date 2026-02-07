@@ -135,13 +135,15 @@ async function chPatternExplorer(container: Element) {
 }
 
 function addBigPreviews(row: HTMLElement, item: BuffTypes.SellOrder.Item) {
-	if (!item.img_src.includes('fop')) return;
+	const previewUrl = item.asset_info?.info?.inspect_preview_url;
+	if (!previewUrl?.includes('fop')) return;
+
 	const bigPreview = document.createElement('div');
 	bigPreview.setAttribute('class', 'betterbuff-item-detail-img');
 	bigPreview.setAttribute('style', 'display: none; max-width: 600px; max-height: 400px;');
 
 	const img = document.createElement('img');
-	img.setAttribute('src', item.img_src.split('%7CimageView')[0]);
+	img.setAttribute('src', previewUrl.split('%7CimageView')[0]);
 	img.setAttribute('style', 'width: 50%; object-fit: contain; translate: 15% -50%;');
 
 	bigPreview.appendChild(img);

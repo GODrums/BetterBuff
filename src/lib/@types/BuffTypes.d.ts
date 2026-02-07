@@ -127,6 +127,8 @@ export namespace BuffTypes {
 			inspect_en_url: string;
 			inspect_mobile_size: string;
 			inspect_mobile_url: string;
+			inspect_preview_size: string;
+			inspect_preview_url: string;
 			inspect_size: string;
 			inspect_start_at: string;
 			inspect_state: number;
@@ -174,7 +176,6 @@ export namespace BuffTypes {
 			game: string;
 			goods_id: number;
 			id: string;
-			img_src: string;
 			income: string;
 			lowest_bargain_price: string;
 			mode: number;

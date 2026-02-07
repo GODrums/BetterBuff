@@ -1,7 +1,10 @@
 {
-    "svelte.plugin.svelte.compilerWarnings": {
-      "a11y-click-events-have-key-events": "ignore",
-    },
-    "editor.defaultFormatter": "biomejs.biome",
-    "editor.formatOnSave": true
+	"svelte.plugin.svelte.compilerWarnings": {
+		"a11y-click-events-have-key-events": "ignore"
+	},
+	"editor.defaultFormatter": "biomejs.biome",
+	"editor.formatOnSave": true,
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	}
 }

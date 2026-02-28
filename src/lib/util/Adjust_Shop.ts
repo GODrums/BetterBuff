@@ -1,7 +1,8 @@
 import Decimal from 'decimal.js';
 import type { BuffTypes } from '../@types/BuffTypes';
+import { convertCNY, isSelectedCurrencyCNY } from './currencyHelper';
+import { priceToHtml } from './dataHelpers';
 import { TIME_TO_TEXT } from './globals';
-import { WINDOW_G } from './storage';
 
 export async function adjustShopSellOrder(apiData: BuffTypes.ShopSellOrder.Data) {
 	const goods_info = Object.values(apiData.goods_infos)?.pop();
@@ -16,12 +17,10 @@ export async function adjustShopSellOrder(apiData: BuffTypes.ShopSellOrder.Data)
 		const priceDiv = card.querySelector('strong.f_Strong');
 
 		if (priceDiv) {
-			const cutPrice = Number.parseInt(item.price);
-			const newPrice = `<strong class="f_Strong">¥ ${cutPrice}<small>.${new Decimal(item.price)
-				.minus(cutPrice)
-				.mul(100)
-				.toDP(2)
-				.toNumber()}</small></strong><span class="c_Gray f_12px" style="vertical-align: bottom;"> (${priceDiv.innerHTML})</span>`;
+			const priceCNY = Number.parseFloat(item.price);
+			const converted = convertCNY(priceCNY);
+			const convertedStr = !isSelectedCurrencyCNY() ? `${converted.symbol} ${converted.value}` : priceDiv.innerHTML;
+			const newPrice = `<strong class="f_Strong">¥ ${priceToHtml(priceCNY)}</strong><span class="c_Gray f_12px" style="vertical-align: bottom;"> (${convertedStr})</span>`;
 			priceDiv.outerHTML = newPrice;
 		}
 	}
@@ -46,12 +45,10 @@ export async function adjustShopFeatured(apiData: BuffTypes.ShopFeatured.Data) {
 			}
 			priceDiv.parentElement?.setAttribute('style', 'margin-top: 0;');
 
-			const cutPrice = Number.parseInt(item.price);
-			const newPrice = `<strong class="c_Yellow">¥ ${cutPrice}<small>.${new Decimal(item.price)
-				.minus(cutPrice)
-				.mul(100)
-				.toDP(2)
-				.toNumber()}</small></strong><br><span class="c_Gray f_12px" style="vertical-align: bottom;"> (${priceDiv.innerHTML})</span>`;
+			const priceCNY = Number.parseFloat(item.price);
+			const converted = convertCNY(priceCNY);
+			const convertedStr = !isSelectedCurrencyCNY() ? `${converted.symbol} ${converted.value}` : priceDiv.innerHTML;
+			const newPrice = `<strong class="c_Yellow">¥ ${priceToHtml(priceCNY)}</strong><br><span class="c_Gray f_12px" style="vertical-align: bottom;"> (${convertedStr})</span>`;
 			priceDiv.outerHTML = newPrice;
 		}
 	}
@@ -83,9 +80,9 @@ export async function adjustShopBillOrder(apiData: BuffTypes.ShopBillOrder.Data)
 				}
 			}
 			const timePast = Number.parseInt(textBox.innerText.split(timeString)[0]);
-			const currency = WINDOW_G?.currency;
+			const converted = convertCNY(Number.parseFloat(item.price));
 
-			textBox.innerHTML = `¥ ${item.price} (${currency?.symbol} ${new Decimal(item.price).mul(currency?.rate_base_cny ?? 1).toFixed(2)})`;
+			textBox.innerHTML = `¥ ${item.price} (${converted.symbol} ${converted.value})`;
 
 			const dateContainer = document.createElement('p');
 			dateContainer.setAttribute('class', 'f_12px');

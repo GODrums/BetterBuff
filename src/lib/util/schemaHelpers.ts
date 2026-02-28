@@ -63,7 +63,6 @@ export namespace SchemaHelpers {
 				result.paints = [weapon?.paints[0] as unknown as WeaponPaint];
 			}
 		} else {
-			console.log(nameParts[1], weapon?.paints);
 			result.paints = weapon?.paints?.filter((paint) => {
 				return nameParts[1].startsWith(paint.name);
 			}) as unknown as WeaponPaint[];

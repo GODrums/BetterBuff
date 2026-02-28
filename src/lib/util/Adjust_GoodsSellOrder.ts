@@ -2,7 +2,8 @@ import { mount, unmount } from 'svelte';
 import type { BuffTypes } from '../@types/BuffTypes';
 import ChExplorer from '../pages/CHExplorer.svelte';
 import ItemQuicklinks from '../pages/ItemQuicklinks.svelte';
-import { getListingDifference, isPaymentMethodAvailable } from './dataHelpers';
+import { convertCNY, isSelectedCurrencyCNY } from './currencyHelper';
+import { getListingDifference, isPaymentMethodAvailable, priceToHtml } from './dataHelpers';
 import { BUFF_FLOAT_RANGES } from './globals';
 import { SchemaHelpers } from './schemaHelpers';
 import { BUFF_CRX, ExtensionStorage, type IStorage } from './storage';
@@ -55,6 +56,16 @@ export async function adjustGoodsSellOrder(apiData: BuffTypes.SellOrder.Data | u
 
 		if (showBigPreviews) {
 			addBigPreviews(row, item);
+		}
+
+		// Converted price
+		if (!isSelectedCurrencyCNY()) {
+			const priceEl = row.querySelector<HTMLElement>('p.hide-cny');
+			if (priceEl && !row.querySelector('.betterbuff-converted')) {
+				priceEl.style.display = 'block';
+				const converted = convertCNY(Number.parseFloat(item.price));
+				priceEl.innerHTML = `<span class="betterbuff-converted c_Gray f_12px">(${priceToHtml(converted.valueRaw, converted.symbol, true)})</span>`;
+			}
 		}
 
 		// Listing difference

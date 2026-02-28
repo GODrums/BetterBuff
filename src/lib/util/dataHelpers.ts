@@ -1,6 +1,7 @@
 import Decimal from 'decimal.js';
+import { getCurrentConversionInfo } from './currencyHelper';
 import { PAYMENT_MAPPING } from './globals';
-import { ExtensionStorage, type IStorage, WINDOW_G } from './storage';
+import { ExtensionStorage, type IStorage } from './storage';
 
 export function priceToHtml(price: number, symbol: string | null = null, space = false) {
 	const priceParts = price.toFixed(2).split('.');
@@ -41,9 +42,10 @@ export function getListingDifference(
 		priceDiffStr = `${sign}¥ ${priceToHtml(priceDiff.absoluteValue().toNumber())}`;
 		priceDiffEx += `=> This item is ¥ ${priceDiff.absoluteValue().toFixed(2)} ${priceDiff.isNegative() ? 'cheaper' : 'more expensive'} than on Steam.`;
 	} else if (style === 2) {
-		const convertedDiff = priceDiff.mul(WINDOW_G?.currency?.rate_base_cny ?? 1).toDP(2);
+		const conversionInfo = getCurrentConversionInfo();
+		const convertedDiff = priceDiff.mul(conversionInfo.rate).toDP(2);
 		const sign = convertedDiff.isZero() ? '' : convertedDiff.isNegative() ? '-' : '+';
-		const currencySymbol = WINDOW_G?.currency?.symbol ?? '¥';
+		const currencySymbol = conversionInfo.symbol;
 		priceDiffStr = `${sign}${currencySymbol} ${Math.abs(convertedDiff.toNumber())}`;
 		priceDiffEx += `=> ${currencySymbol} ${convertedDiff}&#10;`;
 		priceDiffEx += `=> This item is ${currencySymbol} ${Math.abs(convertedDiff.toNumber()).toFixed(2)} ${priceDiff.isNegative() ? 'cheaper' : 'more expensive'} than on Steam.`;

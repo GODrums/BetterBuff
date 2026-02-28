@@ -1,5 +1,7 @@
 import type { BetterBuff } from '../@types/BetterBuff';
 import type { BuffTypes } from '../@types/BuffTypes';
+import { convertCNY, isSelectedCurrencyCNY } from './currencyHelper';
+import { priceToHtml } from './dataHelpers';
 import { SchemaHelpers } from './schemaHelpers';
 import { ExtensionStorage } from './storage';
 import { addSouvenirTeams, genCopyGenButton, genShareButton } from './uiGeneration';
@@ -25,9 +27,6 @@ export function handleFavoritesPage(state: BetterBuff.URLState) {
 	for (const row of rows) {
 		const assetInfo = JSON.parse(row.dataset.assetInfo ?? '{}') as BuffTypes.SellOrder.AssetInfo;
 		const goodsInfo = JSON.parse(row.dataset.goodsInfo ?? '{}') as BuffTypes.SellOrder.GoodsInfo;
-		const orderInfo = JSON.parse(row.dataset.orderInfo ?? '{}') as BuffTypes.SellOrder.OrderInfo;
-
-		console.log('[BetterBuff] Asset info: ', assetInfo, ', Goods info: ', goodsInfo, ', Order info: ', orderInfo);
 
 		if (goodsInfo.name.endsWith('Souvenir Package')) {
 			addSouvenirTeams(row.querySelector('.csgo_sticker') as HTMLElement, assetInfo.info.tournament_tags);
@@ -49,6 +48,17 @@ export function handleFavoritesPage(state: BetterBuff.URLState) {
 				elementDiv.appendChild(aShare);
 			}
 			nameContainer.parentElement.appendChild(elementDiv);
+		}
+
+		// Converted price
+		if (!isSelectedCurrencyCNY()) {
+			const priceCNY = Number.parseFloat((row.querySelector('td.t_Left:has(.f_Strong)')?.textContent ?? '0').replace('¥ ', ''));
+			const priceTd = row.querySelector<HTMLElement>('p.hide-cny');
+			if (priceTd && Number.isFinite(priceCNY) && !priceTd.querySelector('.betterbuff-converted')) {
+				priceTd.style.display = 'block';
+				const converted = convertCNY(priceCNY);
+				priceTd.innerHTML = `<span class="betterbuff-converted c_Gray f_12px">(${priceToHtml(converted.valueRaw, converted.symbol, true)})</span>`;
+			}
 		}
 
 		const aBuy = row.querySelector('a.btn-buy-order');

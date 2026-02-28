@@ -13,6 +13,7 @@ import { DISCORD_URL } from '$lib/util/globals';
 import BBlogo from '/icon/512.png';
 import JoinDiscord from '/join_discord.png';
 import { ExtensionStorage } from '../util/storage';
+import SettingCurrency from './SettingCurrency.svelte';
 import ListingDifference from './SettingListingDifference.svelte';
 import SettingListingOptions from './SettingListingOptions.svelte';
 
@@ -40,12 +41,7 @@ const version = browser.runtime.getManifest().version;
 	</Tabs.Content>
 	<Tabs.Content value="pricing">
 		<ScrollArea class="h-[488px] rounded-md">
-			<div class="w-full mx-4 border border-base-300 bg-card/90 rounded-lg p-5">
-				<p class="text-sm text-center">Currency conversion is already integrated into Buff itself. You can change your display currency in your Buff account settings:</p>
-				<Button variant="outline" class="w-full mt-2" onclick={() => window.open("https://buff.163.com/user-center/profile")} title="Open Buff Account Settings">
-					Open Buff Account Settings
-				</Button>
-			</div>
+			<SettingCurrency />
 			<ListingDifference />
 		</ScrollArea>
 	</Tabs.Content>

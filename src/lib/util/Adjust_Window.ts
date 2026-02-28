@@ -1,5 +1,4 @@
-import Decimal from 'decimal.js';
-import { WINDOW_G } from './storage';
+import { convertCNY, isSelectedCurrencyCNY } from './currencyHelper';
 
 export function adjustWindow() {
 	adjustWallet();
@@ -11,18 +10,18 @@ export function adjustWindow() {
 
 function adjustWallet() {
 	const walletAmount = document.querySelector('#navbar-cash-amount');
-	const currency = WINDOW_G?.currency;
-	if (!walletAmount || !currency || currency.code === 'CNY') return;
+	if (!walletAmount || isSelectedCurrencyCNY()) return;
 
 	walletAmount.appendChild(document.createElement('br'));
 
 	const amountCNY = walletAmount.textContent?.split(/\s/)[1] ?? '0';
 
 	try {
-		const convertedElement = `<span class="c_Gray f_12px">(${currency.symbol} ${new Decimal(amountCNY).mul(currency.rate_base_cny).toFixed(2)})</span>`;
+		const converted = convertCNY(Number.parseFloat(amountCNY));
+		const convertedElement = `<span class="c_Gray f_12px">(${converted.symbol} ${converted.value})</span>`;
 		walletAmount.insertAdjacentHTML('beforeend', convertedElement);
 	} catch (e) {
-		console.error('Failed to convert wallet amount to CNY: ', e);
+		console.error('Failed to convert wallet amount: ', e);
 	}
 }
 

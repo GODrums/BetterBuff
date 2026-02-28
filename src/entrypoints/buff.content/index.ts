@@ -1,4 +1,5 @@
 import { adjustTooltip } from '$lib/util/Adjust_Tooltip';
+import { initializeStaticRates, loadCurrencySettings, loadRates } from '$lib/util/currencyHelper';
 import { activateHandler } from '$lib/util/eventListeners';
 import { ExtensionStorage, setBuffCrx } from '$lib/util/storage';
 import { activateURLHandler } from '$lib/util/urlListener';
@@ -23,12 +24,15 @@ function initContentScript(enabled: boolean | null, ctx: InstanceType<typeof Con
 	}
 	console.debug('[BetterBuff] Initializing content script...');
 
+	initializeStaticRates();
 	activateHandler();
 	activateURLHandler();
 	addStorageListeners();
 	addMutationObserver();
 
 	setTimeout(async () => {
+		await loadCurrencySettings();
+		await loadRates();
 		await applyStaticAdjustments();
 		setBuffCrx(ctx);
 	}, 50);
@@ -43,6 +47,12 @@ function addStorageListeners() {
 	});
 	ExtensionStorage.layoutFix.watch((value) => {
 		applyLayoutFix(value ?? false);
+	});
+	ExtensionStorage.currencyConversionEnabled.watch(() => {
+		loadCurrencySettings();
+	});
+	ExtensionStorage.selectedCurrency.watch(() => {
+		loadCurrencySettings();
 	});
 }
 

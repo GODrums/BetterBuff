@@ -2,6 +2,7 @@
 import Decimal from 'decimal.js';
 import type { Snippet } from 'svelte';
 import type { BuffTypes } from '../@types/BuffTypes';
+import { convertCNY, isSelectedCurrencyCNY } from '../util/currencyHelper';
 
 let { data, children }: { data: BuffTypes.PriceHistory.Data; children: Snippet } = $props();
 let isHovered = $state(false),
@@ -15,6 +16,11 @@ let priceChangePercentage = $derived(priceChange.div(listingLine?.[0][1] ?? 0).t
 
 let minElement = $derived(listingLine?.find((e) => e[1] === minPrice)!);
 let maxElement = $derived(listingLine?.find((e) => e[1] === maxPrice)!);
+
+let showConverted = $derived(!isSelectedCurrencyCNY());
+let minConverted = $derived(showConverted && minElement ? convertCNY(minElement[1]) : null);
+let maxConverted = $derived(showConverted && maxElement ? convertCNY(maxElement[1]) : null);
+let changeConverted = $derived(showConverted ? convertCNY(priceChange.absoluteValue().toNumber()) : null);
 </script>
 
 <div onmouseover={() => (isHovered = true)} onmouseleave={() => (isHovered = false)} onclick={() => (isClicked = !isClicked)} onfocus={() => (isHovered = true)} onblur={() => (isHovered = false)} role="none">
@@ -28,11 +34,17 @@ let maxElement = $derived(listingLine?.find((e) => e[1] === maxPrice)!);
 			<div class="stat w-auto bborder justify-items-center">
 				<div class="stat-title">Minimum</div>
 				<div class="stat-value text-xl">{data.currency_symbol} {minElement[1]}</div>
+				{#if minConverted}
+					<div class="stat-desc text-xs" style="color: #999;">({minConverted.symbol} {minConverted.value})</div>
+				{/if}
 				<div class="stat-desc">{new Date(minElement[0]).toLocaleDateString()}</div>
 			</div>
 			<div class="stat w-auto bborder justify-items-center">
 				<div class="stat-title">Maximum</div>
 				<div class="stat-value text-xl">{data.currency_symbol} {maxElement[1]}</div>
+				{#if maxConverted}
+					<div class="stat-desc text-xs" style="color: #999;">({maxConverted.symbol} {maxConverted.value})</div>
+				{/if}
 				<div class="stat-desc">{new Date(maxElement[0]).toLocaleDateString()}</div>
 			</div>
 			<div class="stat w-auto px-4 justify-items-center">
@@ -41,6 +53,9 @@ let maxElement = $derived(listingLine?.find((e) => e[1] === maxPrice)!);
 					{priceChange.isNegative() ? "-" : "+"}{data.currency_symbol}{priceChange.absoluteValue().toSD(3)}
 					<span class="font-medium text-base">({priceChangePercentage.isNaN() ? "0" : priceChangePercentage.toSD(3)}%)</span>
 				</div>
+				{#if changeConverted}
+					<div class="stat-desc text-xs" style="color: #999;">({priceChange.isNegative() ? "-" : "+"}{changeConverted.symbol} {changeConverted.value})</div>
+				{/if}
 				<div class="stat-desc">{new Date(listingLine?.[0][0] ?? Date.now()).toLocaleDateString()} - {new Date(listingLine?.[listingLine.length - 1][0] ?? 0).toLocaleDateString()}</div>
 			</div>
 		</div>

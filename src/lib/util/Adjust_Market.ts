@@ -1,10 +1,10 @@
-import Decimal from 'decimal.js';
 import { mount, unmount } from 'svelte';
 import type { BuffTypes } from '../@types/BuffTypes';
 import ListingOptions from '../pages/ListingOptions.svelte';
+import { convertCNY, isSelectedCurrencyCNY } from './currencyHelper';
 import { getListingDifference, priceToHtml } from './dataHelpers';
 import { SchemaHelpers } from './schemaHelpers';
-import { BUFF_CRX, ExtensionStorage, WINDOW_G } from './storage';
+import { BUFF_CRX, ExtensionStorage } from './storage';
 
 export async function adjustItemDetails(apiData: BuffTypes.ItemDescDetail.Data) {
 	const container = document.querySelector('.popup-inspect-cont');
@@ -21,15 +21,11 @@ export async function adjustItemDetails(apiData: BuffTypes.ItemDescDetail.Data) 
 		const strongElement = priceContainer.querySelector('strong');
 		if (strongElement && data.price) {
 			const priceCUR = priceContainer.querySelector('strong')?.textContent;
-			const currency = WINDOW_G?.currency;
+			const converted = convertCNY(Number.parseFloat(data.price));
 
 			strongElement.innerHTML = `¥ ${priceToHtml(Number.parseFloat(data.price))}`;
-			if (priceCUR?.startsWith('¥') && currency?.symbol !== '¥') {
-				const priceConverted = new Decimal(Number.parseFloat(data.price))
-					.mul(currency?.rate_base_cny ?? 1)
-					.toDP(2)
-					.toNumber();
-				strongElement.insertAdjacentHTML('afterend', `<span>(${priceToHtml(priceConverted, currency?.symbol, true)})</span>`);
+			if (!isSelectedCurrencyCNY()) {
+				strongElement.insertAdjacentHTML('afterend', `<span>(${priceToHtml(converted.valueRaw, converted.symbol, true)})</span>`);
 			} else {
 				strongElement.insertAdjacentHTML('afterend', `<span>(${priceCUR})</span>`);
 			}
@@ -91,7 +87,6 @@ export async function adjustSearchPage(apiData: BuffTypes.MarketGoods.Data) {
 		const item = apiData.items[i];
 
 		const priceContainer = card.querySelector('p');
-		const currency = WINDOW_G?.currency;
 
 		const itemH3 = card.querySelector('h3');
 		if (itemH3) {
@@ -114,27 +109,21 @@ export async function adjustSearchPage(apiData: BuffTypes.MarketGoods.Data) {
 				differenceElement = getListingDifference(sellingPriceCNY, platformPrice, listingDifferenceStyle, platformTax, profitThreshold, listingDenominator, listingDenominator === 0);
 			}
 
-			let sellingPriceCUR: number | undefined;
-			let buyingPriceCUR: number | undefined;
-			const genPriceElement = (priceCNY: number, color: string, text: 'sell' | 'buy', amount: number, priceCUR?: number) => {
+			const showConverted = !isSelectedCurrencyCNY();
+			let sellingConverted: ReturnType<typeof convertCNY> | undefined;
+			let buyingConverted: ReturnType<typeof convertCNY> | undefined;
+			const genPriceElement = (priceCNY: number, color: string, text: 'sell' | 'buy', amount: number, converted?: ReturnType<typeof convertCNY>) => {
 				return `
                 <div class="f_12px" style="grid-column: 1; text-wrap: nowrap;"><span style="color: ${color};font-weight: 700;">${priceToHtml(priceCNY, '¥')}${
-					priceCUR !== undefined && currency?.symbol ? ` | ${priceToHtml(priceCUR, currency?.symbol)}` : ''
+					converted ? ` | ${priceToHtml(converted.valueRaw, converted.symbol)}` : ''
 				}</span> ${text} <small title="Amount of items">(${amount})</small></div>`;
 			};
-			// if user currency is CNY, don't show CUR
-			if (currency?.symbol && currency?.symbol !== '¥') {
-				sellingPriceCUR = new Decimal(item.sell_min_price)
-					.mul(currency?.rate_base_cny ?? 1)
-					.toDP(2)
-					.toNumber();
-				buyingPriceCUR = new Decimal(item.buy_max_price)
-					.mul(currency?.rate_base_cny ?? 1)
-					.toDP(2)
-					.toNumber();
+			if (showConverted) {
+				sellingConverted = convertCNY(sellingPriceCNY);
+				buyingConverted = convertCNY(buyingPriceCNY);
 			}
 			priceGrid.innerHTML = `${
-				genPriceElement(sellingPriceCNY, '#eea20e', 'sell', item.sell_num, sellingPriceCUR) + genPriceElement(buyingPriceCNY, '#0e87ee', 'buy', item.buy_num, buyingPriceCUR)
+				genPriceElement(sellingPriceCNY, '#eea20e', 'sell', item.sell_num, sellingConverted) + genPriceElement(buyingPriceCNY, '#0e87ee', 'buy', item.buy_num, buyingConverted)
 			}<div style="grid-column: 2; grid-row: 1 / span 2; text-align: end; white-space: nowrap;">${differenceElement}</div>`;
 			priceContainer.replaceWith(priceGrid);
 		}
@@ -155,8 +144,14 @@ export function adjustTopBookmarked(apiData: BuffTypes.TopPopular.Data) {
 		// add price to show both CNY and CUR
 		const priceContainer = card.querySelector('strong.sell_order_price');
 		if (priceContainer) {
+			const priceCNY = Number.parseFloat(item.price);
 			const sellingPriceCNY = item.price.split('.');
-			priceContainer.innerHTML = `¥ ${sellingPriceCNY[0]}${sellingPriceCNY[1] ? `<small>.${sellingPriceCNY[1]}</small>` : ''} | ${priceContainer.innerHTML}`;
+			if (!isSelectedCurrencyCNY()) {
+				const converted = convertCNY(priceCNY);
+				priceContainer.innerHTML = `¥ ${sellingPriceCNY[0]}${sellingPriceCNY[1] ? `<small>.${sellingPriceCNY[1]}</small>` : ''} | ${priceToHtml(converted.valueRaw, converted.symbol)}`;
+			} else {
+				priceContainer.innerHTML = `¥ ${sellingPriceCNY[0]}${sellingPriceCNY[1] ? `<small>.${sellingPriceCNY[1]}</small>` : ''} | ${priceContainer.innerHTML}`;
+			}
 		}
 
 		const tagBox = card.querySelector('.tagBox > .g_Right');

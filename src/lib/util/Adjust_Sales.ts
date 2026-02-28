@@ -1,4 +1,5 @@
-import Decimal from 'decimal.js';
+import { convertCNY, isSelectedCurrencyCNY } from './currencyHelper';
+import { priceToHtml } from './dataHelpers';
 import { addItemLink, createMutationObserver } from './uiGeneration';
 
 export async function handleSales() {
@@ -12,12 +13,10 @@ export async function handleSales() {
 		const priceDiv = card.querySelector('strong.f_Strong');
 
 		if (priceDiv) {
-			const cutPrice = Number.parseInt(price);
-			const newPrice = `<strong class="f_Strong">¥ ${cutPrice}<small>.${new Decimal(price)
-				.minus(cutPrice)
-				.mul(100)
-				.toDP(2)
-				.toNumber()}</small></strong><span class="c_Gray f_12px" style="vertical-align: bottom;"> (${priceDiv.innerHTML})</span>`;
+			const priceCNY = Number.parseFloat(price);
+			const converted = convertCNY(priceCNY);
+			const convertedStr = !isSelectedCurrencyCNY() ? `${converted.symbol} ${converted.value}` : priceDiv.innerHTML;
+			const newPrice = `<strong class="f_Strong">¥ ${priceToHtml(priceCNY)}</strong><span class="c_Gray f_12px" style="vertical-align: bottom;"> (${convertedStr})</span>`;
 			priceDiv.outerHTML = newPrice;
 		}
 	}

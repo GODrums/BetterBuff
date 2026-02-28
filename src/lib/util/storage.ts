@@ -40,6 +40,10 @@ export const defaultStorage = {
 		wechat: true,
 		'wechat-split': true,
 	},
+	currencyConversionEnabled: false,
+	selectedCurrency: 'USD',
+	customCurrencyRate: 1,
+	customCurrencyName: 'CC',
 };
 
 export type IStorage = typeof defaultStorage;
@@ -92,5 +96,29 @@ export namespace ExtensionStorage {
 
 	export const listingOptions = storage.defineItem<IStorage['listingOptions']>('local:listingOptions', {
 		defaultValue: defaultStorage.listingOptions,
+	});
+
+	export const currencyConversionEnabled = storage.defineItem<IStorage['currencyConversionEnabled']>('local:currencyConversionEnabled', {
+		defaultValue: defaultStorage.currencyConversionEnabled,
+	});
+
+	export const selectedCurrency = storage.defineItem<IStorage['selectedCurrency']>('local:selectedCurrency', {
+		defaultValue: defaultStorage.selectedCurrency,
+	});
+
+	export const customCurrencyRate = storage.defineItem<IStorage['customCurrencyRate']>('local:customCurrencyRate', {
+		defaultValue: defaultStorage.customCurrencyRate,
+	});
+
+	export const customCurrencyName = storage.defineItem<IStorage['customCurrencyName']>('local:customCurrencyName', {
+		defaultValue: defaultStorage.customCurrencyName,
+	});
+
+	export const currencyCache = storage.defineItem<string>('local:currencyCache', {
+		defaultValue: '',
+	});
+
+	export const currencyCacheDate = storage.defineItem<string>('local:currencyCacheDate', {
+		defaultValue: '',
 	});
 }

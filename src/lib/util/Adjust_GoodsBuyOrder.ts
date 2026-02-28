@@ -1,5 +1,6 @@
 import type { BuffTypes } from '../@types/BuffTypes';
-import { isPaymentMethodAvailable } from './dataHelpers';
+import { convertCNY, isSelectedCurrencyCNY } from './currencyHelper';
+import { isPaymentMethodAvailable, priceToHtml } from './dataHelpers';
 import { genListingAge } from './uiGeneration';
 
 export async function adjustGoodsBuyOrder(apiData: BuffTypes.BuyOrder.Data) {
@@ -17,6 +18,16 @@ export async function adjustGoodsBuyOrder(apiData: BuffTypes.BuyOrder.Data) {
 
 		if (item.pay_method !== 43 && item.pay_method !== 60 && !(await isPaymentMethodAvailable([item.pay_method]))) {
 			markPurchaseUnavailable(row);
+		}
+
+		// Converted price
+		if (!isSelectedCurrencyCNY()) {
+			const priceTd = row.querySelector<HTMLElement>('p.hide-cny');
+			if (priceTd && !priceTd.querySelector('.betterbuff-converted')) {
+				priceTd.style.display = 'block';
+				const converted = convertCNY(Number.parseFloat(item.price));
+				priceTd.innerHTML = `<span class="betterbuff-converted c_Gray f_12px">(${priceToHtml(converted.valueRaw, converted.symbol, true)})</span>`;
+			}
 		}
 
 		// Listing age

@@ -1172,6 +1172,23 @@ export namespace BuffTypes {
 		}
 	}
 
+	export namespace Inventory {
+		export interface ItemInfo {
+			original_currency: string;
+			price: string;
+			sell_order_id: string;
+			sell_order_mode: unknown;
+			state: number;
+			state_text: string;
+			tradeable_text: string;
+		}
+
+		export interface OrderExtraInfo {
+			buy_price: unknown;
+			remark: string;
+		}
+	}
+
 	// https://buff.163.com/api/market/goods/bundle_inventory?
 	export namespace BundleInventory {
 		export interface Info {
